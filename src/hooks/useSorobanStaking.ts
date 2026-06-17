@@ -4,6 +4,8 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { sendTransaction as rpcSendTransaction } from '@/src/lib/stellar/rpcClient';
 import { sha256 } from '@/src/lib/crypto';
 import { useTxRetryQueue, MAX_RETRY_ATTEMPTS, CONFIRMED_REMOVAL_DELAY_MS, computeBackoff } from '@/src/hooks/useTxRetryQueue';
+import { decodeTransactionError } from '@/utils/errorDecoder';
+import { ErrorDisplay } from '@/components/shared/ErrorDisplay'; // If using in a parent component
 
 export type SubmitState = 'idle' | 'submitting' | 'confirmed' | 'error';
 
@@ -122,10 +124,19 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
         setState('error');
         onToastRef.current?.(`Network error — will retry (attempt ${retryCount}/${MAX_RETRY_ATTEMPTS})`, 'error');
       }
+      const decoded = decodeTransactionError(result.error);
+      setError(decoded.humanTitle); // Or store full DecodedError in state
+      // ...
     } catch (err: unknown) {
+      const decoded = decodeTransactionError(err);
+      // Update state to hold DecodedError instead of string if desired
+      setError(decoded.humanTitle);
+      // ...
+    }
       const retryCount = entry.retryCount + 1;
       const nextRetryAt = Date.now() + computeBackoff(retryCount);
       queue.updateEntry(computedHash, { retryCount, nextRetryAt, status: 'pending' });
+      } else if (result.status === 'error') {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       setError(msg);
       setState('error');
