@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "VeriNode",
-  description: "VeriNode — decentralized savings circles (ROSCA) protocol on Stellar Soroban",
+  title: "VeriNode - Inspection Dashboard",
+  description: "Physical node inspection and audit management for infrastructure operators",
 };
 
 export default function RootLayout({

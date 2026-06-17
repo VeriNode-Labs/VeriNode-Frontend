@@ -13,12 +13,14 @@
     "test:e2e:wallet": "playwright test tests/e2e/walletFlows.spec.ts",
     "test:e2e:wallet:ci": "playwright test --project=wallet-ci",
     "test:e2e:debug": "playwright test --debug"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.0",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.0",
