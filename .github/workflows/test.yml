@@ -24,3 +24,17 @@ jobs:
         
       - name: Check Build
         run: npm run build
+        
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+        
+      - name: Run E2E Wallet Tests
+        run: npx playwright test --project=wallet-ci
+        
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

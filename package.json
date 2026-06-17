@@ -7,7 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:wallet": "playwright test tests/e2e/walletFlows.spec.ts",
+    "test:e2e:wallet:ci": "playwright test --project=wallet-ci",
+    "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.0",
@@ -17,6 +22,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.61.0",
+    "@stellar/stellar-sdk": "^16.0.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
