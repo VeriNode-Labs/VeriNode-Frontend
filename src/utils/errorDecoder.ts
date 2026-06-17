@@ -100,6 +100,15 @@ export function decodeTransactionError(rawError: unknown): DecodedError {
         humanDescription: description,
         rawError: rawMessage,
         isUnknown: pattern === '.*'
+        if (isUnknown) {
+        // Assuming @sentry/nextjs is installed
+        import('@sentry/nextjs').then(({ captureException }) => {
+        captureException(rawError, {
+        tags: { errorType: 'decoder-unknown' },
+        fingerprint: ['error-decoder-unknown', rawMessage.substring(0, 100)]
+        });
+       });
+      }
       };
     }
   }
