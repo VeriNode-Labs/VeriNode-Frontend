@@ -5,7 +5,6 @@ import { sendTransaction as rpcSendTransaction } from '@/src/lib/stellar/rpcClie
 import { sha256 } from '@/src/lib/crypto';
 import { useTxRetryQueue, MAX_RETRY_ATTEMPTS, CONFIRMED_REMOVAL_DELAY_MS, computeBackoff } from '@/src/hooks/useTxRetryQueue';
 import { decodeTransactionError } from '@/utils/errorDecoder';
-import { ErrorDisplay } from '@/components/shared/ErrorDisplay'; // If using in a parent component
 
 export type SubmitState = 'idle' | 'submitting' | 'confirmed' | 'error';
 
@@ -140,7 +139,7 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
       setState('error');
       onToastRef.current?.(decoded.humanTitle, 'error');
     } catch (err: unknown) {
-      const decoded = decodeTransactionError(err);
+      const decoded = decodeTransactionError(result.error);
       setError(decoded.humanTitle);
       setState('error');
       onToastRef.current?.(decoded.humanTitle, 'error');
