@@ -95,21 +95,21 @@ export function decodeTransactionError(rawError: unknown): DecodedError {
     const regex = new RegExp(pattern, 'i');
     if (regex.test(rawMessage)) {
       const description = interpolateParams(definition.humanDescription, rawMessage);
-      return {
-        ...definition,
-        humanDescription: description,
-        rawError: rawMessage,
-        isUnknown: pattern === '.*'
-        if (isUnknown) {
-        // Assuming @sentry/nextjs is installed
-        import('@sentry/nextjs').then(({ captureException }) => {
-        captureException(rawError, {
-        tags: { errorType: 'decoder-unknown' },
-        fingerprint: ['error-decoder-unknown', rawMessage.substring(0, 100)]
-        });
-       });
-      }
-      };
+      const isUnknown = pattern === '.*';
+if (isUnknown) {
+  import('@sentry/nextjs').then(({ captureException }) => {
+    captureException(rawError, {
+      tags: { errorType: 'decoder-unknown' },
+      fingerprint: ['error-decoder-unknown', rawMessage.substring(0, 100)]
+    });
+  });
+}
+return {
+  ...definition,
+  humanDescription: description,
+  rawError: rawMessage,
+  isUnknown
+};
     }
   }
 
