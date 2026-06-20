@@ -99,11 +99,14 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
 
       if (result.status === 'confirmed') {
         queue.updateEntry(computedHash, { status: 'confirmed' });
-        setTxHash(result.txHash);
+        setTxHash(result.txHash ?? computedHash);
         setState('confirmed');
         onToastRef.current?.('Transaction confirmed', 'success');
         setTimeout(() => queue.removeEntry(computedHash), CONFIRMED_REMOVAL_DELAY_MS);
-      } else if (result.status === 'error') {
+        return;
+      }
+
+      if (result.status === 'error') {
         if (result.code === 'tx_bad_seq') {
           queue.updateEntry(computedHash, { status: 'confirmed' });
           setTxHash(computedHash);
@@ -112,35 +115,40 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
           setTimeout(() => queue.removeEntry(computedHash), CONFIRMED_REMOVAL_DELAY_MS);
         } else {
           queue.updateEntry(computedHash, { status: 'failed' });
-          setError(result.error);
+          const decoded = decodeTransactionError(result.error);
+          setError(decoded.humanTitle);
           setState('error');
-          onToastRef.current?.(result.error, 'error');
+          onToastRef.current?.(decoded.humanTitle, 'error');
         }
-      } else if (result.status === 'network_error') {
+        return;
+      }
+
+      if (result.status === 'network_error') {
         const retryCount = entry.retryCount + 1;
         const nextRetryAt = Date.now() + computeBackoff(retryCount);
         queue.updateEntry(computedHash, { retryCount, nextRetryAt, status: 'pending' });
-        setError(result.error);
+        const decoded = decodeTransactionError(result.error);
+        setError(decoded.humanTitle);
         setState('error');
         onToastRef.current?.(`Network error — will retry (attempt ${retryCount}/${MAX_RETRY_ATTEMPTS})`, 'error');
+        return;
       }
-      const decoded = decodeTransactionError(result.error);
-      setError(decoded.humanTitle); // Or store full DecodedError in state
-      // ...
+
+      // Unknown result shape: decode and report
+      const decoded = decodeTransactionError((result as any).error);
+      setError(decoded.humanTitle);
+      setState('error');
+      onToastRef.current?.(decoded.humanTitle, 'error');
     } catch (err: unknown) {
       const decoded = decodeTransactionError(err);
-      // Update state to hold DecodedError instead of string if desired
       setError(decoded.humanTitle);
-      // ...
-    }
+      setState('error');
+      onToastRef.current?.(decoded.humanTitle, 'error');
+
+      // schedule a retry entry
       const retryCount = entry.retryCount + 1;
       const nextRetryAt = Date.now() + computeBackoff(retryCount);
       queue.updateEntry(computedHash, { retryCount, nextRetryAt, status: 'pending' });
-      } else if (result.status === 'error') {
-      const msg = err instanceof Error ? err.message : 'Unknown error';
-      setError(msg);
-      setState('error');
-      onToastRef.current?.(`Error — will retry (attempt ${retryCount}/${MAX_RETRY_ATTEMPTS})`, 'error');
     }
   }, [queue]);
 
