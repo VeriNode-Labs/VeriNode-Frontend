@@ -22,6 +22,7 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
   const [txHash, setTxHash] = useState<string | null>(null);
   const queue = useTxRetryQueue();
   const onToastRef = useRef(onToast);
+  
   useEffect(() => {
     onToastRef.current = onToast;
   }, [onToast]);
@@ -135,26 +136,28 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
 
       // Unknown result shape: decode and report
       const decoded = decodeTransactionError(
-       typeof result === 'object' && result !== null && 'error' in result 
-        ? (result as { error: string }).error 
-        : 'Unknown error'
+        typeof result === 'object' && result !== null && 'error' in result 
+          ? (result as { error: string }).error 
+          : 'Unknown error'
       );
       setError(decoded.humanTitle);
       setState('error');
       onToastRef.current?.(decoded.humanTitle, 'error');
-      } catch {
-        const decoded = decodeTransactionError(
-          error instanceof Error ? error.message : 'Unknown error'
-        );
-        setError(decoded.humanTitle);
-        setState('error');
-        onToastRef.current?.(decoded.humanTitle, 'error');
+      
+    } catch (err: unknown) { // FIX: added err parameter
+      const decoded = decodeTransactionError(
+        err instanceof Error ? err.message : 'Unknown error' // FIX: using err instead of state error
+      );
+      setError(decoded.humanTitle);
+      setState('error');
+      onToastRef.current?.(decoded.humanTitle, 'error');
 
-        // schedule a retry entry
-        const retryCount = entry.retryCount + 1;
-        const nextRetryAt = Date.now() + computeBackoff(retryCount);
-        queue.updateEntry(computedHash, { retryCount, nextRetryAt, status: 'pending' });
-      }
+      // schedule a retry entry
+      const retryCount = entry.retryCount + 1;
+      const nextRetryAt = Date.now() + computeBackoff(retryCount);
+      queue.updateEntry(computedHash, { retryCount, nextRetryAt, status: 'pending' });
+    }
+  }, [queue]); // FIX: properly closed the useCallback here
 
   return {
     submitStake,
