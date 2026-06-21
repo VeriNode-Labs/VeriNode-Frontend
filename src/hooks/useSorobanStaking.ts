@@ -143,17 +143,18 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
       setState('error');
       onToastRef.current?.(decoded.humanTitle, 'error');
       } catch {
-      const decoded = decodeTransactionError(result.error);
-      setError(decoded.humanTitle);
-      setState('error');
-      onToastRef.current?.(decoded.humanTitle, 'error');
+        const decoded = decodeTransactionError(
+          error instanceof Error ? error.message : 'Unknown error'
+        );
+        setError(decoded.humanTitle);
+        setState('error');
+        onToastRef.current?.(decoded.humanTitle, 'error');
 
-      // schedule a retry entry
-      const retryCount = entry.retryCount + 1;
-      const nextRetryAt = Date.now() + computeBackoff(retryCount);
-      queue.updateEntry(computedHash, { retryCount, nextRetryAt, status: 'pending' });
-    }
-  }, [queue]);
+        // schedule a retry entry
+        const retryCount = entry.retryCount + 1;
+        const nextRetryAt = Date.now() + computeBackoff(retryCount);
+        queue.updateEntry(computedHash, { retryCount, nextRetryAt, status: 'pending' });
+      }
 
   return {
     submitStake,
