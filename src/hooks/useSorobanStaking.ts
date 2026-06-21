@@ -134,11 +134,15 @@ export function useSorobanStaking(onToast?: (message: string, type: 'info' | 'su
       }
 
       // Unknown result shape: decode and report
-      const decoded = decodeTransactionError((result as any).error);
+      const decoded = decodeTransactionError(
+       typeof result === 'object' && result !== null && 'error' in result 
+        ? (result as { error: string }).error 
+        : 'Unknown error'
+      );
       setError(decoded.humanTitle);
       setState('error');
       onToastRef.current?.(decoded.humanTitle, 'error');
-    } catch (err: unknown) {
+      } catch {
       const decoded = decodeTransactionError(result.error);
       setError(decoded.humanTitle);
       setState('error');
