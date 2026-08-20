@@ -1,4 +1,3 @@
-// @vitest-environment jsdom
 import { renderHook, act } from '@testing-library/react';
 import { expect, test, describe, beforeAll, afterAll, afterEach, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
@@ -31,24 +30,24 @@ afterAll(() => server.close());
 describe('useSorobanStaking', () => {
   test('optimistic updates and rollback on failure, then retry', async () => {
     let getTxCount = 0;
-
+    
     server.use(
       http.post('https://soroban-rpc.stellar.org', async ({ request }) => {
-        const body = (await request.json()) as Record<string, unknown>;
-        if (body['method'] === 'sendTransaction') {
+        const body = (await request.json()) as any;
+        if (body.method === 'sendTransaction') {
           return HttpResponse.json({
             jsonrpc: '2.0',
-            id: body['id'],
+            id: body.id,
             result: { hash: 'test-hash-123', status: 'PENDING' }
           });
         }
-
-        if (body['method'] === 'getTransaction') {
+        
+        if (body.method === 'getTransaction') {
           getTxCount++;
           if (getTxCount <= 1) {
             return HttpResponse.json({
               jsonrpc: '2.0',
-              id: body['id'],
+              id: body.id,
               result: { status: 'NOT_FOUND', hash: 'test-hash-123' }
             });
           }
@@ -56,14 +55,14 @@ describe('useSorobanStaking', () => {
             // First time it fails
             return HttpResponse.json({
               jsonrpc: '2.0',
-              id: body['id'],
+              id: body.id,
               result: { status: 'FAILED', hash: 'test-hash-123' }
             });
           }
           // After retry
           return HttpResponse.json({
             jsonrpc: '2.0',
-            id: body['id'],
+            id: body.id,
             result: { status: 'SUCCESS', hash: 'test-hash-123' }
           });
         }
@@ -72,7 +71,7 @@ describe('useSorobanStaking', () => {
     );
 
     useStakingStore.getState().initBalance(1000);
-
+    
     const { result } = renderHook(() => useSorobanStaking());
 
     // (a) calls stake(100)
@@ -90,12 +89,12 @@ describe('useSorobanStaking', () => {
     await act(async () => {
       await vi.advanceTimersByTimeAsync(3000);
     });
-
+    
     // Await promise to catch rejection
     let didReject = false;
     try {
       await promise;
-    } catch {
+    } catch (e) {
       didReject = true;
     }
     expect(didReject).toBe(true);
@@ -114,14 +113,14 @@ describe('useSorobanStaking', () => {
     expect(result.current.balance).toBe(900);
     expect(result.current.pendingCount).toBe(1);
     expect(result.current.pending[0].status).toBe('pending');
-
+    
     // Advance timer for successful confirmation
     await act(async () => {
       await vi.advanceTimersByTimeAsync(3000);
     });
-
+    
     await promise;
-
+    
     expect(result.current.balance).toBe(900);
     expect(result.current.pending[0].status).toBe('confirmed');
   });
