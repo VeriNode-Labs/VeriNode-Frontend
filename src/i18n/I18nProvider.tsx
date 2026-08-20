@@ -46,53 +46,60 @@ export interface I18nProviderProps {
   initialLocale?: LocaleCode;
 }
 
+interface BundleState {
+  /** The locale this bundle corresponds to. */
+  locale: LocaleCode;
+  dict: TranslationDict;
+  loading: boolean;
+}
+
+function initialBundle(locale: LocaleCode): BundleState {
+  const cached = getCachedLocale(locale);
+  return { locale, dict: cached ?? {}, loading: !cached };
+}
+
 export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
   const [locale, setLocaleState] = useState<LocaleCode>(() => {
     if (initialLocale) return initialLocale;
-    // Prefer persisted preference, then browser language, then default.
     return (
       readStoredLocale(LOCALE_STORAGE_KEY, isSupportedLocale) ??
       detectBrowserLocale(isSupportedLocale)
     );
   });
 
-  const [dict, setDict] = useState<TranslationDict>(
-    () => getCachedLocale(locale) ?? {},
-  );
+  const [bundle, setBundle] = useState<BundleState>(() => initialBundle(locale));
 
-  const [isLoading, setIsLoading] = useState<boolean>(
-    () => !getCachedLocale(locale),
-  );
-
-  // Track the latest requested locale to avoid stale async updates.
-  const requestedLocaleRef = useRef<LocaleCode>(locale);
+  // Cancelled ref prevents stale async updates from landing after unmount or
+  // after a new locale request has already been issued.
+  const cancelRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    requestedLocaleRef.current = locale;
-    const cached = getCachedLocale(locale);
-    if (cached) {
-      setDict(cached);
-      setIsLoading(false);
-      applyRTL(locale);
-      return;
-    }
+    // Cancel any in-flight request for a previous locale.
+    cancelRef.current?.();
 
-    setIsLoading(true);
+    let cancelled = false;
+    cancelRef.current = () => { cancelled = true; };
 
+    // Apply RTL/LTR and lang to <html> immediately — this is a DOM side-effect,
+    // not a setState call, so it is fine inside the effect body.
+    applyRTL(locale);
+
+    // All setState calls happen inside a microtask / Promise callback so they
+    // are never synchronous within the effect body, which satisfies
+    // react-hooks/set-state-in-effect.
     loadLocale(locale).then(
       (loaded) => {
-        if (requestedLocaleRef.current !== locale) return; // locale switched while loading
-        setDict(loaded);
-        setIsLoading(false);
+        if (cancelled) return;
+        setBundle({ locale, dict: loaded, loading: false });
         applyRTL(locale);
       },
       () => {
-        // loadLocale already handles fallback internally; this guard is for
-        // unexpected rejections so the promise chain is always settled.
-        if (requestedLocaleRef.current !== locale) return;
-        setIsLoading(false);
+        if (cancelled) return;
+        setBundle({ locale, dict: {}, loading: false });
       },
     );
+
+    return () => { cancelled = true; };
   }, [locale]);
 
   const setLocale = useCallback((next: LocaleCode) => {
@@ -102,9 +109,18 @@ export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
     }
   }, []);
 
+  // Show the previous locale's dict while the new one is loading to avoid
+  // a flash of empty / fallback keys.
+  const contextDict = bundle.locale === locale ? bundle.dict : bundle.dict;
+
   const value = useMemo<I18nContextValue>(
-    () => ({ locale, dict, isLoading, setLocale }),
-    [locale, dict, isLoading, setLocale],
+    () => ({
+      locale,
+      dict: contextDict,
+      isLoading: bundle.loading || bundle.locale !== locale,
+      setLocale,
+    }),
+    [locale, contextDict, bundle.loading, bundle.locale, setLocale],
   );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
