@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { SlashingEvent } from '@/src/types/slashing'
 import { useSlashingStream } from '@/src/hooks/useSlashingStream'
+import { SlashingIndex } from '@/src/utils/search/slashingIndex'
 
 interface SlashingEventFeedProps {
   /** WebSocket URL for slashing event stream */
@@ -37,6 +38,10 @@ export function SlashingEventFeed({
   onUpdate,
 }: SlashingEventFeedProps) {
   const [displayedEvents, setDisplayedEvents] = useState<SlashingEvent[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
+  const [indexVersion, setIndexVersion] = useState(0)
+  const searchIndexRef = useRef<SlashingIndex | null>(null)
+  if (searchIndexRef.current === null) searchIndexRef.current = new SlashingIndex()
   const { events, connected, error } = useSlashingStream({
     url: wsUrl,
     enabled,
@@ -44,6 +49,15 @@ export function SlashingEventFeed({
 
   // Track displayed event IDs to prevent duplicates at component level
   const displayedIdsRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    const searchIndex = searchIndexRef.current!
+    const unsubscribe = searchIndex.subscribe(() => setIndexVersion((version) => version + 1))
+    return () => {
+      unsubscribe()
+      searchIndex.dispose()
+    }
+  }, [])
 
   // Update displayed events with dedup filter
   useEffect(() => {
@@ -80,6 +94,16 @@ export function SlashingEventFeed({
     })
   }, [events, maxDisplay, onUpdate])
 
+  useEffect(() => {
+    searchIndexRef.current!.enqueue(events)
+  }, [events])
+
+  const visibleEvents = useMemo(() => {
+    void indexVersion
+    if (!searchQuery.trim()) return displayedEvents
+    return searchIndexRef.current!.search(searchQuery).map(({ event }) => event)
+  }, [displayedEvents, indexVersion, searchQuery])
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -103,13 +127,23 @@ export function SlashingEventFeed({
 
       {/* Events list */}
       <div className="space-y-2">
-        {displayedEvents.length === 0 ? (
+        <label className="block">
+          <span className="sr-only">Search slashing events</span>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+            placeholder="Search node ID or reason"
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
+          />
+        </label>
+        {visibleEvents.length === 0 ? (
           <div className="rounded-md border border-gray-200 bg-gray-50 p-4 text-center text-sm text-gray-500">
             No slashing events
           </div>
         ) : (
           <div className="space-y-1">
-            {displayedEvents.map((event) => (
+            {visibleEvents.map((event) => (
               <div
                 key={event.id}
                 className="flex items-center justify-between rounded-md border border-gray-200 bg-white p-3 text-sm hover:bg-gray-50"
