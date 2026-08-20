@@ -54,3 +54,27 @@ export async function captureUnknownLedgerEvent(event: UnknownLedgerEventReport)
     console.info("[Sentry audit] unknown ledger event", event)
   }
 }
+
+export interface TransactionFailureEvent {
+  optimisticTxId: string
+  action: string
+  amount: number
+  reason: string
+}
+
+export async function captureTransactionFailure(event: TransactionFailureEvent) {
+  if (typeof process !== "undefined" && process.env.NEXT_PUBLIC_SENTRY_DSN) {
+    try {
+      // @ts-expect-error - @sentry/nextjs is optional, caught at runtime
+      const { captureException } = await import("@sentry/nextjs")
+      captureException(new Error(`Transaction failed: ${event.reason}`), {
+        tags: { action: event.action, optimisticTxId: event.optimisticTxId },
+        extra: event,
+      })
+    } catch {
+      console.warn("[Sentry] @sentry/nextjs not configured; skipping event", event)
+    }
+  } else {
+    console.error("[Sentry audit] transaction failure", event)
+  }
+}
