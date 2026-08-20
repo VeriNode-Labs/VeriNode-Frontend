@@ -1,0 +1,36 @@
+# Build context minimization: every excluded path shrinks the context sent to
+# the daemon and prevents irrelevant changes from busting Docker layer cache.
+
+# Dependencies / build output
+node_modules
+.next
+out
+build
+coverage
+reports
+
+# Version control & CI
+.git
+.github
+.githooks
+.vscode
+
+# Tests & tooling (not needed at runtime)
+test-results
+playwright-report
+tests
+e2e
+monitoring
+deploy
+docs
+scripts
+
+# Misc
+*.md
+.env*
+!.env.example
+*.log
+.DS_Store
+*.pem
+*.tsbuildinfo
+next-env.d.ts

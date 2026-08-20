@@ -25,6 +25,11 @@ const CONTENT_SECURITY_POLICY = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  // Emit a self-contained server bundle (`.next/standalone`) so the Docker
+  // image only ships the minimal runtime artifacts instead of `node_modules`.
+  // This keeps the final layer small and lets `docker build` cache layers that
+  // are unaffected by source-only changes. See issue #167.
+  output: "standalone",
   headers: async () => [
     {
       source: "/(.*)",
