@@ -40,6 +40,7 @@ export function useWebSocketReconnect({
   // -------------------------
   const [connected, setConnected] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [lastEventId, setLastEventId] = useState<string | null>(null)
 
   // -------------------------
   // Connection helpers
@@ -74,7 +75,10 @@ export function useWebSocketReconnect({
       onMessage: (data, headers) => {
         if (data && typeof data === 'object' && 'id' in (data as Record<string, unknown>)) {
           const id = (data as Record<string, unknown>).id
-          if (typeof id === 'string') lastEventIdRef.current = id
+          if (typeof id === 'string') {
+            lastEventIdRef.current = id
+            setLastEventId(id)
+          }
         }
         onMessageRef.current?.(data, headers)
       },
@@ -112,15 +116,15 @@ export function useWebSocketReconnect({
 
   // Stable cleanup function for existing callers.
   const cleanup = () => {
-    releaseRef.current?.()
-    releaseRef.current = null
-    setConnected(false)
+    releaseRef.current?.();
+    releaseRef.current = null;
+    setConnected(false);
   }
 
   return {
     connected,
     error,
-    lastEventId: lastEventIdRef.current,
+    lastEventId,
     cleanup,
   }
 }

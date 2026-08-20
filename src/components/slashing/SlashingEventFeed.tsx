@@ -101,7 +101,9 @@ export function SlashingEventFeed({
   const visibleEvents = useMemo(() => {
     void indexVersion
     if (!searchQuery.trim()) return displayedEvents
-    return searchIndexRef.current!.search(searchQuery).map(({ event }) => event)
+    const index = searchIndexRef.current
+    if (!index) return displayedEvents
+    return index.search(searchQuery).map(({ event }) => event)
   }, [displayedEvents, indexVersion, searchQuery])
 
   return (
