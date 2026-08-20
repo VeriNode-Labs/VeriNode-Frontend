@@ -2,94 +2,37 @@
 
 Next.js web application for the VeriNode Decentralized Savings Circle (ROSCA) protocol, offering an interface for circle participation, collateral staking, leniency voting, and quadratic governance.
 
-## 🚀 Key Features
-* **Interactive Savings Circles:** Interface to create, join, deposit, and view payout orders for Rotating Savings and Credit Association (ROSCA) groups.
-* **Collateral & Governance Hub:** Dedicated screens for locking collateral, nominating safety buddies, and submitting/voting on leniency requests.
-* **Quadratic Voting Interface:** Fully-featured portal to propose and cast quadratic votes for large circle rule changes.
-* **Wallet-Connected Actions:** Secure integration with Stellar wallets (Freighter, Lobstr, Albedo) for authentication, staking, and transactions.
+## Key Features
 
-## 🛠️ Tech Stack
-* **Language/Framework:** Next.js (React) / TypeScript
-* **Key Dependencies:** `next`, `react`, `tailwindcss`, `@stellar/stellar-sdk`, `zustand`, `@tanstack/react-query`
-* **Testing:** Playwright E2E tests with mock wallet infrastructure
+- **Interactive Savings Circles** -- create, join, deposit, and view payout orders for ROSCA groups.
+- **Collateral & Governance Hub** -- lock collateral, nominate safety buddies, submit/vote on leniency requests.
+- **Quadratic Voting** -- propose and cast quadratic votes for large circle rule changes.
+- **Wallet Integration** -- connect via Freighter, Lobstr, or Albedo for authentication, staking, and transactions.
 
-## 📦 Getting Started
+## Tech Stack
 
-### Prerequisites
-Ensure you have the required toolchains installed:
-* Node.js (v18 or higher recommended)
-* npm (Node Package Manager)
+Next.js (React) / TypeScript / Tailwind CSS / @stellar/stellar-sdk / Zustand / TanStack React Query
 
-### Installation & Local Setup
+## Quick Start
+
 ```bash
-# Clone the repository (if running manually)
 git clone https://github.com/VeriNode-Labs/VeriNode-Frontend
 cd VeriNode-Frontend
-
-# Run the onboarding script
 npm run setup:dev
-
-# Start development server
 npm run dev
 ```
 
-The onboarding script verifies the local Node.js version, creates `.env.local` from `.env.example` when needed, installs dependencies with `npm ci` when a lockfile is present, and runs the linter as a smoke check. Use flags for faster or CI-like runs:
+## Documentation
 
-```bash
-# Preview actions without changing files or installing dependencies
-npm run setup:dev -- --dry-run
+**See [FRONTEND.md](FRONTEND.md)** for the complete frontend developer guide, including:
 
-# Keep existing dependencies and only validate environment/configuration
-npm run setup:dev -- --skip-install
+- Project structure and architecture
+- Styling guide (Tailwind, theme system, color tokens)
+- Component documentation
+- State management patterns
+- Testing guide (Vitest + Playwright E2E)
+- Contributing workflow
 
-# Do not create .env.local from .env.example
-npm run setup:dev -- --skip-env
-```
+## Contributing
 
-## 🧪 Testing
-
-### E2E Wallet Tests
-
-Comprehensive automated testing for wallet-connected actions without requiring a real wallet extension.
-
-```bash
-# Run all wallet E2E tests
-npm run test:e2e:wallet
-
-# Run in headed mode (see browser)
-npm run test:e2e:wallet:headed
-
-# Run in debug mode
-npm run test:e2e:wallet:debug
-
-# Run all E2E tests
-npm run test:e2e
-```
-
-**Test Coverage:**
-- ✅ Authentication flows (login, logout, persistence)
-- ✅ Transaction signing (transactions, messages)
-- ✅ Staking operations (stake, unstake, balance queries)
-- ✅ Node registration
-- ✅ Attestation submission
-- ✅ Settings management
-- ✅ Account switching
-- ✅ Error handling (network, API, timeouts)
-
-**20 tests | < 2 minute execution time | Full Freighter API mock**
-
-For detailed documentation, see [e2e/wallet-tests/README.md](e2e/wallet-tests/README.md)
-
-## 🤝 Contributing
-Contributions are highly welcome. Please ensure your commits are cryptographically signed using GPG or SSH keys. For major structural changes, please open an issue first to discuss your proposal.
-
-### Development Workflow
-
-1. **Make changes** to the codebase
-2. **Run tests** to ensure nothing broke:
-   ```bash
-   npm run lint
-   npm run test:e2e:wallet
-   ```
-3. **Commit and push** to your fork
-4. **Create a pull request** - CI will automatically run all tests
+Contributions are welcome. Ensure commits are cryptographically signed (GPG or SSH). For major changes, open an issue first. Run `npm run lint` and `npm run test:e2e:wallet` before submitting a pull request.
