@@ -32,16 +32,18 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
-        <FeatureFlagProvider>
-          <CapacitySheddingProvider>
-            <ToastProvider>
-              <CapacityIndicator />
-              <PendingTransactionsBanner />
-              <RetryWatcher />
-              {children}
-            </ToastProvider>
-          </CapacitySheddingProvider>
-        </FeatureFlagProvider>
+        <Providers>
+          <FeatureFlagProvider>
+            <CapacitySheddingProvider>
+              <ToastProvider>
+                <CapacityIndicator />
+                <PendingTransactionsBanner />
+                <RetryWatcher />
+                {children}
+              </ToastProvider>
+            </CapacitySheddingProvider>
+          </FeatureFlagProvider>
+        </Providers>
       </body>
     </html>
   );

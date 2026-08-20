@@ -106,7 +106,11 @@ export function generateMockTree(
         volume: Math.round(100 + (idCounter * 37) % 9900),
         region: `Region-${(idCounter * 3) % 12}`,
       },
-      children: isLeaf ? undefined : Array.from({ length: branchFactor }, () => buildNode(depth + 1)),
+      children: isLeaf
+        ? undefined
+        : Array.from({ length: branchFactor })
+            .map(() => (idCounter < totalNodes ? buildNode(depth + 1) : null))
+            .filter((n): n is SupplyChainTier => n !== null),
     }
   }
 

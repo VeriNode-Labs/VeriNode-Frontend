@@ -25,6 +25,7 @@
   "dependencies": {
     "@stellar/stellar-sdk": "^16.0.1",
     "@tanstack/react-query": "^5.101.0",
+    "@types/three": "^0.185.4",
     "chart.js": "^4.5.1",
     "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^4.4.0",
@@ -35,6 +36,7 @@
     "react": "19.2.3",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "19.2.3",
+    "three": "^0.185.1",
     "zustand": "^5.0.14"
   },
   "devDependencies": {

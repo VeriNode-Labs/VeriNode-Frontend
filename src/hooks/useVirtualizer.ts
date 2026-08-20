@@ -48,7 +48,8 @@ export interface VirtualizerResult {
    * Attach to each rendered row's DOM element so its real height feeds back
    * into the position cache.
    */
-  measureElement: (el: Element | null) => void
+  measureElement: (el: Element | null, index?: number) => void
+  attachIndex?: (el: Element | null, index: number) => void
 }
 
 export function useVirtualizer(options: UseVirtualizerOptions): VirtualizerResult {
@@ -201,8 +202,8 @@ export function useVirtualizer(options: UseVirtualizerOptions): VirtualizerResul
   }, [])
 
   const measureElementWrapper = useCallback(
-    (el: Element | null, index: number) => {
-      if (el) elementIndexMap.current.set(el, index)
+    (el: Element | null, index?: number) => {
+      if (el && typeof index === 'number') elementIndexMap.current.set(el, index)
       measureElement(el)
     },
     [measureElement],

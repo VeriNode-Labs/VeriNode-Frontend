@@ -1,6 +1,7 @@
 import { sendTransaction as rpcSendTransaction } from "@/src/lib/stellar/rpcClient"
 import { buildStakingTransaction } from "@/src/lib/stellar/transaction"
 import type { StakingAction } from "@/src/store/stakingStore"
+import { decodeTransactionError } from "@/src/utils/errorDecoder"
 
 /**
  * Staking API.
@@ -37,25 +38,21 @@ async function submit(
   const { xdr } = buildStakingTransaction({ action, amount, source })
   const result = await rpcSendTransaction(xdr)
 
-  if (result.status === "confirmed") {
+  if (result.status === "confirmed" || result.status === "pending") {
     return { transactionHash: result.txHash }
   }
   if (result.status === "error") {
-    throw new StakingSubmitError(decodeError(result.error), result.code)
+    const decoded = decodeTransactionError(result.error)
+    throw new StakingSubmitError(decoded.humanDescription, result.code || decoded.rawCode)
   }
   // network_error — surfaced as a retryable failure.
-  throw new StakingSubmitError(result.error, "network_error")
+  const decodedNet = decodeTransactionError(result.error)
+  throw new StakingSubmitError(decodedNet.humanDescription, "network_error")
 }
 
 /** Turn raw RPC error text into a human-readable reason. */
 function decodeError(raw: string): string {
-  if (raw.includes("HostError")) {
-    return "Contract rejected the transaction (HostError)"
-  }
-  if (raw.includes("tx_insufficient_balance")) {
-    return "Insufficient balance for this operation"
-  }
-  return raw || "Transaction failed"
+  return decodeTransactionError(raw).humanDescription
 }
 
 export const staking = {

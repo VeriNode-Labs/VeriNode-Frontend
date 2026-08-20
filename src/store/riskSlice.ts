@@ -40,7 +40,7 @@ interface RiskState {
   lastAnalysedAt: number | null
 
   // ── Actions ────────────────────────────────────────────────────────────────
-  setStatus: (status: AnalysisStatus, error?: string) => void
+  setStatus: (status: AnalysisStatus, error?: string | null) => void
   setResults: (nodes: RiskNode[], clusters: ClusterRiskResult[]) => void
   reset: () => void
 }

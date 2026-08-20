@@ -12,9 +12,9 @@ export interface BackupStoreState {
   checksumMismatch: boolean
   isScheduled: boolean
 
-  setLastBackupTime: (time: number) => void
-  setLastVerifyTime: (time: number) => void
-  setLastRestoreTime: (time: number) => void
+  setLastBackupTime: (time: number | null) => void
+  setLastVerifyTime: (time: number | null) => void
+  setLastRestoreTime: (time: number | null) => void
   setBackupStatus: (status: BackupStatus) => void
   setVerifyStatus: (status: VerifyStatus) => void
   setRestoreStatus: (status: RestoreStatus) => void
