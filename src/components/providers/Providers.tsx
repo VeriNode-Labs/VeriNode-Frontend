@@ -5,6 +5,7 @@ import { QueryProvider } from '@/src/components/providers/QueryProvider';
 import { WalletProvider } from '@/src/components/providers/WalletProvider';
 import { ThemeProvider } from '@/src/components/providers/ThemeProvider';
 import { DatabaseHealthProvider } from '@/src/components/providers/DatabaseHealthProvider';
+import { I18nProvider } from '@/src/i18n';
 import { useAuthStore } from '@/src/store/authStore';
 import { useStakingStore } from '@/src/store/stakingStore';
 
@@ -23,16 +24,18 @@ function TestStoreExposer({ children }: { children: React.ReactNode }) {
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider>
-      <QueryProvider>
-        <WalletProvider>
-          <DatabaseHealthProvider>
-            <TestStoreExposer>
-              {children}
-            </TestStoreExposer>
-          </DatabaseHealthProvider>
-        </WalletProvider>
-      </QueryProvider>
-    </ThemeProvider>
+    <I18nProvider>
+      <ThemeProvider>
+        <QueryProvider>
+          <WalletProvider>
+            <DatabaseHealthProvider>
+              <TestStoreExposer>
+                {children}
+              </TestStoreExposer>
+            </DatabaseHealthProvider>
+          </WalletProvider>
+        </QueryProvider>
+      </ThemeProvider>
+    </I18nProvider>
   );
 }

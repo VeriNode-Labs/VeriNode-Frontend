@@ -1,0 +1,258 @@
+{
+  "common": {
+    "loading": "Cargando…",
+    "error": "Error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "view": "Ver",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clear": "Limpiar",
+    "refresh": "Actualizar",
+    "status": "Estado",
+    "actions": "Acciones",
+    "details": "Detalles",
+    "settings": "Configuración",
+    "help": "Ayuda",
+    "more": "Más",
+    "less": "Menos",
+    "all": "Todos",
+    "none": "Ninguno",
+    "unknown": "Desconocido",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "enabled": "Activado",
+    "disabled": "Desactivado",
+    "yes": "Sí",
+    "no": "No",
+    "na": "N/A",
+    "connected": "Conectado",
+    "disconnected": "Desconectado",
+    "online": "En línea",
+    "offline": "Sin conexión",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información",
+    "required": "Requerido"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "validators": "Validadores",
+    "network": "Red",
+    "bridge": "Puente",
+    "operator": "Operador",
+    "nodeSync": "Sincronización de nodo",
+    "vesting": "Vesting",
+    "supplyChain": "Cadena de suministro",
+    "reputation": "Reputación",
+    "wallet": "Cartera",
+    "settings": "Configuración"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "overview": "Resumen",
+    "totalStaked": "Total apostado",
+    "activeValidators": "Validadores activos",
+    "pendingRewards": "Recompensas pendientes",
+    "networkHealth": "Salud de la red",
+    "recentActivity": "Actividad reciente",
+    "performance": "Rendimiento",
+    "uptimePercent": "Tiempo de actividad",
+    "slashingRisk": "Riesgo de penalización",
+    "lastUpdated": "Última actualización",
+    "noData": "Sin datos disponibles"
+  },
+  "validators": {
+    "title": "Validadores",
+    "validatorId": "ID de validador",
+    "pubkey": "Clave pública",
+    "balance": "Saldo",
+    "status": "Estado",
+    "effectiveBalance": "Saldo efectivo",
+    "activationEpoch": "Época de activación",
+    "exitEpoch": "Época de salida",
+    "slashed": "Penalizado",
+    "attestations": "Atestaciones",
+    "proposals": "Propuestas",
+    "rewards": {
+      "title": "Recompensas",
+      "claimable": "Reclamable",
+      "claimed": "Reclamado",
+      "total": "Recompensas totales",
+      "history": "Historial de recompensas",
+      "epoch": "Época",
+      "amount": "Cantidad",
+      "claim": "Reclamar recompensas"
+    },
+    "exitQueue": {
+      "title": "Cola de salida",
+      "position": "Posición en cola",
+      "estimatedWait": "Espera estimada",
+      "requestExit": "Solicitar salida",
+      "cancelExit": "Cancelar salida",
+      "exitRequested": "Salida solicitada"
+    },
+    "settings": {
+      "title": "Configuración del validador",
+      "withdrawalAddress": "Dirección de retiro",
+      "feeRecipient": "Destinatario de comisión",
+      "graffiti": "Graffiti",
+      "update": "Actualizar configuración"
+    },
+    "count_one": "{{count}} validador",
+    "count_other": "{{count}} validadores"
+  },
+  "wallet": {
+    "connect": "Conectar cartera",
+    "disconnect": "Desconectar",
+    "connected": "Cartera conectada",
+    "address": "Dirección",
+    "balance": "Saldo",
+    "network": "Red",
+    "preflight": {
+      "title": "Verificación previa",
+      "checking": "Verificando…",
+      "passed": "Todas las verificaciones pasadas",
+      "failed": "Verificación previa fallida",
+      "gasEstimate": "Estimación de gas",
+      "simulate": "Simular transacción"
+    },
+    "transaction": {
+      "pending": "Transacción pendiente",
+      "confirmed": "Transacción confirmada",
+      "failed": "Transacción fallida",
+      "hash": "Hash de transacción",
+      "fee": "Comisión"
+    }
+  },
+  "network": {
+    "title": "Red",
+    "peers": "Pares",
+    "latency": "Latencia",
+    "throughput": "Rendimiento",
+    "slot": "Ranura",
+    "epoch": "Época",
+    "finalizedSlot": "Ranura finalizada",
+    "headSlot": "Ranura principal",
+    "participation": "Tasa de participación",
+    "disasterRecovery": {
+      "title": "Recuperación ante desastres",
+      "failover": "Conmutación por error",
+      "region": "Región",
+      "status": "Estado DR",
+      "lastTest": "Última prueba",
+      "runTest": "Ejecutar prueba DR"
+    }
+  },
+  "bridge": {
+    "title": "Puente",
+    "from": "Desde",
+    "to": "Hasta",
+    "amount": "Cantidad",
+    "asset": "Activo",
+    "fee": "Comisión de puente",
+    "estimatedTime": "Tiempo estimado",
+    "initiate": "Iniciar puente",
+    "status": {
+      "pending": "Pendiente",
+      "processing": "Procesando",
+      "completed": "Completado",
+      "failed": "Fallido"
+    },
+    "transaction_one": "{{count}} transacción",
+    "transaction_other": "{{count}} transacciones"
+  },
+  "operator": {
+    "title": "Operador",
+    "metrics": "Métricas",
+    "nodes": "Nodos",
+    "health": "Puntuación de salud",
+    "uptime": "Tiempo de actividad",
+    "clients": "Clientes",
+    "dvt": "Clúster DVT"
+  },
+  "nodeSync": {
+    "title": "Sincronización de nodo",
+    "syncStatus": "Estado de sincronización",
+    "synced": "Sincronizado",
+    "syncing": "Sincronizando",
+    "behind": "Atrasado",
+    "blocksRemaining": "Bloques restantes",
+    "syncPercent": "Progreso de sincronización"
+  },
+  "staking": {
+    "title": "Staking",
+    "stake": "Apostar",
+    "unstake": "Retirar apuesta",
+    "delegate": "Delegar",
+    "undelegate": "Revocar delegación",
+    "amount": "Cantidad",
+    "apr": "APR",
+    "lockPeriod": "Período de bloqueo",
+    "validator": "Validador",
+    "deposit": {
+      "title": "Depósito",
+      "minimum": "Depósito mínimo",
+      "confirm": "Confirmar depósito"
+    }
+  },
+  "vesting": {
+    "title": "Vesting",
+    "schedule": "Cronograma de vesting",
+    "cliff": "Cliff",
+    "vested": "Adquirido",
+    "unvested": "No adquirido",
+    "nextUnlock": "Próximo desbloqueo",
+    "claim": "Reclamar adquirido",
+    "totalAllocation": "Asignación total"
+  },
+  "supplyChain": {
+    "title": "Cadena de suministro",
+    "nodes": "Nodos de suministro",
+    "provenance": "Procedencia",
+    "verified": "Verificado",
+    "unverified": "No verificado",
+    "attestation": "Atestación",
+    "timestamp": "Marca de tiempo"
+  },
+  "reputation": {
+    "title": "Reputación",
+    "score": "Puntuación de reputación",
+    "history": "Historial",
+    "events": "Eventos",
+    "slashings": "Penalizaciones",
+    "attestationRate": "Tasa de atestación",
+    "proposalRate": "Tasa de propuestas"
+  },
+  "errors": {
+    "generic": "Algo salió mal. Por favor, inténtelo de nuevo.",
+    "network": "Error de red. Compruebe su conexión.",
+    "unauthorized": "No está autorizado para realizar esta acción.",
+    "notFound": "No se encontró el recurso solicitado.",
+    "timeout": "La solicitud expiró. Por favor, reintente.",
+    "validation": "Por favor, compruebe el formulario en busca de errores."
+  },
+  "locale": {
+    "label": "Idioma",
+    "select": "Seleccionar idioma",
+    "current": "Idioma actual"
+  },
+  "format": {
+    "dateShort": "Fecha corta",
+    "dateLong": "Fecha larga",
+    "dateTime": "Fecha y hora",
+    "number": "Número",
+    "currency": "Moneda",
+    "percent": "Porcentaje"
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "common": {
+    "loading": "Loading…",
+    "error": "Error",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "copy": "Copy",
+    "copied": "Copied",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "refresh": "Refresh",
+    "status": "Status",
+    "actions": "Actions",
+    "details": "Details",
+    "settings": "Settings",
+    "help": "Help",
+    "more": "More",
+    "less": "Less",
+    "all": "All",
+    "none": "None",
+    "unknown": "Unknown",
+    "active": "Active",
+    "inactive": "Inactive",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "yes": "Yes",
+    "no": "No",
+    "na": "N/A",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "online": "Online",
+    "offline": "Offline",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "required": "Required"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "validators": "Validators",
+    "network": "Network",
+    "bridge": "Bridge",
+    "operator": "Operator",
+    "nodeSync": "Node Sync",
+    "vesting": "Vesting",
+    "supplyChain": "Supply Chain",
+    "reputation": "Reputation",
+    "wallet": "Wallet",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": "Overview",
+    "totalStaked": "Total Staked",
+    "activeValidators": "Active Validators",
+    "pendingRewards": "Pending Rewards",
+    "networkHealth": "Network Health",
+    "recentActivity": "Recent Activity",
+    "performance": "Performance",
+    "uptimePercent": "Uptime",
+    "slashingRisk": "Slashing Risk",
+    "lastUpdated": "Last updated",
+    "noData": "No data available"
+  },
+  "validators": {
+    "title": "Validators",
+    "validatorId": "Validator ID",
+    "pubkey": "Public Key",
+    "balance": "Balance",
+    "status": "Status",
+    "effectiveBalance": "Effective Balance",
+    "activationEpoch": "Activation Epoch",
+    "exitEpoch": "Exit Epoch",
+    "slashed": "Slashed",
+    "attestations": "Attestations",
+    "proposals": "Proposals",
+    "rewards": {
+      "title": "Rewards",
+      "claimable": "Claimable",
+      "claimed": "Claimed",
+      "total": "Total Rewards",
+      "history": "Reward History",
+      "epoch": "Epoch",
+      "amount": "Amount",
+      "claim": "Claim Rewards"
+    },
+    "exitQueue": {
+      "title": "Exit Queue",
+      "position": "Queue Position",
+      "estimatedWait": "Estimated Wait",
+      "requestExit": "Request Exit",
+      "cancelExit": "Cancel Exit",
+      "exitRequested": "Exit Requested"
+    },
+    "settings": {
+      "title": "Validator Settings",
+      "withdrawalAddress": "Withdrawal Address",
+      "feeRecipient": "Fee Recipient",
+      "graffiti": "Graffiti",
+      "update": "Update Settings"
+    },
+    "count_one": "{{count}} validator",
+    "count_other": "{{count}} validators"
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "disconnect": "Disconnect",
+    "connected": "Wallet Connected",
+    "address": "Address",
+    "balance": "Balance",
+    "network": "Network",
+    "preflight": {
+      "title": "Preflight Check",
+      "checking": "Running checks…",
+      "passed": "All checks passed",
+      "failed": "Preflight failed",
+      "gasEstimate": "Gas Estimate",
+      "simulate": "Simulate Transaction"
+    },
+    "transaction": {
+      "pending": "Transaction pending",
+      "confirmed": "Transaction confirmed",
+      "failed": "Transaction failed",
+      "hash": "Transaction Hash",
+      "fee": "Fee"
+    }
+  },
+  "network": {
+    "title": "Network",
+    "peers": "Peers",
+    "latency": "Latency",
+    "throughput": "Throughput",
+    "slot": "Slot",
+    "epoch": "Epoch",
+    "finalizedSlot": "Finalized Slot",
+    "headSlot": "Head Slot",
+    "participation": "Participation Rate",
+    "disasterRecovery": {
+      "title": "Disaster Recovery",
+      "failover": "Failover",
+      "region": "Region",
+      "status": "DR Status",
+      "lastTest": "Last Test",
+      "runTest": "Run DR Test"
+    }
+  },
+  "bridge": {
+    "title": "Bridge",
+    "from": "From",
+    "to": "To",
+    "amount": "Amount",
+    "asset": "Asset",
+    "fee": "Bridge Fee",
+    "estimatedTime": "Estimated Time",
+    "initiate": "Initiate Bridge",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed"
+    },
+    "transaction_one": "{{count}} transaction",
+    "transaction_other": "{{count}} transactions"
+  },
+  "operator": {
+    "title": "Operator",
+    "metrics": "Metrics",
+    "nodes": "Nodes",
+    "health": "Health Score",
+    "uptime": "Uptime",
+    "clients": "Clients",
+    "dvt": "DVT Cluster"
+  },
+  "nodeSync": {
+    "title": "Node Sync",
+    "syncStatus": "Sync Status",
+    "synced": "Synced",
+    "syncing": "Syncing",
+    "behind": "Behind",
+    "blocksRemaining": "Blocks Remaining",
+    "syncPercent": "Sync Progress"
+  },
+  "staking": {
+    "title": "Staking",
+    "stake": "Stake",
+    "unstake": "Unstake",
+    "delegate": "Delegate",
+    "undelegate": "Undelegate",
+    "amount": "Amount",
+    "apr": "APR",
+    "lockPeriod": "Lock Period",
+    "validator": "Validator",
+    "deposit": {
+      "title": "Deposit",
+      "minimum": "Minimum Deposit",
+      "confirm": "Confirm Deposit"
+    }
+  },
+  "vesting": {
+    "title": "Vesting",
+    "schedule": "Vesting Schedule",
+    "cliff": "Cliff",
+    "vested": "Vested",
+    "unvested": "Unvested",
+    "nextUnlock": "Next Unlock",
+    "claim": "Claim Vested",
+    "totalAllocation": "Total Allocation"
+  },
+  "supplyChain": {
+    "title": "Supply Chain",
+    "nodes": "Supply Nodes",
+    "provenance": "Provenance",
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "attestation": "Attestation",
+    "timestamp": "Timestamp"
+  },
+  "reputation": {
+    "title": "Reputation",
+    "score": "Reputation Score",
+    "history": "History",
+    "events": "Events",
+    "slashings": "Slashings",
+    "attestationRate": "Attestation Rate",
+    "proposalRate": "Proposal Rate"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "Network error. Check your connection.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "notFound": "The requested resource was not found.",
+    "timeout": "Request timed out. Please retry.",
+    "validation": "Please check the form for errors."
+  },
+  "locale": {
+    "label": "Language",
+    "select": "Select language",
+    "current": "Current language"
+  },
+  "format": {
+    "dateShort": "Short date",
+    "dateLong": "Long date",
+    "dateTime": "Date and time",
+    "number": "Number",
+    "currency": "Currency",
+    "percent": "Percentage"
+  }
+}
