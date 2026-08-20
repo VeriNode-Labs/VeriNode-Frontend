@@ -1,0 +1,256 @@
+{
+  "common": {
+    "loading": "로딩 중…",
+    "error": "오류",
+    "retry": "재시도",
+    "cancel": "취소",
+    "confirm": "확인",
+    "save": "저장",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "submit": "제출",
+    "delete": "삭제",
+    "edit": "편집",
+    "view": "보기",
+    "copy": "복사",
+    "copied": "복사됨",
+    "search": "검색",
+    "filter": "필터",
+    "clear": "지우기",
+    "refresh": "새로고침",
+    "status": "상태",
+    "actions": "작업",
+    "details": "상세",
+    "settings": "설정",
+    "help": "도움말",
+    "more": "더 보기",
+    "less": "접기",
+    "all": "전체",
+    "none": "없음",
+    "unknown": "알 수 없음",
+    "active": "활성",
+    "inactive": "비활성",
+    "enabled": "활성화됨",
+    "disabled": "비활성화됨",
+    "yes": "예",
+    "no": "아니요",
+    "na": "N/A",
+    "connected": "연결됨",
+    "disconnected": "연결 해제됨",
+    "online": "온라인",
+    "offline": "오프라인",
+    "success": "성공",
+    "warning": "경고",
+    "info": "정보",
+    "required": "필수"
+  },
+  "nav": {
+    "dashboard": "대시보드",
+    "validators": "검증자",
+    "network": "네트워크",
+    "bridge": "브릿지",
+    "operator": "운영자",
+    "nodeSync": "노드 동기화",
+    "vesting": "베스팅",
+    "supplyChain": "공급망",
+    "reputation": "평판",
+    "wallet": "지갑",
+    "settings": "설정"
+  },
+  "dashboard": {
+    "title": "대시보드",
+    "overview": "개요",
+    "totalStaked": "총 스테이킹",
+    "activeValidators": "활성 검증자",
+    "pendingRewards": "대기 중인 보상",
+    "networkHealth": "네트워크 상태",
+    "recentActivity": "최근 활동",
+    "performance": "성능",
+    "uptimePercent": "가동 시간",
+    "slashingRisk": "슬래싱 위험",
+    "lastUpdated": "마지막 업데이트",
+    "noData": "데이터 없음"
+  },
+  "validators": {
+    "title": "검증자",
+    "validatorId": "검증자 ID",
+    "pubkey": "공개 키",
+    "balance": "잔액",
+    "status": "상태",
+    "effectiveBalance": "유효 잔액",
+    "activationEpoch": "활성화 에포크",
+    "exitEpoch": "종료 에포크",
+    "slashed": "슬래싱됨",
+    "attestations": "증명",
+    "proposals": "제안",
+    "rewards": {
+      "title": "보상",
+      "claimable": "청구 가능",
+      "claimed": "청구됨",
+      "total": "총 보상",
+      "history": "보상 내역",
+      "epoch": "에포크",
+      "amount": "금액",
+      "claim": "보상 청구"
+    },
+    "exitQueue": {
+      "title": "종료 대기열",
+      "position": "대기열 위치",
+      "estimatedWait": "예상 대기 시간",
+      "requestExit": "종료 요청",
+      "cancelExit": "종료 취소",
+      "exitRequested": "종료 요청됨"
+    },
+    "settings": {
+      "title": "검증자 설정",
+      "withdrawalAddress": "출금 주소",
+      "feeRecipient": "수수료 수신자",
+      "graffiti": "그라피티",
+      "update": "설정 업데이트"
+    },
+    "count_other": "검증자 {{count}}명"
+  },
+  "wallet": {
+    "connect": "지갑 연결",
+    "disconnect": "연결 해제",
+    "connected": "지갑 연결됨",
+    "address": "주소",
+    "balance": "잔액",
+    "network": "네트워크",
+    "preflight": {
+      "title": "사전 확인",
+      "checking": "확인 중…",
+      "passed": "모든 확인 통과",
+      "failed": "사전 확인 실패",
+      "gasEstimate": "가스 추정",
+      "simulate": "트랜잭션 시뮬레이션"
+    },
+    "transaction": {
+      "pending": "트랜잭션 대기 중",
+      "confirmed": "트랜잭션 확인됨",
+      "failed": "트랜잭션 실패",
+      "hash": "트랜잭션 해시",
+      "fee": "수수료"
+    }
+  },
+  "network": {
+    "title": "네트워크",
+    "peers": "피어",
+    "latency": "지연 시간",
+    "throughput": "처리량",
+    "slot": "슬롯",
+    "epoch": "에포크",
+    "finalizedSlot": "확정 슬롯",
+    "headSlot": "헤드 슬롯",
+    "participation": "참여율",
+    "disasterRecovery": {
+      "title": "재해 복구",
+      "failover": "장애 조치",
+      "region": "지역",
+      "status": "DR 상태",
+      "lastTest": "마지막 테스트",
+      "runTest": "DR 테스트 실행"
+    }
+  },
+  "bridge": {
+    "title": "브릿지",
+    "from": "출발",
+    "to": "도착",
+    "amount": "금액",
+    "asset": "자산",
+    "fee": "브릿지 수수료",
+    "estimatedTime": "예상 시간",
+    "initiate": "브릿지 시작",
+    "status": {
+      "pending": "대기 중",
+      "processing": "처리 중",
+      "completed": "완료",
+      "failed": "실패"
+    },
+    "transaction_other": "트랜잭션 {{count}}건"
+  },
+  "operator": {
+    "title": "운영자",
+    "metrics": "지표",
+    "nodes": "노드",
+    "health": "상태 점수",
+    "uptime": "가동 시간",
+    "clients": "클라이언트",
+    "dvt": "DVT 클러스터"
+  },
+  "nodeSync": {
+    "title": "노드 동기화",
+    "syncStatus": "동기화 상태",
+    "synced": "동기화됨",
+    "syncing": "동기화 중",
+    "behind": "지연됨",
+    "blocksRemaining": "남은 블록",
+    "syncPercent": "동기화 진행률"
+  },
+  "staking": {
+    "title": "스테이킹",
+    "stake": "스테이크",
+    "unstake": "스테이크 해제",
+    "delegate": "위임",
+    "undelegate": "위임 해제",
+    "amount": "금액",
+    "apr": "APR",
+    "lockPeriod": "잠금 기간",
+    "validator": "검증자",
+    "deposit": {
+      "title": "예치",
+      "minimum": "최소 예치금",
+      "confirm": "예치 확인"
+    }
+  },
+  "vesting": {
+    "title": "베스팅",
+    "schedule": "베스팅 일정",
+    "cliff": "클리프",
+    "vested": "베스팅됨",
+    "unvested": "미베스팅",
+    "nextUnlock": "다음 잠금 해제",
+    "claim": "베스팅 청구",
+    "totalAllocation": "총 배분량"
+  },
+  "supplyChain": {
+    "title": "공급망",
+    "nodes": "공급 노드",
+    "provenance": "출처",
+    "verified": "확인됨",
+    "unverified": "미확인",
+    "attestation": "증명",
+    "timestamp": "타임스탬프"
+  },
+  "reputation": {
+    "title": "평판",
+    "score": "평판 점수",
+    "history": "내역",
+    "events": "이벤트",
+    "slashings": "슬래싱",
+    "attestationRate": "증명율",
+    "proposalRate": "제안율"
+  },
+  "errors": {
+    "generic": "오류가 발생했습니다. 다시 시도하세요.",
+    "network": "네트워크 오류. 연결을 확인하세요.",
+    "unauthorized": "이 작업을 수행할 권한이 없습니다.",
+    "notFound": "요청한 리소스를 찾을 수 없습니다.",
+    "timeout": "요청 시간이 초과되었습니다. 다시 시도하세요.",
+    "validation": "양식의 오류를 확인하세요."
+  },
+  "locale": {
+    "label": "언어",
+    "select": "언어 선택",
+    "current": "현재 언어"
+  },
+  "format": {
+    "dateShort": "짧은 날짜",
+    "dateLong": "긴 날짜",
+    "dateTime": "날짜 및 시간",
+    "number": "숫자",
+    "currency": "통화",
+    "percent": "백분율"
+  }
+}

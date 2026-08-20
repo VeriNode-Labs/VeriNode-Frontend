@@ -92,6 +92,16 @@ export function generateMockTree(
   function buildNode(depth: number): SupplyChainTier {
     const id = `tier-node-${idCounter++}`
     const isLeaf = depth >= tierDepth - 1 || idCounter >= totalNodes
+    let children: SupplyChainTier[] | undefined
+    if (!isLeaf) {
+      const childList: SupplyChainTier[] = []
+      for (let i = 0; i < branchFactor && idCounter < totalNodes; i++) {
+        childList.push(buildNode(depth + 1))
+      }
+      if (childList.length > 0) {
+        children = childList
+      }
+    }
     return {
       id,
       label: `${TIER_LABELS[depth % TIER_LABELS.length]} #${idCounter}`,
@@ -106,11 +116,7 @@ export function generateMockTree(
         volume: Math.round(100 + (idCounter * 37) % 9900),
         region: `Region-${(idCounter * 3) % 12}`,
       },
-      children: isLeaf
-        ? undefined
-        : Array.from({ length: branchFactor })
-            .map(() => (idCounter < totalNodes ? buildNode(depth + 1) : null))
-            .filter((n): n is SupplyChainTier => n !== null),
+      children,
     }
   }
 

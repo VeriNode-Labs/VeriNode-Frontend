@@ -1,0 +1,256 @@
+{
+  "common": {
+    "loading": "加载中…",
+    "error": "错误",
+    "retry": "重试",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一步",
+    "submit": "提交",
+    "delete": "删除",
+    "edit": "编辑",
+    "view": "查看",
+    "copy": "复制",
+    "copied": "已复制",
+    "search": "搜索",
+    "filter": "筛选",
+    "clear": "清除",
+    "refresh": "刷新",
+    "status": "状态",
+    "actions": "操作",
+    "details": "详情",
+    "settings": "设置",
+    "help": "帮助",
+    "more": "更多",
+    "less": "收起",
+    "all": "全部",
+    "none": "无",
+    "unknown": "未知",
+    "active": "活跃",
+    "inactive": "非活跃",
+    "enabled": "已启用",
+    "disabled": "已禁用",
+    "yes": "是",
+    "no": "否",
+    "na": "不适用",
+    "connected": "已连接",
+    "disconnected": "已断开",
+    "online": "在线",
+    "offline": "离线",
+    "success": "成功",
+    "warning": "警告",
+    "info": "信息",
+    "required": "必填"
+  },
+  "nav": {
+    "dashboard": "仪表板",
+    "validators": "验证者",
+    "network": "网络",
+    "bridge": "跨链桥",
+    "operator": "运营商",
+    "nodeSync": "节点同步",
+    "vesting": "归属",
+    "supplyChain": "供应链",
+    "reputation": "声誉",
+    "wallet": "钱包",
+    "settings": "设置"
+  },
+  "dashboard": {
+    "title": "仪表板",
+    "overview": "概览",
+    "totalStaked": "总质押量",
+    "activeValidators": "活跃验证者",
+    "pendingRewards": "待领取奖励",
+    "networkHealth": "网络健康",
+    "recentActivity": "近期活动",
+    "performance": "性能",
+    "uptimePercent": "正常运行时间",
+    "slashingRisk": "惩罚风险",
+    "lastUpdated": "最后更新",
+    "noData": "暂无数据"
+  },
+  "validators": {
+    "title": "验证者",
+    "validatorId": "验证者ID",
+    "pubkey": "公钥",
+    "balance": "余额",
+    "status": "状态",
+    "effectiveBalance": "有效余额",
+    "activationEpoch": "激活纪元",
+    "exitEpoch": "退出纪元",
+    "slashed": "已惩罚",
+    "attestations": "证明",
+    "proposals": "提案",
+    "rewards": {
+      "title": "奖励",
+      "claimable": "可领取",
+      "claimed": "已领取",
+      "total": "总奖励",
+      "history": "奖励历史",
+      "epoch": "纪元",
+      "amount": "金额",
+      "claim": "领取奖励"
+    },
+    "exitQueue": {
+      "title": "退出队列",
+      "position": "队列位置",
+      "estimatedWait": "预计等待时间",
+      "requestExit": "申请退出",
+      "cancelExit": "取消退出",
+      "exitRequested": "已申请退出"
+    },
+    "settings": {
+      "title": "验证者设置",
+      "withdrawalAddress": "提款地址",
+      "feeRecipient": "费用接收方",
+      "graffiti": "标记",
+      "update": "更新设置"
+    },
+    "count_other": "{{count}} 个验证者"
+  },
+  "wallet": {
+    "connect": "连接钱包",
+    "disconnect": "断开连接",
+    "connected": "钱包已连接",
+    "address": "地址",
+    "balance": "余额",
+    "network": "网络",
+    "preflight": {
+      "title": "预检查",
+      "checking": "正在检查…",
+      "passed": "所有检查通过",
+      "failed": "预检查失败",
+      "gasEstimate": "Gas估算",
+      "simulate": "模拟交易"
+    },
+    "transaction": {
+      "pending": "交易待处理",
+      "confirmed": "交易已确认",
+      "failed": "交易失败",
+      "hash": "交易哈希",
+      "fee": "手续费"
+    }
+  },
+  "network": {
+    "title": "网络",
+    "peers": "节点数",
+    "latency": "延迟",
+    "throughput": "吞吐量",
+    "slot": "插槽",
+    "epoch": "纪元",
+    "finalizedSlot": "已确认插槽",
+    "headSlot": "最新插槽",
+    "participation": "参与率",
+    "disasterRecovery": {
+      "title": "灾难恢复",
+      "failover": "故障转移",
+      "region": "地区",
+      "status": "DR状态",
+      "lastTest": "上次测试",
+      "runTest": "运行DR测试"
+    }
+  },
+  "bridge": {
+    "title": "跨链桥",
+    "from": "从",
+    "to": "到",
+    "amount": "金额",
+    "asset": "资产",
+    "fee": "跨链费用",
+    "estimatedTime": "预计时间",
+    "initiate": "发起跨链",
+    "status": {
+      "pending": "待处理",
+      "processing": "处理中",
+      "completed": "已完成",
+      "failed": "失败"
+    },
+    "transaction_other": "{{count}} 笔交易"
+  },
+  "operator": {
+    "title": "运营商",
+    "metrics": "指标",
+    "nodes": "节点",
+    "health": "健康分数",
+    "uptime": "正常运行时间",
+    "clients": "客户端",
+    "dvt": "DVT集群"
+  },
+  "nodeSync": {
+    "title": "节点同步",
+    "syncStatus": "同步状态",
+    "synced": "已同步",
+    "syncing": "同步中",
+    "behind": "落后",
+    "blocksRemaining": "剩余区块",
+    "syncPercent": "同步进度"
+  },
+  "staking": {
+    "title": "质押",
+    "stake": "质押",
+    "unstake": "解质押",
+    "delegate": "委托",
+    "undelegate": "取消委托",
+    "amount": "金额",
+    "apr": "年化收益",
+    "lockPeriod": "锁定期",
+    "validator": "验证者",
+    "deposit": {
+      "title": "存款",
+      "minimum": "最低存款",
+      "confirm": "确认存款"
+    }
+  },
+  "vesting": {
+    "title": "归属",
+    "schedule": "归属计划",
+    "cliff": "悬崖期",
+    "vested": "已归属",
+    "unvested": "未归属",
+    "nextUnlock": "下次解锁",
+    "claim": "领取已归属",
+    "totalAllocation": "总分配量"
+  },
+  "supplyChain": {
+    "title": "供应链",
+    "nodes": "供应节点",
+    "provenance": "来源",
+    "verified": "已验证",
+    "unverified": "未验证",
+    "attestation": "证明",
+    "timestamp": "时间戳"
+  },
+  "reputation": {
+    "title": "声誉",
+    "score": "声誉分数",
+    "history": "历史",
+    "events": "事件",
+    "slashings": "惩罚",
+    "attestationRate": "证明率",
+    "proposalRate": "提案率"
+  },
+  "errors": {
+    "generic": "出现错误，请重试。",
+    "network": "网络错误，请检查连接。",
+    "unauthorized": "您无权执行此操作。",
+    "notFound": "未找到请求的资源。",
+    "timeout": "请求超时，请重试。",
+    "validation": "请检查表单中的错误。"
+  },
+  "locale": {
+    "label": "语言",
+    "select": "选择语言",
+    "current": "当前语言"
+  },
+  "format": {
+    "dateShort": "短日期",
+    "dateLong": "长日期",
+    "dateTime": "日期和时间",
+    "number": "数字",
+    "currency": "货币",
+    "percent": "百分比"
+  }
+}

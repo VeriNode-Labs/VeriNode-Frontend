@@ -379,33 +379,49 @@ export function extractErrorMessage(rawError: unknown): { code: string; message:
   const parts: string[] = [];
 
   if (typeof rawError === 'object' && rawError !== null) {
-    const obj = rawError as Record<string, any>;
+    const obj = rawError as Record<string, unknown>;
 
-    if (typeof obj.code === 'string' || typeof obj.code === 'number') {
-      code = String(obj.code);
+    if (typeof obj['code'] === 'string' || typeof obj['code'] === 'number') {
+      code = String(obj['code']);
       parts.push(code);
     }
-    if (typeof obj.name === 'string') {
-      parts.push(obj.name);
+    if (typeof obj['name'] === 'string') {
+      parts.push(obj['name']);
     }
-    if (typeof obj.message === 'string') {
-      message = obj.message;
+    if (typeof obj['message'] === 'string') {
+      message = obj['message'];
       parts.push(message);
     }
 
     // Horizon specific payload structure
-    if (obj.response?.data?.extras?.result_codes) {
-      const rc = obj.response.data.extras.result_codes;
-      if (rc.transaction) parts.push(`tx:${rc.transaction}`);
-      if (Array.isArray(rc.operations)) parts.push(...rc.operations.map((op: string) => `op:${op}`));
+    const response = obj['response'];
+    if (typeof response === 'object' && response !== null) {
+      const data = (response as Record<string, unknown>)['data'];
+      if (typeof data === 'object' && data !== null) {
+        const extras = (data as Record<string, unknown>)['extras'];
+        if (typeof extras === 'object' && extras !== null) {
+          const rc = (extras as Record<string, unknown>)['result_codes'];
+          if (typeof rc === 'object' && rc !== null) {
+            const rcObj = rc as Record<string, unknown>;
+            if (rcObj['transaction']) parts.push(`tx:${String(rcObj['transaction'])}`);
+            if (Array.isArray(rcObj['operations'])) {
+              parts.push(...(rcObj['operations'] as unknown[]).map((op) => `op:${String(op)}`));
+            }
+          }
+        }
+      }
     }
 
     // Soroban RPC JSON-RPC response structure
-    if (obj.error?.message) {
-      parts.push(obj.error.message);
-    }
-    if (obj.error?.data) {
-      parts.push(typeof obj.error.data === 'string' ? obj.error.data : JSON.stringify(obj.error.data));
+    const errField = obj['error'];
+    if (typeof errField === 'object' && errField !== null) {
+      const errObj = errField as Record<string, unknown>;
+      if (typeof errObj['message'] === 'string') {
+        parts.push(errObj['message']);
+      }
+      if (errObj['data'] !== undefined) {
+        parts.push(typeof errObj['data'] === 'string' ? errObj['data'] : JSON.stringify(errObj['data']));
+      }
     }
 
     // Stringified fallback

@@ -1,0 +1,258 @@
+{
+  "common": {
+    "loading": "Chargement…",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "submit": "Soumettre",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "view": "Voir",
+    "copy": "Copier",
+    "copied": "Copié",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "clear": "Effacer",
+    "refresh": "Actualiser",
+    "status": "Statut",
+    "actions": "Actions",
+    "details": "Détails",
+    "settings": "Paramètres",
+    "help": "Aide",
+    "more": "Plus",
+    "less": "Moins",
+    "all": "Tout",
+    "none": "Aucun",
+    "unknown": "Inconnu",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "enabled": "Activé",
+    "disabled": "Désactivé",
+    "yes": "Oui",
+    "no": "Non",
+    "na": "N/A",
+    "connected": "Connecté",
+    "disconnected": "Déconnecté",
+    "online": "En ligne",
+    "offline": "Hors ligne",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "info": "Information",
+    "required": "Requis"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "validators": "Validateurs",
+    "network": "Réseau",
+    "bridge": "Pont",
+    "operator": "Opérateur",
+    "nodeSync": "Synchronisation de nœud",
+    "vesting": "Acquisition",
+    "supplyChain": "Chaîne d'approvisionnement",
+    "reputation": "Réputation",
+    "wallet": "Portefeuille",
+    "settings": "Paramètres"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "overview": "Aperçu",
+    "totalStaked": "Total misé",
+    "activeValidators": "Validateurs actifs",
+    "pendingRewards": "Récompenses en attente",
+    "networkHealth": "Santé du réseau",
+    "recentActivity": "Activité récente",
+    "performance": "Performance",
+    "uptimePercent": "Disponibilité",
+    "slashingRisk": "Risque de pénalité",
+    "lastUpdated": "Dernière mise à jour",
+    "noData": "Aucune donnée disponible"
+  },
+  "validators": {
+    "title": "Validateurs",
+    "validatorId": "ID du validateur",
+    "pubkey": "Clé publique",
+    "balance": "Solde",
+    "status": "Statut",
+    "effectiveBalance": "Solde effectif",
+    "activationEpoch": "Époque d'activation",
+    "exitEpoch": "Époque de sortie",
+    "slashed": "Pénalisé",
+    "attestations": "Attestations",
+    "proposals": "Propositions",
+    "rewards": {
+      "title": "Récompenses",
+      "claimable": "Réclamable",
+      "claimed": "Réclamé",
+      "total": "Récompenses totales",
+      "history": "Historique des récompenses",
+      "epoch": "Époque",
+      "amount": "Montant",
+      "claim": "Réclamer les récompenses"
+    },
+    "exitQueue": {
+      "title": "File d'attente de sortie",
+      "position": "Position dans la file",
+      "estimatedWait": "Attente estimée",
+      "requestExit": "Demander la sortie",
+      "cancelExit": "Annuler la sortie",
+      "exitRequested": "Sortie demandée"
+    },
+    "settings": {
+      "title": "Paramètres du validateur",
+      "withdrawalAddress": "Adresse de retrait",
+      "feeRecipient": "Destinataire des frais",
+      "graffiti": "Graffiti",
+      "update": "Mettre à jour les paramètres"
+    },
+    "count_one": "{{count}} validateur",
+    "count_other": "{{count}} validateurs"
+  },
+  "wallet": {
+    "connect": "Connecter le portefeuille",
+    "disconnect": "Déconnecter",
+    "connected": "Portefeuille connecté",
+    "address": "Adresse",
+    "balance": "Solde",
+    "network": "Réseau",
+    "preflight": {
+      "title": "Vérification préalable",
+      "checking": "Vérification en cours…",
+      "passed": "Toutes les vérifications réussies",
+      "failed": "Échec de la vérification préalable",
+      "gasEstimate": "Estimation du gaz",
+      "simulate": "Simuler la transaction"
+    },
+    "transaction": {
+      "pending": "Transaction en attente",
+      "confirmed": "Transaction confirmée",
+      "failed": "Transaction échouée",
+      "hash": "Hash de la transaction",
+      "fee": "Frais"
+    }
+  },
+  "network": {
+    "title": "Réseau",
+    "peers": "Pairs",
+    "latency": "Latence",
+    "throughput": "Débit",
+    "slot": "Slot",
+    "epoch": "Époque",
+    "finalizedSlot": "Slot finalisé",
+    "headSlot": "Slot principal",
+    "participation": "Taux de participation",
+    "disasterRecovery": {
+      "title": "Reprise après sinistre",
+      "failover": "Basculement",
+      "region": "Région",
+      "status": "Statut DR",
+      "lastTest": "Dernier test",
+      "runTest": "Exécuter le test DR"
+    }
+  },
+  "bridge": {
+    "title": "Pont",
+    "from": "De",
+    "to": "À",
+    "amount": "Montant",
+    "asset": "Actif",
+    "fee": "Frais de pont",
+    "estimatedTime": "Temps estimé",
+    "initiate": "Initier le pont",
+    "status": {
+      "pending": "En attente",
+      "processing": "En traitement",
+      "completed": "Terminé",
+      "failed": "Échoué"
+    },
+    "transaction_one": "{{count}} transaction",
+    "transaction_other": "{{count}} transactions"
+  },
+  "operator": {
+    "title": "Opérateur",
+    "metrics": "Métriques",
+    "nodes": "Nœuds",
+    "health": "Score de santé",
+    "uptime": "Disponibilité",
+    "clients": "Clients",
+    "dvt": "Cluster DVT"
+  },
+  "nodeSync": {
+    "title": "Synchronisation de nœud",
+    "syncStatus": "Statut de synchronisation",
+    "synced": "Synchronisé",
+    "syncing": "Synchronisation",
+    "behind": "En retard",
+    "blocksRemaining": "Blocs restants",
+    "syncPercent": "Progression de la synchronisation"
+  },
+  "staking": {
+    "title": "Mise en jeu",
+    "stake": "Miser",
+    "unstake": "Retirer la mise",
+    "delegate": "Déléguer",
+    "undelegate": "Révoquer la délégation",
+    "amount": "Montant",
+    "apr": "APR",
+    "lockPeriod": "Période de blocage",
+    "validator": "Validateur",
+    "deposit": {
+      "title": "Dépôt",
+      "minimum": "Dépôt minimum",
+      "confirm": "Confirmer le dépôt"
+    }
+  },
+  "vesting": {
+    "title": "Acquisition",
+    "schedule": "Calendrier d'acquisition",
+    "cliff": "Cliff",
+    "vested": "Acquis",
+    "unvested": "Non acquis",
+    "nextUnlock": "Prochain déblocage",
+    "claim": "Réclamer les acquis",
+    "totalAllocation": "Allocation totale"
+  },
+  "supplyChain": {
+    "title": "Chaîne d'approvisionnement",
+    "nodes": "Nœuds d'approvisionnement",
+    "provenance": "Provenance",
+    "verified": "Vérifié",
+    "unverified": "Non vérifié",
+    "attestation": "Attestation",
+    "timestamp": "Horodatage"
+  },
+  "reputation": {
+    "title": "Réputation",
+    "score": "Score de réputation",
+    "history": "Historique",
+    "events": "Événements",
+    "slashings": "Pénalisations",
+    "attestationRate": "Taux d'attestation",
+    "proposalRate": "Taux de proposition"
+  },
+  "errors": {
+    "generic": "Une erreur s'est produite. Veuillez réessayer.",
+    "network": "Erreur réseau. Vérifiez votre connexion.",
+    "unauthorized": "Vous n'êtes pas autorisé à effectuer cette action.",
+    "notFound": "La ressource demandée n'a pas été trouvée.",
+    "timeout": "La demande a expiré. Veuillez réessayer.",
+    "validation": "Veuillez vérifier les erreurs dans le formulaire."
+  },
+  "locale": {
+    "label": "Langue",
+    "select": "Sélectionner la langue",
+    "current": "Langue actuelle"
+  },
+  "format": {
+    "dateShort": "Date courte",
+    "dateLong": "Date longue",
+    "dateTime": "Date et heure",
+    "number": "Nombre",
+    "currency": "Devise",
+    "percent": "Pourcentage"
+  }
+}

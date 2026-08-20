@@ -1,0 +1,262 @@
+{
+  "common": {
+    "loading": "Загрузка…",
+    "error": "Ошибка",
+    "retry": "Повторить",
+    "cancel": "Отмена",
+    "confirm": "Подтвердить",
+    "save": "Сохранить",
+    "close": "Закрыть",
+    "back": "Назад",
+    "next": "Далее",
+    "submit": "Отправить",
+    "delete": "Удалить",
+    "edit": "Изменить",
+    "view": "Просмотр",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "clear": "Очистить",
+    "refresh": "Обновить",
+    "status": "Статус",
+    "actions": "Действия",
+    "details": "Подробности",
+    "settings": "Настройки",
+    "help": "Помощь",
+    "more": "Ещё",
+    "less": "Скрыть",
+    "all": "Все",
+    "none": "Нет",
+    "unknown": "Неизвестно",
+    "active": "Активный",
+    "inactive": "Неактивный",
+    "enabled": "Включено",
+    "disabled": "Отключено",
+    "yes": "Да",
+    "no": "Нет",
+    "na": "Н/Д",
+    "connected": "Подключено",
+    "disconnected": "Отключено",
+    "online": "Онлайн",
+    "offline": "Офлайн",
+    "success": "Успех",
+    "warning": "Предупреждение",
+    "info": "Информация",
+    "required": "Обязательно"
+  },
+  "nav": {
+    "dashboard": "Панель управления",
+    "validators": "Валидаторы",
+    "network": "Сеть",
+    "bridge": "Мост",
+    "operator": "Оператор",
+    "nodeSync": "Синхронизация узлов",
+    "vesting": "Вестинг",
+    "supplyChain": "Цепочка поставок",
+    "reputation": "Репутация",
+    "wallet": "Кошелёк",
+    "settings": "Настройки"
+  },
+  "dashboard": {
+    "title": "Панель управления",
+    "overview": "Обзор",
+    "totalStaked": "Всего застейкано",
+    "activeValidators": "Активные валидаторы",
+    "pendingRewards": "Ожидаемые награды",
+    "networkHealth": "Здоровье сети",
+    "recentActivity": "Последняя активность",
+    "performance": "Производительность",
+    "uptimePercent": "Время работы",
+    "slashingRisk": "Риск слэшинга",
+    "lastUpdated": "Последнее обновление",
+    "noData": "Нет данных"
+  },
+  "validators": {
+    "title": "Валидаторы",
+    "validatorId": "ID валидатора",
+    "pubkey": "Публичный ключ",
+    "balance": "Баланс",
+    "status": "Статус",
+    "effectiveBalance": "Эффективный баланс",
+    "activationEpoch": "Эпоха активации",
+    "exitEpoch": "Эпоха выхода",
+    "slashed": "Слэшинг применён",
+    "attestations": "Аттестации",
+    "proposals": "Предложения",
+    "rewards": {
+      "title": "Награды",
+      "claimable": "Доступно для получения",
+      "claimed": "Получено",
+      "total": "Всего наград",
+      "history": "История наград",
+      "epoch": "Эпоха",
+      "amount": "Сумма",
+      "claim": "Получить награды"
+    },
+    "exitQueue": {
+      "title": "Очередь выхода",
+      "position": "Позиция в очереди",
+      "estimatedWait": "Ожидаемое ожидание",
+      "requestExit": "Запросить выход",
+      "cancelExit": "Отменить выход",
+      "exitRequested": "Выход запрошен"
+    },
+    "settings": {
+      "title": "Настройки валидатора",
+      "withdrawalAddress": "Адрес вывода",
+      "feeRecipient": "Получатель вознаграждения",
+      "graffiti": "Граффити",
+      "update": "Обновить настройки"
+    },
+    "count_one": "{{count}} валидатор",
+    "count_few": "{{count}} валидатора",
+    "count_many": "{{count}} валидаторов",
+    "count_other": "{{count}} валидатора"
+  },
+  "wallet": {
+    "connect": "Подключить кошелёк",
+    "disconnect": "Отключить",
+    "connected": "Кошелёк подключён",
+    "address": "Адрес",
+    "balance": "Баланс",
+    "network": "Сеть",
+    "preflight": {
+      "title": "Предварительная проверка",
+      "checking": "Проверка…",
+      "passed": "Все проверки пройдены",
+      "failed": "Предварительная проверка не пройдена",
+      "gasEstimate": "Оценка газа",
+      "simulate": "Симулировать транзакцию"
+    },
+    "transaction": {
+      "pending": "Транзакция ожидает",
+      "confirmed": "Транзакция подтверждена",
+      "failed": "Транзакция не выполнена",
+      "hash": "Хэш транзакции",
+      "fee": "Комиссия"
+    }
+  },
+  "network": {
+    "title": "Сеть",
+    "peers": "Узлы",
+    "latency": "Задержка",
+    "throughput": "Пропускная способность",
+    "slot": "Слот",
+    "epoch": "Эпоха",
+    "finalizedSlot": "Финализированный слот",
+    "headSlot": "Головной слот",
+    "participation": "Уровень участия",
+    "disasterRecovery": {
+      "title": "Аварийное восстановление",
+      "failover": "Переключение на резервный",
+      "region": "Регион",
+      "status": "Статус DR",
+      "lastTest": "Последний тест",
+      "runTest": "Запустить DR тест"
+    }
+  },
+  "bridge": {
+    "title": "Мост",
+    "from": "Откуда",
+    "to": "Куда",
+    "amount": "Сумма",
+    "asset": "Актив",
+    "fee": "Комиссия моста",
+    "estimatedTime": "Ожидаемое время",
+    "initiate": "Начать передачу",
+    "status": {
+      "pending": "В ожидании",
+      "processing": "Обработка",
+      "completed": "Завершено",
+      "failed": "Ошибка"
+    },
+    "transaction_one": "{{count}} транзакция",
+    "transaction_few": "{{count}} транзакции",
+    "transaction_many": "{{count}} транзакций",
+    "transaction_other": "{{count}} транзакции"
+  },
+  "operator": {
+    "title": "Оператор",
+    "metrics": "Метрики",
+    "nodes": "Узлы",
+    "health": "Показатель здоровья",
+    "uptime": "Время работы",
+    "clients": "Клиенты",
+    "dvt": "DVT кластер"
+  },
+  "nodeSync": {
+    "title": "Синхронизация узлов",
+    "syncStatus": "Статус синхронизации",
+    "synced": "Синхронизировано",
+    "syncing": "Синхронизация",
+    "behind": "Отстаёт",
+    "blocksRemaining": "Осталось блоков",
+    "syncPercent": "Прогресс синхронизации"
+  },
+  "staking": {
+    "title": "Стейкинг",
+    "stake": "Застейкать",
+    "unstake": "Вывести из стейкинга",
+    "delegate": "Делегировать",
+    "undelegate": "Отозвать делегирование",
+    "amount": "Сумма",
+    "apr": "APR",
+    "lockPeriod": "Период блокировки",
+    "validator": "Валидатор",
+    "deposit": {
+      "title": "Депозит",
+      "minimum": "Минимальный депозит",
+      "confirm": "Подтвердить депозит"
+    }
+  },
+  "vesting": {
+    "title": "Вестинг",
+    "schedule": "График вестинга",
+    "cliff": "Клифф",
+    "vested": "Вестировано",
+    "unvested": "Не вестировано",
+    "nextUnlock": "Следующая разблокировка",
+    "claim": "Получить вестированное",
+    "totalAllocation": "Общее распределение"
+  },
+  "supplyChain": {
+    "title": "Цепочка поставок",
+    "nodes": "Узлы поставок",
+    "provenance": "Происхождение",
+    "verified": "Верифицировано",
+    "unverified": "Не верифицировано",
+    "attestation": "Аттестация",
+    "timestamp": "Временная метка"
+  },
+  "reputation": {
+    "title": "Репутация",
+    "score": "Репутационный балл",
+    "history": "История",
+    "events": "События",
+    "slashings": "Слэшинги",
+    "attestationRate": "Уровень аттестации",
+    "proposalRate": "Уровень предложений"
+  },
+  "errors": {
+    "generic": "Что-то пошло не так. Пожалуйста, попробуйте снова.",
+    "network": "Сетевая ошибка. Проверьте подключение.",
+    "unauthorized": "У вас нет прав для выполнения этого действия.",
+    "notFound": "Запрошенный ресурс не найден.",
+    "timeout": "Время запроса истекло. Пожалуйста, повторите.",
+    "validation": "Проверьте форму на наличие ошибок."
+  },
+  "locale": {
+    "label": "Язык",
+    "select": "Выбрать язык",
+    "current": "Текущий язык"
+  },
+  "format": {
+    "dateShort": "Короткая дата",
+    "dateLong": "Длинная дата",
+    "dateTime": "Дата и время",
+    "number": "Число",
+    "currency": "Валюта",
+    "percent": "Процент"
+  }
+}
