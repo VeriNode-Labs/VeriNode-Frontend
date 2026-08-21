@@ -102,7 +102,7 @@ export function ProposalCreator({ onProposalCreated }: ProposalCreatorProps) {
         category,
         votingType,
         deposit,
-        actions: actions.filter((a) => a.target.trim() && a.functionName.trim()),
+        actions: actions.filter((a) => a.target ?? "".trim() && a.functionName.trim()),
       }
 
       const res = createProposal(input)

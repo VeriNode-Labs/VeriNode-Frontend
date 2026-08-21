@@ -5,7 +5,7 @@ import {
   useGovernanceStore,
   calculateQuorumProgress,
 } from '@/src/store/governanceStore'
-import type { Proposal, ProposalStatus, ProposalCategory } from '@/src/types/governance'
+import type { ProposalStatus, ProposalCategory } from '@/src/types/governance'
 
 const STATUS_TABS: { label: string; value: ProposalStatus | 'all' }[] = [
   { label: 'All', value: 'all' },

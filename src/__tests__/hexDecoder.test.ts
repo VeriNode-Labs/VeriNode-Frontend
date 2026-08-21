@@ -43,7 +43,7 @@ function encodeString(value: string): string {
 
 /** Encode a plain JS object as an SCMap ScVal body (base64). */
 function encodeBody(fields: Record<string, unknown>): string {
-  return nativeToScVal(fields, { type: 'map' }).toXDR('base64')
+  return nativeToScVal(fields, { type: 'map' as any }).toXDR('base64')
 }
 
 // ── shared test metadata ──────────────────────────────────────────────────────

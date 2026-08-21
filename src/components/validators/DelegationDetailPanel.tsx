@@ -105,7 +105,6 @@ export default function DelegationDetailPanel({
 
     const minX = Math.min(...timestamps);
     const maxX = Math.max(...timestamps);
-    const minY = 0;
     const maxY = Math.max(...values) * 1.1 || 10;
 
     // Map to SVG coordinates: viewBox 0 0 300 120

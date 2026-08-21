@@ -45,9 +45,9 @@ describe('Governance Store & Pure Calculations', () => {
         quorum: 1000,
         startBlock: 100,
         endBlock: 200,
-        category: 'general',
+        category: 'general', topVoters: [],
         votingType: 'token-weighted',
-        deposit: 100,
+        deposit: 500, type: "token-weighted", proposer: "user1",
         createdAt: 1000,
       }
 
@@ -74,9 +74,9 @@ describe('Governance Store & Pure Calculations', () => {
         quorum: 50000,
         startBlock: 100,
         endBlock: 200,
-        category: 'treasury',
+        category: 'treasury', topVoters: [],
         votingType: 'token-weighted',
-        deposit: 100,
+        deposit: 500, type: "token-weighted", proposer: "user1",
         createdAt: 1000,
       }
 
@@ -180,7 +180,7 @@ describe('Governance Store & Pure Calculations', () => {
     it('delegates voting power to a chosen delegate and reduces direct power', () => {
       const store = useGovernanceStore.getState()
       const delegateAddress = 'GD7BX8M31NP4450KLS9921VZTTTR43100981A'
-      const initialBalance = store.userTokenBalance
+
 
       const res = store.delegateVotes(delegateAddress)
       expect(res.success).toBe(true)
@@ -234,15 +234,15 @@ describe('Governance Store & Pure Calculations', () => {
       const input: CreateProposalInput = {
         title: 'VIP-099: Community Validator Subsidy Pool',
         description: 'Establish a new subsidy pool for community validators to ensure decentralization.',
-        category: 'treasury',
+        category: 'treasury', topVoters: [],
         votingType: 'token-weighted',
-        deposit: 500,
+        deposit: 500, type: "token-weighted", proposer: "user1",
         actions: [
           {
             id: 'act-1',
             target: 'CDLZFC3SY...',
             functionName: 'allocate_subsidy',
-            parameters: '{"amount": "50000"}',
+            parameters: {},
             value: '50,000 VN',
           },
         ],
@@ -266,7 +266,7 @@ describe('Governance Store & Pure Calculations', () => {
       const shortTitle = store.createProposal({
         title: 'Hi',
         description: 'Valid description with more than 20 characters in length.',
-        category: 'general',
+        category: 'general', topVoters: [],
         votingType: 'token-weighted',
         deposit: MINIMUM_PROPOSAL_DEPOSIT,
       })
@@ -275,7 +275,7 @@ describe('Governance Store & Pure Calculations', () => {
       const shortDesc = store.createProposal({
         title: 'Valid Long Proposal Title',
         description: 'Too short',
-        category: 'general',
+        category: 'general', topVoters: [],
         votingType: 'token-weighted',
         deposit: MINIMUM_PROPOSAL_DEPOSIT,
       })
@@ -284,9 +284,9 @@ describe('Governance Store & Pure Calculations', () => {
       const lowDeposit = store.createProposal({
         title: 'Valid Long Proposal Title',
         description: 'Valid description with more than 20 characters in length.',
-        category: 'general',
+        category: 'general', topVoters: [],
         votingType: 'token-weighted',
-        deposit: 10,
+        deposit: 500, type: "token-weighted", proposer: "user1",
       })
       expect(lowDeposit.success).toBe(false)
     })

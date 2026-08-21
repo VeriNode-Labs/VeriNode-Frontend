@@ -184,7 +184,7 @@ export function usePostComment() {
       proposalId: string;
       author: string;
       authorName: string;
-      stance: 'for' | 'against' | 'neutral';
+      stance: 'for' | 'against' | 'abstain';
       content: string;
     }) => postDebateComment(proposalId, author, authorName, stance, content),
     onSuccess: (_, variables) => {

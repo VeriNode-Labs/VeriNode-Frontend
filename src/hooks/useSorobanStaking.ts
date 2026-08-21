@@ -162,6 +162,3 @@ export function useSorobanStaking(onToast?: Toast): UseSorobanStakingReturn {
   );
 }
 
-function labelFor(action: StakingAction): string {
-  return action.charAt(0).toUpperCase() + action.slice(1);
-}

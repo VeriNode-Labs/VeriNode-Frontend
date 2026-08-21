@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { NetworkEvent, NetworkEventType } from '@/src/types/networkHealth'
 
 // ---------------------------------------------------------------------------
@@ -82,8 +82,7 @@ export function NetworkEventLog({ events, isConnected, error }: NetworkEventLogP
     listRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
   }, [events.length, autoScroll])
 
-  // Infinite scroll handler
-  const handleScroll = useCallback(() => {
+  const handleScroll = () => {
     const el = listRef.current
     if (!el) return
     // Pause auto-scroll when user scrolls away from top
@@ -92,12 +91,9 @@ export function NetworkEventLog({ events, isConnected, error }: NetworkEventLogP
     if (el.scrollHeight - el.scrollTop - el.clientHeight < 80) {
       setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, filtered.length))
     }
-  }, [filtered.length])
+  }
 
-  // Reset visible count on filter change
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE)
-  }, [activeFilter])
+
 
   return (
     <div className="space-y-3">
@@ -116,7 +112,7 @@ export function NetworkEventLog({ events, isConnected, error }: NetworkEventLogP
           <button
             type="button"
             aria-pressed={activeFilter === null}
-            onClick={() => setActiveFilter(null)}
+            onClick={() => { setActiveFilter(null); setVisibleCount(PAGE_SIZE); }}
             className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400/40 ${
               activeFilter === null
                 ? 'border-sky-500/40 bg-sky-500/15 text-sky-300'
@@ -130,7 +126,7 @@ export function NetworkEventLog({ events, isConnected, error }: NetworkEventLogP
               key={t}
               type="button"
               aria-pressed={activeFilter === t}
-              onClick={() => setActiveFilter((prev) => (prev === t ? null : t))}
+              onClick={() => { setActiveFilter((prev) => (prev === t ? null : t)); setVisibleCount(PAGE_SIZE); }}
               className={`rounded-full border px-2.5 py-0.5 text-[11px] font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400/40 ${
                 activeFilter === t
                   ? `${EVENT_TYPE_STYLES[t].badge} border-current`

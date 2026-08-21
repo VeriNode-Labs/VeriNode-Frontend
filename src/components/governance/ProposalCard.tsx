@@ -22,22 +22,28 @@ export function ProposalCard({ proposal, onSelect }: ProposalCardProps) {
   const [timeRemainingText, setTimeRemainingText] = useState<string>('');
 
   useEffect(() => {
-    const end = new Date(proposal.endTime).getTime();
-    const now = Date.now();
-    const diff = end - now;
+    const updateTimer = () => {
+      const end = new Date(proposal.endTime ?? 0).getTime();
+      const now = Date.now();
+      const diff = end - now;
 
-    if (diff <= 0) {
-      setTimeRemainingText(proposal.status === 'executed' ? 'Executed' : 'Voting Ended');
-      return;
-    }
+      if (diff <= 0) {
+        setTimeRemainingText(proposal.status === 'executed' ? 'Executed' : 'Voting Ended');
+        return;
+      }
 
-    const days = Math.floor(diff / (24 * 3600 * 1000));
-    const hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    if (days > 0) {
-      setTimeRemainingText(`${days}d ${hours}h left`);
-    } else {
-      setTimeRemainingText(`${hours}h left`);
-    }
+      const days = Math.floor(diff / (24 * 3600 * 1000));
+      const hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+      if (days > 0) {
+        setTimeRemainingText(`${days}d ${hours}h left`);
+      } else {
+        setTimeRemainingText(`${hours}h left`);
+      }
+    };
+    
+    updateTimer();
+    const timerId = setInterval(updateTimer, 60000);
+    return () => clearInterval(timerId);
   }, [proposal.endTime, proposal.status]);
 
   const { forPct, againstPct } = useMemo(() => {
@@ -81,7 +87,7 @@ export function ProposalCard({ proposal, onSelect }: ProposalCardProps) {
             Defeated
           </span>
         );
-      case 'cancelled':
+      case 'canceled':
       default:
         return (
           <span className="rounded-full border border-slate-700 bg-slate-800 px-2.5 py-0.5 text-xs font-semibold text-slate-400">

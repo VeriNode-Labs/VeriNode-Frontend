@@ -40,8 +40,7 @@ export function SlashingEventFeed({
   const [displayedEvents, setDisplayedEvents] = useState<SlashingEvent[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [indexVersion, setIndexVersion] = useState(0)
-  const searchIndexRef = useRef<SlashingIndex | null>(null)
-  if (searchIndexRef.current === null) searchIndexRef.current = new SlashingIndex()
+  const [searchIndex] = useState(() => new SlashingIndex())
   const { events, connected, error } = useSlashingStream({
     url: wsUrl,
     enabled,
@@ -51,13 +50,12 @@ export function SlashingEventFeed({
   const displayedIdsRef = useRef<Set<string>>(new Set())
 
   useEffect(() => {
-    const searchIndex = searchIndexRef.current!
     const unsubscribe = searchIndex.subscribe(() => setIndexVersion((version) => version + 1))
     return () => {
       unsubscribe()
       searchIndex.dispose()
     }
-  }, [])
+  }, [searchIndex])
 
   // Update displayed events with dedup filter
   useEffect(() => {
@@ -95,16 +93,14 @@ export function SlashingEventFeed({
   }, [events, maxDisplay, onUpdate])
 
   useEffect(() => {
-    searchIndexRef.current!.enqueue(events)
-  }, [events])
+    searchIndex.enqueue(events)
+  }, [events, searchIndex])
 
   const visibleEvents = useMemo(() => {
     void indexVersion
     if (!searchQuery.trim()) return displayedEvents
-    const index = searchIndexRef.current
-    if (!index) return displayedEvents
-    return index.search(searchQuery).map(({ event }) => event)
-  }, [displayedEvents, indexVersion, searchQuery])
+    return searchIndex.search(searchQuery).map(({ event }) => event)
+  }, [displayedEvents, indexVersion, searchQuery, searchIndex])
 
   return (
     <div className="space-y-4">

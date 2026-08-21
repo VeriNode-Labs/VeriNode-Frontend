@@ -117,7 +117,7 @@ export function NetworkHealthDashboard() {
         <div>
           <h1 className="text-2xl font-bold text-white">Network Health Dashboard</h1>
           <p className="mt-1 text-sm text-slate-400">
-            Bird's-eye view of VeriNode network topology, connectivity, and real-time events.
+            Bird&apos;s-eye view of VeriNode network topology, connectivity, and real-time events.
           </p>
         </div>
         <TimeRangeSelector value={range} onChange={setRange} />

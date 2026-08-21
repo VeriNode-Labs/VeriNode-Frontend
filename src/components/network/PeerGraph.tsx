@@ -139,6 +139,7 @@ export function PeerGraph({ data }: PeerGraphProps) {
   const tickRef = useRef(0)
   const rafRef = useRef<number | null>(null)
   const [hoverId, setHoverId] = useState<string | null>(null)
+  const [hoveredNode, setHoveredNode] = useState<LayoutNode | null>(null)
 
   // Cap to MAX_NODES
   const cappedNodes = useMemo(() => data.nodes.slice(0, MAX_NODES), [data.nodes])
@@ -278,15 +279,11 @@ export function PeerGraph({ data }: PeerGraphProps) {
       const cy = (e.clientY - rect.top) * scaleY
       const node = hitTest(cx, cy)
       setHoverId(node?.id ?? null)
+      setHoveredNode(node)
     },
     [hitTest, size],
   )
 
-  const hoveredNode = useMemo(
-    () => (hoverId ? layoutRef.current.find((n) => n.id === hoverId) ?? null : null),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [hoverId],
-  )
 
   return (
     <div className="space-y-3">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "@/src/components/providers/Providers";
-import { PwaProvider } from "@/src/components/providers/PwaProvider";
+
 import "./globals.css";
 import { ToastProvider } from "@/src/components/Toast";
 import { RetryWatcher } from "@/src/components/RetryWatcher";

@@ -30,7 +30,7 @@ export function VotePanel({ proposal, onVoteSuccess }: VotePanelProps) {
   const castVoteMutation = useCastVote();
 
   const [choice, setChoice] = useState<VoteChoice | null>(null);
-  const maxTokensAvailable = profile?.tokenBalance ?? 25000;
+  const maxTokensAvailable = profile?.tokensLocked ?? 25000;
   const [tokensAllocated, setTokensAllocated] = useState<number>(Math.min(10000, maxTokensAvailable));
   const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
   const [txSuccessHash, setTxSuccessHash] = useState<string | null>(null);

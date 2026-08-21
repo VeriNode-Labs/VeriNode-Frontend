@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { decodeTransactionError, extractErrorMessage, ERROR_CATALOG } from '../utils/errorDecoder';
+import { decodeTransactionError, ERROR_CATALOG } from '../utils/errorDecoder';
 
 describe('Stellar & Soroban Error Decoder (VeriNode Issue #180)', () => {
   it('has over 20 rich error catalog definitions covering all core domains', () => {

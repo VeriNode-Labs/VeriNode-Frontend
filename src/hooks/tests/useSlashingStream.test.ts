@@ -302,6 +302,7 @@ class MockWebSocket extends EventTarget {
   }
 
   send(data: string | ArrayBufferLike | Blob | ArrayBufferView) {
+    void data;
     // In a real implementation, this would send to server
   }
 

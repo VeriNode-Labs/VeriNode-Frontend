@@ -535,19 +535,19 @@ export function simulateProposalExecution(actions: ProposalAction[]): Simulation
   let totalGas = 42000;
 
   for (const action of actions) {
-    logs.push(`[Simulation] Inspecting target: ${action.targetContract.slice(0, 8)}... (${action.functionName})`);
+    logs.push(`[Simulation] Inspecting target: ${action.targetContract?.slice(0, 8)}... (${action.functionName})`);
     
     // Simulate based on action type
     if (action.functionName.toLowerCase().includes('slashing') || action.functionName.toLowerCase().includes('penalty')) {
       totalGas += 15000;
       stateDiffs.push(
-        { parameter: 'DowntimePenaltyBps', current: '250 (2.5%)', projected: `${action.parameters.downtimePenaltyBps ?? 75} (${(Number(action.parameters.downtimePenaltyBps ?? 75) / 100).toFixed(2)}%)`, impactLevel: 'high' },
-        { parameter: 'UpgradeGracePeriodSeconds', current: '43,200s (12h)', projected: `${action.parameters.gracePeriodSecs ?? 172800}s (${Math.round(Number(action.parameters.gracePeriodSecs ?? 172800) / 3600)}h)`, impactLevel: 'medium' }
+        { parameter: 'DowntimePenaltyBps', current: '250 (2.5%)', projected: `${action.parameters?.downtimePenaltyBps ?? 75} (${(Number(action.parameters?.downtimePenaltyBps ?? 75) / 100).toFixed(2)}%)`, impactLevel: 'high' },
+        { parameter: 'UpgradeGracePeriodSeconds', current: '43,200s (12h)', projected: `${action.parameters?.gracePeriodSecs ?? 172800}s (${Math.round(Number(action.parameters?.gracePeriodSecs ?? 172800) / 3600)}h)`, impactLevel: 'medium' }
       );
       logs.push('[Simulation] Verified: ValidatorRegistry state storage slot write permitted');
     } else if (action.functionName.toLowerCase().includes('grant') || action.functionName.toLowerCase().includes('treasury') || action.functionName.toLowerCase().includes('transfer')) {
       totalGas += 18000;
-      const amount = Number(action.parameters.amountVrn || action.parameters.amount || 100000);
+      const amount = Number(action.parameters?.amountVrn || action.parameters?.amount || 100000);
       stateDiffs.push(
         { parameter: 'TreasuryVRNBalance', current: '12,500,000 VRN', projected: `${(12500000 - amount).toLocaleString()} VRN`, impactLevel: 'medium' },
         { parameter: 'ActiveEscrowSchedules', current: '14', projected: '15', impactLevel: 'low' }
@@ -555,7 +555,7 @@ export function simulateProposalExecution(actions: ProposalAction[]): Simulation
       logs.push(`[Simulation] Verified: Treasury liquid reserve holds sufficient balance (deficit: 0 VRN)`);
     } else if (action.functionName.toLowerCase().includes('stake') || action.functionName.toLowerCase().includes('validator')) {
       totalGas += 22000;
-      const minStake = Number(action.parameters.minStake || action.parameters.minValidatorStake || 25000);
+      const minStake = Number(action.parameters?.minStake || action.parameters?.minValidatorStake || 25000);
       stateDiffs.push(
         { parameter: 'MinValidatorStake', current: '10,000 VRN', projected: `${minStake.toLocaleString()} VRN`, impactLevel: 'high' },
         { parameter: 'ProjectedActiveNodeFleet', current: '420 Nodes', projected: '388 Nodes (-7.6%)', impactLevel: 'high' }
@@ -612,7 +612,7 @@ export async function fetchProposals(options: ProposalFilterOptions = {}): Promi
   if (options.sortBy) {
     switch (options.sortBy) {
       case 'endingSoon':
-        filtered.sort((a, b) => new Date(a.endTime).getTime() - new Date(b.endTime).getTime());
+        filtered.sort((a, b) => new Date(a.endTime ?? 0).getTime() - new Date(b.endTime ?? 0).getTime());
         break;
       case 'mostVoted':
         filtered.sort((a, b) => (b.forVotes + b.againstVotes + b.abstainVotes) - (a.forVotes + a.againstVotes + a.abstainVotes));
@@ -622,7 +622,7 @@ export async function fetchProposals(options: ProposalFilterOptions = {}): Promi
         break;
       case 'recent':
       default:
-        filtered.sort((a, b) => new Date(b.startTime).getTime() - new Date(a.startTime).getTime());
+        filtered.sort((a, b) => new Date(b.startTime ?? 0).getTime() - new Date(a.startTime ?? 0).getTime());
         break;
     }
   }
@@ -661,19 +661,19 @@ export async function castVote(
   const updatedProposal = { ...proposal };
   if (choice === 'for') {
     updatedProposal.forVotes += power;
-    updatedProposal.forTokens += tokens;
+    updatedProposal.forTokens = (updatedProposal.forTokens ?? 0) + tokens;
   } else if (choice === 'against') {
     updatedProposal.againstVotes += power;
-    updatedProposal.againstTokens += tokens;
+    updatedProposal.againstTokens = (updatedProposal.againstTokens ?? 0) + tokens;
   } else {
     updatedProposal.abstainVotes += power;
-    updatedProposal.abstainTokens += tokens;
+    updatedProposal.abstainTokens = (updatedProposal.abstainTokens ?? 0) + tokens;
   }
-  updatedProposal.totalVoters += 1;
+  updatedProposal.totalVoters = (updatedProposal.totalVoters ?? 0) + 1;
 
-  const totalTokensVoted = updatedProposal.forTokens + updatedProposal.againstTokens + updatedProposal.abstainTokens;
+  const totalTokensVoted = (updatedProposal.forTokens ?? 0) + (updatedProposal.againstTokens ?? 0) + (updatedProposal.abstainTokens ?? 0);
   updatedProposal.currentQuorumPercentage = Number(((totalTokensVoted / 10000000) * 100).toFixed(2));
-  updatedProposal.quorumReached = updatedProposal.currentQuorumPercentage >= updatedProposal.quorumPercentage;
+  updatedProposal.quorumReached = (updatedProposal.currentQuorumPercentage ?? 0) >= (updatedProposal.quorumPercentage ?? 0);
 
   const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
   const now = new Date().toISOString();
@@ -780,7 +780,7 @@ export async function delegateVotingPower(
   const target = delegates.find((d) => d.address.toLowerCase() === delegateAddress.toLowerCase());
 
   if (target) {
-    target.delegatorCount += 1;
+    target.delegatorCount = (target.delegatorCount ?? 0) + 1;
     target.votingPower += 15000;
     setStored(STORAGE_KEYS.DELEGATES, delegates);
   }
@@ -802,15 +802,15 @@ export async function revokeDelegation(delegatorAddress: string): Promise<{ succ
   if (profile.delegatedTo) {
     const delegates = getStored<Delegate[]>(STORAGE_KEYS.DELEGATES, INITIAL_DELEGATES);
     const target = delegates.find((d) => d.address.toLowerCase() === profile.delegatedTo?.toLowerCase());
-    if (target && target.delegatorCount > 0) {
-      target.delegatorCount -= 1;
+    if (target && (target.delegatorCount ?? 0) > 0) {
+      target.delegatorCount = (target.delegatorCount ?? 0) - 1;
       target.votingPower = Math.max(0, target.votingPower - 15000);
       setStored(STORAGE_KEYS.DELEGATES, delegates);
     }
   }
 
-  profile.delegatedTo = null;
-  profile.delegatedToName = null;
+  profile.delegatedTo = undefined;
+  profile.delegatedToName = undefined;
   profile.isDelegating = false;
   setStored(`${STORAGE_KEYS.PROFILES}:${delegatorAddress.toLowerCase()}`, profile);
 
@@ -821,13 +821,11 @@ export async function revokeDelegation(delegatorAddress: string): Promise<{ succ
 export async function fetchUserGovernanceProfile(address: string): Promise<UserGovernanceProfile> {
   const defaultProfile: UserGovernanceProfile = {
     address,
-    tokenBalance: 45000,
+    tokensLocked: 45000,
     votingPower: 45000,
-    delegatedTo: null,
-    delegatedToName: null,
+    delegatedTo: undefined,
+    delegatedToName: undefined,
     isDelegating: false,
-    delegatorCount: 0,
-    delegatedPowerReceived: 0,
   };
 
   if (!address) return defaultProfile;
@@ -844,7 +842,7 @@ export async function postDebateComment(
   proposalId: string,
   author: string,
   authorName: string,
-  stance: 'for' | 'against' | 'neutral',
+  stance: 'for' | 'against' | 'abstain',
   content: string
 ): Promise<DebateComment> {
   const allComments = getStored<Record<string, DebateComment[]>>(STORAGE_KEYS.COMMENTS, INITIAL_COMMENTS);
@@ -855,6 +853,7 @@ export async function postDebateComment(
     proposalId,
     author,
     authorName,
+    authorAvatar: "",
     stance,
     content,
     timestamp: new Date().toISOString(),
@@ -897,15 +896,11 @@ export function exportVoteHistoryCsv(records: VoteRecord[]): string {
 
 export async function fetchGovernanceMetrics(): Promise<GovernanceMetrics> {
   const proposals = getStored<Proposal[]>(STORAGE_KEYS.PROPOSALS, INITIAL_PROPOSALS);
-  const delegates = getStored<Delegate[]>(STORAGE_KEYS.DELEGATES, INITIAL_DELEGATES);
   const activeCount = proposals.filter((p) => p.status === 'active').length;
 
   return {
     totalVrnLocked: 18450000,
-    totalVrnLockedUsd: 18450000 * 2.85,
     activeProposalsCount: activeCount,
-    totalProposalsCount: proposals.length,
     participationRate: 74.2,
-    totalDelegatesCount: delegates.length,
   };
 }

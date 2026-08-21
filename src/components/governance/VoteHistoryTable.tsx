@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import {
   useGovernanceStore,
-  formatVoteHistoryCsv,
 } from '@/src/store/governanceStore'
 import type { VoteChoice } from '@/src/types/governance'
 
@@ -182,18 +181,18 @@ export function VoteHistoryTable({ onSelectProposal }: VoteHistoryTableProps) {
 
                     {/* Voting Power */}
                     <td className="px-4 py-3 font-semibold text-slate-200">
-                      {record.votingPower.toLocaleString()} VN
+                      {(record.votingPower ?? 0).toLocaleString()} VN
                     </td>
 
                     {/* Effective Weight */}
                     <td className="px-4 py-3 font-bold text-indigo-400">
-                      {record.effectiveWeight.toLocaleString()}{' '}
+                      <span className="font-semibold text-white">{record.effectiveWeight ?? (record.votingPower ?? 0)}</span>
                       {isQuadratic && <span className="text-[10px] text-purple-300">(√)</span>}
                     </td>
 
                     {/* Mechanism */}
                     <td className="px-4 py-3 font-sans text-slate-400 capitalize">
-                      {record.votingType.replace('-', ' ')}
+                      {(record.votingType ?? record.type).replace('-', ' ')}
                     </td>
 
                     {/* Gas Cost */}

@@ -41,7 +41,7 @@ export function useNetworkNodes(range: TimeRange) {
       }
     },
     staleTime: STALE_TIME,
-    placeholderData: buildDemoGeoNodes,
+    placeholderData: () => buildDemoGeoNodes(),
   })
 }
 
@@ -57,7 +57,7 @@ export function useNetworkPeerGraph(range: TimeRange) {
       }
     },
     staleTime: STALE_TIME,
-    placeholderData: buildDemoPeerGraph,
+    placeholderData: () => buildDemoPeerGraph(),
   })
 }
 
@@ -73,7 +73,7 @@ export function useVersionDistribution(range: TimeRange) {
       }
     },
     staleTime: STALE_TIME,
-    placeholderData: buildDemoVersionDistribution,
+    placeholderData: () => buildDemoVersionDistribution(),
   })
 }
 
@@ -89,7 +89,7 @@ export function useLatencyHeatmap(range: TimeRange) {
       }
     },
     staleTime: STALE_TIME,
-    placeholderData: buildDemoLatencyHeatmap,
+    placeholderData: () => buildDemoLatencyHeatmap(),
   })
 }
 

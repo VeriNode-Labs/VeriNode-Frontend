@@ -50,11 +50,6 @@ async function submit(
   throw new StakingSubmitError(decodedNet.humanDescription, "network_error")
 }
 
-/** Turn raw RPC error text into a human-readable reason. */
-function decodeError(raw: string): string {
-  return decodeTransactionError(raw).humanDescription
-}
-
 export const staking = {
   submitStake: (p: SubmitParams) => submit("stake", p),
   submitUnstake: (p: SubmitParams) => submit("unstake", p),

@@ -63,7 +63,7 @@ export function GovernanceDashboard({ initialProposalId }: GovernanceDashboardPr
             <span className="text-xs font-normal text-slate-400">VRN</span>
           </p>
           <span className="mt-1 block text-[11px] text-emerald-400">
-            ≈ ${metrics?.totalVrnLockedUsd ? (metrics.totalVrnLockedUsd / 1000000).toFixed(1) : '52.5'}M USD
+            ≈ ${metrics?.totalVrnLocked ? (metrics.totalVrnLocked / 1000000).toFixed(1) : '52.5'}M USD
           </span>
         </div>
 
@@ -75,7 +75,7 @@ export function GovernanceDashboard({ initialProposalId }: GovernanceDashboardPr
             <span className="text-xs font-normal text-slate-400">Live</span>
           </p>
           <span className="mt-1 block text-[11px] text-slate-400">
-            {metrics?.totalProposalsCount ?? 5} all-time proposals
+            {metrics?.totalProposals ?? 5} all-time proposals
           </span>
         </div>
 
@@ -99,7 +99,7 @@ export function GovernanceDashboard({ initialProposalId }: GovernanceDashboardPr
           <span className="mt-1 block text-[11px] text-slate-400">
             {profile?.isDelegating
               ? `To ${profile.delegatedToName || 'Delegate'}`
-              : `${profile?.tokenBalance.toLocaleString() || '45,000'} VRN Balance`}
+              : `${profile?.tokensLocked.toLocaleString() || '45,000'} VRN Balance`}
           </span>
         </div>
       </div>
@@ -186,7 +186,7 @@ export function GovernanceDashboard({ initialProposalId }: GovernanceDashboardPr
         {activeTab === 'create' && (
           <ProposalCreator
             onProposalCreated={handleProposalCreated}
-            onCancel={() => setActiveTab('proposals')}
+            
           />
         )}
 

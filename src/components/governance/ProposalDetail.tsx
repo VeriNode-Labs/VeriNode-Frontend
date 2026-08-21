@@ -35,7 +35,6 @@ export function ProposalDetail({ proposalId, onBack }: ProposalDetailProps) {
     proposals,
     selectedProposalId,
     userVotingPower,
-    userAddress,
     castVote,
     selectProposal,
   } = useGovernanceStore()
@@ -68,8 +67,8 @@ export function ProposalDetail({ proposalId, onBack }: ProposalDetailProps) {
   }
 
   const quorum = calculateQuorumProgress(proposal)
-  const isQuadratic = proposal.votingType === 'quadratic'
-  const effectiveWeight = calculateEffectiveWeight(allocatedPower, proposal.votingType)
+  const isQuadratic = (proposal.votingType ?? "token-weighted") === 'quadratic'
+  const effectiveWeight = calculateEffectiveWeight(allocatedPower, (proposal.votingType ?? "token-weighted"))
   const isProposalActive = proposal.status === 'active'
 
   const handlePercentagePreset = (pct: number) => {
@@ -175,7 +174,7 @@ export function ProposalDetail({ proposalId, onBack }: ProposalDetailProps) {
           <div>
             <span className="text-slate-500">Quorum Target</span>
             <p className="mt-0.5 font-semibold text-slate-200">
-              {proposal.quorum.toLocaleString()} votes
+              {(proposal.quorum ?? 0).toLocaleString()} votes
             </p>
           </div>
         </div>

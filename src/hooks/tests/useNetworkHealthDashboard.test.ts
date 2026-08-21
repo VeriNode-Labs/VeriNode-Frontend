@@ -19,7 +19,10 @@ type AcquireConfig = {
 }
 
 const releaseRef = { current: vi.fn() }
-const mockAcquire = vi.fn((_config: AcquireConfig) => releaseRef.current)
+const mockAcquire = vi.fn((config: AcquireConfig) => {
+  void config;
+  return releaseRef.current;
+})
 
 vi.mock('@/src/services/webSocketManager', () => ({
   webSocketManager: {

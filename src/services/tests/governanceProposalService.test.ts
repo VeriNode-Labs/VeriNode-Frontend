@@ -169,7 +169,7 @@ describe('governanceProposalService', () => {
     it('delegates voting power and updates delegate stats', async () => {
       const delegates = await fetchDelegates();
       const target = delegates[0];
-      const initialCount = target.delegatorCount;
+      const initialCount = target.delegatorsCount;
 
       const res = await delegateVotingPower(
         'GUSER1234567890ABCDEF1234567890ABCDEF1234567890ABCDEF12',
@@ -179,7 +179,7 @@ describe('governanceProposalService', () => {
       expect(res.success).toBe(true);
       const updatedDelegates = await fetchDelegates();
       const updatedTarget = updatedDelegates.find((d) => d.address === target.address);
-      expect(updatedTarget!.delegatorCount).toBe(initialCount + 1);
+      expect(updatedTarget!.delegatorsCount).toBe((initialCount ?? 0) + 1);
     });
 
     it('revokes delegation cleanly', async () => {

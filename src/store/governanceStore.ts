@@ -34,9 +34,9 @@ export function calculateEffectiveWeight(rawTokens: number, votingType: VotingTy
  */
 export function calculateQuorumProgress(proposal: Proposal): QuorumProgress {
   const currentVotes = proposal.forVotes + proposal.againstVotes + proposal.abstainVotes
-  const quorum = proposal.quorum
-  const quorumReached = quorum > 0 && currentVotes >= quorum
-  const percentage = quorum > 0 ? Math.min(100, Math.round((currentVotes / quorum) * 1000) / 10) : 0
+  const quorum = proposal.quorum ?? 0
+  const quorumReached = (quorum ?? 0) > 0 && currentVotes >= (quorum ?? 0)
+  const percentage = (quorum ?? 0) > 0 ? Math.min(100, Math.round((currentVotes / (quorum ?? 1)) * 1000) / 10) : 0
 
   const forPercentage = currentVotes > 0 ? Math.round((proposal.forVotes / currentVotes) * 1000) / 10 : 0
   const againstPercentage = currentVotes > 0 ? Math.round((proposal.againstVotes / currentVotes) * 1000) / 10 : 0
@@ -104,7 +104,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
     quorum: 150000,
     startBlock: 42051000,
     endBlock: 42125000,
-    category: 'treasury',
+    type: 'token-weighted', topVoters: [], category: 'treasury',
     votingType: 'token-weighted',
     deposit: 500,
     createdAt: 1787100000000,
@@ -113,7 +113,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
         id: 'act-1',
         target: 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC',
         functionName: 'transfer_treasury_funds',
-        parameters: '{"recipient": "GBV3...82FA", "amount": "500000", "token": "VN"}',
+        parameters: {"recipient": "GBV3...82FA", "amount": "500000", "token": "VN"},
         value: '500,000 VN',
       },
     ],
@@ -131,7 +131,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
     quorum: 750,
     startBlock: 42060000,
     endBlock: 42130000,
-    category: 'general',
+    type: 'quadratic', topVoters: [], category: 'general',
     votingType: 'quadratic',
     deposit: 250,
     createdAt: 1787120000000,
@@ -140,7 +140,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
         id: 'act-2',
         target: 'CB6XNVF77921KLNMQ879PLKM0091VBYTTKJL994200XCVBA776654321',
         functionName: 'enable_quadratic_grants',
-        parameters: '{"grant_pool": "100000", "round": "Q3-2026"}',
+        parameters: {"grant_pool": "100000", "round": "Q3-2026"},
         value: '100,000 VN',
       },
     ],
@@ -158,7 +158,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
     quorum: 150000,
     startBlock: 41950000,
     endBlock: 42020000,
-    category: 'parameter-change',
+    type: 'token-weighted', topVoters: [], category: 'parameter-change',
     votingType: 'token-weighted',
     deposit: 300,
     createdAt: 1786900000000,
@@ -168,7 +168,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
         id: 'act-3',
         target: 'CC78MKL09123891VZTRPP0029310848123891023812038102381203',
         functionName: 'set_slashing_penalty',
-        parameters: '{"penalty_bps": 300}',
+        parameters: {"penalty_bps": 300},
         value: '3.0%',
       },
     ],
@@ -186,7 +186,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
     quorum: 150000,
     startBlock: 41800000,
     endBlock: 41870000,
-    category: 'protocol-upgrade',
+    type: 'token-weighted', topVoters: [], category: 'protocol-upgrade',
     votingType: 'token-weighted',
     deposit: 1000,
     createdAt: 1786500000000,
@@ -206,7 +206,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
     quorum: 150000,
     startBlock: 42000000,
     endBlock: 42045000,
-    category: 'parameter-change',
+    type: 'token-weighted', topVoters: [], category: 'parameter-change',
     votingType: 'token-weighted',
     deposit: 400,
     createdAt: 1787000000000,
@@ -225,7 +225,7 @@ export const INITIAL_PROPOSALS: Proposal[] = [
     quorum: 150000,
     startBlock: 41700000,
     endBlock: 41770000,
-    category: 'parameter-change',
+    type: 'token-weighted', topVoters: [], category: 'parameter-change',
     votingType: 'token-weighted',
     deposit: 200,
     createdAt: 1786300000000,
@@ -290,8 +290,11 @@ export const INITIAL_VOTE_HISTORY: VoteRecord[] = [
     votingPower: 25000,
     effectiveWeight: 25000,
     votingType: 'token-weighted',
+    type: 'token-weighted',
+    power: 25000,
+    tokens: 25000,
     txHash: '0x81f4a9b2c3d4e5f60718293a4b5c6d7e8f901234567890abcdef1234567890ab',
-    gasCost: '0.0021 XLM',
+    gasCost: '0.0021 XLM', gasCostGwei: 0, gasCostUsd: 0,
     timestamp: 1786950000000,
     blockNumber: 41980210,
   },
@@ -304,8 +307,11 @@ export const INITIAL_VOTE_HISTORY: VoteRecord[] = [
     votingPower: 25000,
     effectiveWeight: 25000,
     votingType: 'token-weighted',
+    type: 'token-weighted',
+    power: 25000,
+    tokens: 25000,
     txHash: '0x32c1d0e9f8a7b6c504132435465768798091a2b3c4d5e6f7a8b9c0d1e2f3a4b5',
-    gasCost: '0.0024 XLM',
+    gasCost: '0.0024 XLM', gasCostGwei: 0, gasCostUsd: 0,
     timestamp: 1786400000000,
     blockNumber: 41721540,
   },
@@ -403,7 +409,7 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       }
     }
 
-    const effectiveWeight = calculateEffectiveWeight(tokens, proposal.votingType)
+    const effectiveWeight = calculateEffectiveWeight(tokens, proposal.votingType ?? proposal.type)
 
     // Generate simulated tx hash and gas
     const randomHex = Array.from({ length: 64 }, () =>
@@ -442,12 +448,17 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       voter: state.userAddress,
       choice,
       votingPower: tokens,
-      effectiveWeight,
-      votingType: proposal.votingType,
-      txHash,
+      effectiveWeight: effectiveWeight,
+      votingType: proposal.votingType ?? 'token-weighted',
+      type: proposal.votingType ?? 'token-weighted',
+      power: effectiveWeight,
+      tokens: tokens,
+      txHash: txHash,
       gasCost,
+      gasCostGwei: 0,
+      gasCostUsd: 0,
       timestamp,
-      blockNumber: proposal.startBlock + Math.floor(Math.random() * 5000),
+      blockNumber: (proposal.startBlock ?? 0) + Math.floor(Math.random() * 5000),
     }
 
     set({
@@ -478,9 +489,9 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       if (d.address === delegateAddress) {
         return {
           ...d,
-          delegatedVotes: d.delegatedVotes + powerToDelegate,
+          delegatedVotes: (d.delegatedVotes ?? 0) + powerToDelegate,
           votingPower: d.votingPower + powerToDelegate,
-          delegatorsCount: d.delegatorsCount + 1,
+          delegatorsCount: (d.delegatorsCount ?? 0) + 1,
           isDelegatedTo: true,
         }
       }
@@ -488,9 +499,9 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       if (d.address === state.currentDelegation) {
         return {
           ...d,
-          delegatedVotes: Math.max(0, d.delegatedVotes - powerToDelegate),
+          delegatedVotes: Math.max(0, (d.delegatedVotes ?? 0) - powerToDelegate),
           votingPower: Math.max(0, d.votingPower - powerToDelegate),
-          delegatorsCount: Math.max(0, d.delegatorsCount - 1),
+          delegatorsCount: Math.max(0, (d.delegatorsCount ?? 0) - 1),
           isDelegatedTo: false,
         }
       }
@@ -519,9 +530,9 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       if (d.address === targetAddress) {
         return {
           ...d,
-          delegatedVotes: Math.max(0, d.delegatedVotes - delegatedPower),
+          delegatedVotes: Math.max(0, (d.delegatedVotes ?? 0) - delegatedPower),
           votingPower: Math.max(0, d.votingPower - delegatedPower),
-          delegatorsCount: Math.max(0, d.delegatorsCount - 1),
+          delegatorsCount: Math.max(0, (d.delegatorsCount ?? 0) - 1),
           isDelegatedTo: false,
         }
       }
@@ -583,6 +594,7 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       category: input.category,
       votingType: input.votingType,
       deposit,
+      type: input.type, topVoters: [],
       createdAt: Date.now(),
       actions: input.actions ?? [],
     }
@@ -631,7 +643,7 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
     const { proposals, delegates, userVotingPower, userTokenBalance } = get()
     const activeProposals = proposals.filter((p) => p.status === 'active').length
     const totalVotingPower = delegates.reduce((sum, d) => sum + d.votingPower, 0)
-    const delegatedPower = delegates.reduce((sum, d) => sum + d.delegatedVotes, 0)
+    const delegatedPower = delegates.reduce((sum, d) => sum + (d.delegatedVotes ?? 0), 0)
 
     return {
       totalProposals: proposals.length,
@@ -641,6 +653,9 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       userTokenBalance,
       delegatedPower,
       averageTurnout: 68.5,
+      totalVrnLocked: totalVotingPower,
+      activeProposalsCount: activeProposals,
+      participationRate: 68.5,
     }
   },
 
