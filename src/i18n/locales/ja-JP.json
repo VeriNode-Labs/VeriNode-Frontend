@@ -1,0 +1,256 @@
+{
+  "common": {
+    "loading": "読み込み中…",
+    "error": "エラー",
+    "retry": "再試行",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "save": "保存",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "submit": "送信",
+    "delete": "削除",
+    "edit": "編集",
+    "view": "表示",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "search": "検索",
+    "filter": "フィルター",
+    "clear": "クリア",
+    "refresh": "更新",
+    "status": "ステータス",
+    "actions": "操作",
+    "details": "詳細",
+    "settings": "設定",
+    "help": "ヘルプ",
+    "more": "もっと見る",
+    "less": "折りたたむ",
+    "all": "すべて",
+    "none": "なし",
+    "unknown": "不明",
+    "active": "アクティブ",
+    "inactive": "非アクティブ",
+    "enabled": "有効",
+    "disabled": "無効",
+    "yes": "はい",
+    "no": "いいえ",
+    "na": "N/A",
+    "connected": "接続済み",
+    "disconnected": "切断済み",
+    "online": "オンライン",
+    "offline": "オフライン",
+    "success": "成功",
+    "warning": "警告",
+    "info": "情報",
+    "required": "必須"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "validators": "バリデーター",
+    "network": "ネットワーク",
+    "bridge": "ブリッジ",
+    "operator": "オペレーター",
+    "nodeSync": "ノード同期",
+    "vesting": "ベスティング",
+    "supplyChain": "サプライチェーン",
+    "reputation": "レピュテーション",
+    "wallet": "ウォレット",
+    "settings": "設定"
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "overview": "概要",
+    "totalStaked": "総ステーク量",
+    "activeValidators": "アクティブバリデーター",
+    "pendingRewards": "保留中の報酬",
+    "networkHealth": "ネットワーク健全性",
+    "recentActivity": "最近のアクティビティ",
+    "performance": "パフォーマンス",
+    "uptimePercent": "稼働時間",
+    "slashingRisk": "スラッシングリスク",
+    "lastUpdated": "最終更新",
+    "noData": "データなし"
+  },
+  "validators": {
+    "title": "バリデーター",
+    "validatorId": "バリデーターID",
+    "pubkey": "公開鍵",
+    "balance": "残高",
+    "status": "ステータス",
+    "effectiveBalance": "有効残高",
+    "activationEpoch": "アクティベーションエポック",
+    "exitEpoch": "終了エポック",
+    "slashed": "スラッシュ済み",
+    "attestations": "証明",
+    "proposals": "提案",
+    "rewards": {
+      "title": "報酬",
+      "claimable": "請求可能",
+      "claimed": "請求済み",
+      "total": "総報酬",
+      "history": "報酬履歴",
+      "epoch": "エポック",
+      "amount": "金額",
+      "claim": "報酬を請求"
+    },
+    "exitQueue": {
+      "title": "終了キュー",
+      "position": "キュー位置",
+      "estimatedWait": "推定待機時間",
+      "requestExit": "終了を申請",
+      "cancelExit": "終了をキャンセル",
+      "exitRequested": "終了申請済み"
+    },
+    "settings": {
+      "title": "バリデーター設定",
+      "withdrawalAddress": "出金アドレス",
+      "feeRecipient": "手数料受取人",
+      "graffiti": "グラフィティ",
+      "update": "設定を更新"
+    },
+    "count_other": "{{count}} バリデーター"
+  },
+  "wallet": {
+    "connect": "ウォレットを接続",
+    "disconnect": "切断",
+    "connected": "ウォレット接続済み",
+    "address": "アドレス",
+    "balance": "残高",
+    "network": "ネットワーク",
+    "preflight": {
+      "title": "プリフライトチェック",
+      "checking": "チェック中…",
+      "passed": "すべてのチェックに合格",
+      "failed": "プリフライト失敗",
+      "gasEstimate": "ガス推定",
+      "simulate": "トランザクションをシミュレート"
+    },
+    "transaction": {
+      "pending": "トランザクション保留中",
+      "confirmed": "トランザクション確認済み",
+      "failed": "トランザクション失敗",
+      "hash": "トランザクションハッシュ",
+      "fee": "手数料"
+    }
+  },
+  "network": {
+    "title": "ネットワーク",
+    "peers": "ピア数",
+    "latency": "レイテンシー",
+    "throughput": "スループット",
+    "slot": "スロット",
+    "epoch": "エポック",
+    "finalizedSlot": "確定済みスロット",
+    "headSlot": "最新スロット",
+    "participation": "参加率",
+    "disasterRecovery": {
+      "title": "災害復旧",
+      "failover": "フェイルオーバー",
+      "region": "リージョン",
+      "status": "DR ステータス",
+      "lastTest": "最終テスト",
+      "runTest": "DR テストを実行"
+    }
+  },
+  "bridge": {
+    "title": "ブリッジ",
+    "from": "送信元",
+    "to": "送信先",
+    "amount": "金額",
+    "asset": "資産",
+    "fee": "ブリッジ手数料",
+    "estimatedTime": "推定時間",
+    "initiate": "ブリッジを開始",
+    "status": {
+      "pending": "保留中",
+      "processing": "処理中",
+      "completed": "完了",
+      "failed": "失敗"
+    },
+    "transaction_other": "{{count}} トランザクション"
+  },
+  "operator": {
+    "title": "オペレーター",
+    "metrics": "メトリクス",
+    "nodes": "ノード",
+    "health": "ヘルススコア",
+    "uptime": "稼働時間",
+    "clients": "クライアント",
+    "dvt": "DVT クラスター"
+  },
+  "nodeSync": {
+    "title": "ノード同期",
+    "syncStatus": "同期ステータス",
+    "synced": "同期済み",
+    "syncing": "同期中",
+    "behind": "遅延",
+    "blocksRemaining": "残りブロック数",
+    "syncPercent": "同期進捗"
+  },
+  "staking": {
+    "title": "ステーキング",
+    "stake": "ステーク",
+    "unstake": "ステーク解除",
+    "delegate": "委任",
+    "undelegate": "委任解除",
+    "amount": "金額",
+    "apr": "APR",
+    "lockPeriod": "ロック期間",
+    "validator": "バリデーター",
+    "deposit": {
+      "title": "デポジット",
+      "minimum": "最小デポジット",
+      "confirm": "デポジットを確認"
+    }
+  },
+  "vesting": {
+    "title": "ベスティング",
+    "schedule": "ベスティングスケジュール",
+    "cliff": "クリフ",
+    "vested": "ベスト済み",
+    "unvested": "未ベスト",
+    "nextUnlock": "次のアンロック",
+    "claim": "ベスト済みを請求",
+    "totalAllocation": "総割当量"
+  },
+  "supplyChain": {
+    "title": "サプライチェーン",
+    "nodes": "サプライノード",
+    "provenance": "出所",
+    "verified": "確認済み",
+    "unverified": "未確認",
+    "attestation": "証明",
+    "timestamp": "タイムスタンプ"
+  },
+  "reputation": {
+    "title": "レピュテーション",
+    "score": "レピュテーションスコア",
+    "history": "履歴",
+    "events": "イベント",
+    "slashings": "スラッシング",
+    "attestationRate": "証明率",
+    "proposalRate": "提案率"
+  },
+  "errors": {
+    "generic": "エラーが発生しました。再試行してください。",
+    "network": "ネットワークエラー。接続を確認してください。",
+    "unauthorized": "この操作を実行する権限がありません。",
+    "notFound": "リクエストされたリソースが見つかりません。",
+    "timeout": "リクエストがタイムアウトしました。再試行してください。",
+    "validation": "フォームのエラーを確認してください。"
+  },
+  "locale": {
+    "label": "言語",
+    "select": "言語を選択",
+    "current": "現在の言語"
+  },
+  "format": {
+    "dateShort": "短い日付",
+    "dateLong": "長い日付",
+    "dateTime": "日付と時刻",
+    "number": "数値",
+    "currency": "通貨",
+    "percent": "パーセント"
+  }
+}

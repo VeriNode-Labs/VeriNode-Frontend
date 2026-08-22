@@ -1,0 +1,258 @@
+{
+  "common": {
+    "loading": "Wird geladen…",
+    "error": "Fehler",
+    "retry": "Erneut versuchen",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "save": "Speichern",
+    "close": "Schließen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "submit": "Absenden",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "view": "Anzeigen",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "clear": "Löschen",
+    "refresh": "Aktualisieren",
+    "status": "Status",
+    "actions": "Aktionen",
+    "details": "Details",
+    "settings": "Einstellungen",
+    "help": "Hilfe",
+    "more": "Mehr",
+    "less": "Weniger",
+    "all": "Alle",
+    "none": "Keine",
+    "unknown": "Unbekannt",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "enabled": "Aktiviert",
+    "disabled": "Deaktiviert",
+    "yes": "Ja",
+    "no": "Nein",
+    "na": "N/V",
+    "connected": "Verbunden",
+    "disconnected": "Getrennt",
+    "online": "Online",
+    "offline": "Offline",
+    "success": "Erfolg",
+    "warning": "Warnung",
+    "info": "Information",
+    "required": "Erforderlich"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "validators": "Validatoren",
+    "network": "Netzwerk",
+    "bridge": "Brücke",
+    "operator": "Betreiber",
+    "nodeSync": "Knoten-Synchronisierung",
+    "vesting": "Vesting",
+    "supplyChain": "Lieferkette",
+    "reputation": "Reputation",
+    "wallet": "Wallet",
+    "settings": "Einstellungen"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": "Übersicht",
+    "totalStaked": "Gesamt gestaked",
+    "activeValidators": "Aktive Validatoren",
+    "pendingRewards": "Ausstehende Belohnungen",
+    "networkHealth": "Netzwerkgesundheit",
+    "recentActivity": "Letzte Aktivität",
+    "performance": "Leistung",
+    "uptimePercent": "Betriebszeit",
+    "slashingRisk": "Slashing-Risiko",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "noData": "Keine Daten verfügbar"
+  },
+  "validators": {
+    "title": "Validatoren",
+    "validatorId": "Validator-ID",
+    "pubkey": "Öffentlicher Schlüssel",
+    "balance": "Guthaben",
+    "status": "Status",
+    "effectiveBalance": "Effektives Guthaben",
+    "activationEpoch": "Aktivierungs-Epoche",
+    "exitEpoch": "Austritts-Epoche",
+    "slashed": "Bestraft",
+    "attestations": "Attestierungen",
+    "proposals": "Vorschläge",
+    "rewards": {
+      "title": "Belohnungen",
+      "claimable": "Einlösbar",
+      "claimed": "Eingelöst",
+      "total": "Gesamtbelohnungen",
+      "history": "Belohnungsverlauf",
+      "epoch": "Epoche",
+      "amount": "Betrag",
+      "claim": "Belohnungen einlösen"
+    },
+    "exitQueue": {
+      "title": "Austrittswarteschlange",
+      "position": "Warteschlangenposition",
+      "estimatedWait": "Geschätzte Wartezeit",
+      "requestExit": "Austritt beantragen",
+      "cancelExit": "Austritt abbrechen",
+      "exitRequested": "Austritt beantragt"
+    },
+    "settings": {
+      "title": "Validator-Einstellungen",
+      "withdrawalAddress": "Auszahlungsadresse",
+      "feeRecipient": "Gebührenempfänger",
+      "graffiti": "Graffiti",
+      "update": "Einstellungen aktualisieren"
+    },
+    "count_one": "{{count}} Validator",
+    "count_other": "{{count}} Validatoren"
+  },
+  "wallet": {
+    "connect": "Wallet verbinden",
+    "disconnect": "Trennen",
+    "connected": "Wallet verbunden",
+    "address": "Adresse",
+    "balance": "Guthaben",
+    "network": "Netzwerk",
+    "preflight": {
+      "title": "Vorabprüfung",
+      "checking": "Wird geprüft…",
+      "passed": "Alle Prüfungen bestanden",
+      "failed": "Vorabprüfung fehlgeschlagen",
+      "gasEstimate": "Gas-Schätzung",
+      "simulate": "Transaktion simulieren"
+    },
+    "transaction": {
+      "pending": "Transaktion ausstehend",
+      "confirmed": "Transaktion bestätigt",
+      "failed": "Transaktion fehlgeschlagen",
+      "hash": "Transaktions-Hash",
+      "fee": "Gebühr"
+    }
+  },
+  "network": {
+    "title": "Netzwerk",
+    "peers": "Peers",
+    "latency": "Latenz",
+    "throughput": "Durchsatz",
+    "slot": "Slot",
+    "epoch": "Epoche",
+    "finalizedSlot": "Finalisierter Slot",
+    "headSlot": "Kopf-Slot",
+    "participation": "Teilnahmerate",
+    "disasterRecovery": {
+      "title": "Notfallwiederherstellung",
+      "failover": "Failover",
+      "region": "Region",
+      "status": "DR-Status",
+      "lastTest": "Letzter Test",
+      "runTest": "DR-Test ausführen"
+    }
+  },
+  "bridge": {
+    "title": "Brücke",
+    "from": "Von",
+    "to": "Nach",
+    "amount": "Betrag",
+    "asset": "Asset",
+    "fee": "Brückengebühr",
+    "estimatedTime": "Geschätzte Zeit",
+    "initiate": "Brücke initiieren",
+    "status": {
+      "pending": "Ausstehend",
+      "processing": "Wird verarbeitet",
+      "completed": "Abgeschlossen",
+      "failed": "Fehlgeschlagen"
+    },
+    "transaction_one": "{{count}} Transaktion",
+    "transaction_other": "{{count}} Transaktionen"
+  },
+  "operator": {
+    "title": "Betreiber",
+    "metrics": "Metriken",
+    "nodes": "Knoten",
+    "health": "Gesundheitswert",
+    "uptime": "Betriebszeit",
+    "clients": "Clients",
+    "dvt": "DVT-Cluster"
+  },
+  "nodeSync": {
+    "title": "Knoten-Synchronisierung",
+    "syncStatus": "Synchronisierungsstatus",
+    "synced": "Synchronisiert",
+    "syncing": "Wird synchronisiert",
+    "behind": "Rückstand",
+    "blocksRemaining": "Verbleibende Blöcke",
+    "syncPercent": "Synchronisierungsfortschritt"
+  },
+  "staking": {
+    "title": "Staking",
+    "stake": "Staken",
+    "unstake": "Stake entfernen",
+    "delegate": "Delegieren",
+    "undelegate": "Delegation widerrufen",
+    "amount": "Betrag",
+    "apr": "APR",
+    "lockPeriod": "Sperrzeitraum",
+    "validator": "Validator",
+    "deposit": {
+      "title": "Einzahlung",
+      "minimum": "Mindesteinzahlung",
+      "confirm": "Einzahlung bestätigen"
+    }
+  },
+  "vesting": {
+    "title": "Vesting",
+    "schedule": "Vesting-Zeitplan",
+    "cliff": "Cliff",
+    "vested": "Übertragen",
+    "unvested": "Nicht übertragen",
+    "nextUnlock": "Nächste Entsperrung",
+    "claim": "Übertragene einlösen",
+    "totalAllocation": "Gesamtzuteilung"
+  },
+  "supplyChain": {
+    "title": "Lieferkette",
+    "nodes": "Versorgungsknoten",
+    "provenance": "Herkunft",
+    "verified": "Verifiziert",
+    "unverified": "Nicht verifiziert",
+    "attestation": "Attestierung",
+    "timestamp": "Zeitstempel"
+  },
+  "reputation": {
+    "title": "Reputation",
+    "score": "Reputationswert",
+    "history": "Verlauf",
+    "events": "Ereignisse",
+    "slashings": "Slashings",
+    "attestationRate": "Attestierungsrate",
+    "proposalRate": "Vorschlagsrate"
+  },
+  "errors": {
+    "generic": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "network": "Netzwerkfehler. Überprüfen Sie Ihre Verbindung.",
+    "unauthorized": "Sie sind nicht berechtigt, diese Aktion auszuführen.",
+    "notFound": "Die angeforderte Ressource wurde nicht gefunden.",
+    "timeout": "Zeitüberschreitung der Anfrage. Bitte erneut versuchen.",
+    "validation": "Bitte überprüfen Sie das Formular auf Fehler."
+  },
+  "locale": {
+    "label": "Sprache",
+    "select": "Sprache auswählen",
+    "current": "Aktuelle Sprache"
+  },
+  "format": {
+    "dateShort": "Kurzes Datum",
+    "dateLong": "Langes Datum",
+    "dateTime": "Datum und Uhrzeit",
+    "number": "Zahl",
+    "currency": "Währung",
+    "percent": "Prozentsatz"
+  }
+}

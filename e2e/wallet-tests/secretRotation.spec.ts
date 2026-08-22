@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { SecretRotationService, SECRET_ROTATION_DEFAULT_POLICY } from '../../src/services/secretRotation.ts';
-import type { RotationEvent, SecretKind } from '../../src/types/secrets.ts';
+import { SecretRotationService, SECRET_ROTATION_DEFAULT_POLICY } from '../../src/services/secretRotation';
+import type { RotationEvent, SecretKind } from '../../src/types/secrets';
 
 /**
  * E2E tests for the Secret Rotation Service (Issue #119).

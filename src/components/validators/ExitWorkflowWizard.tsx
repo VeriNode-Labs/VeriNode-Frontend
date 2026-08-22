@@ -143,9 +143,10 @@ export function ExitWorkflowWizard({
 
   // ── Camera cleanup on unmount ──────────────────────────────────────────────
   useEffect(() => {
+    const video = videoRef.current;
     return () => {
-      if (videoRef.current?.srcObject) {
-        (videoRef.current.srcObject as MediaStream).getTracks().forEach((t) => t.stop());
+      if (video?.srcObject) {
+        (video.srcObject as MediaStream).getTracks().forEach((t) => t.stop());
       }
     };
   }, []);
@@ -360,6 +361,7 @@ export function ExitWorkflowWizard({
                     <p className="text-sm text-red-400">{qrError}</p>
                   ) : qrDataUrl ? (
                     <div className="inline-block rounded-2xl border border-white/10 bg-white p-3">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- Data URL generated client-side */}
                       <img
                         src={qrDataUrl}
                         alt="Unsigned voluntary exit message QR code for air-gapped signing"

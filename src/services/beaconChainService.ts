@@ -361,11 +361,13 @@ export const beaconDoppelgangerProvider: BeaconDoppelgangerProvider = {
  */
 export function createDemoDoppelgangerProvider(): BeaconDoppelgangerProvider {
   return {
-    async fetchConnectedPeerIds(_baseUrl) {
+    async fetchConnectedPeerIds(baseUrl) {
+      void baseUrl;
       return ['QmExpectedPeer1', 'QmExpectedPeer2'];
     },
 
-    async fetchAttestationObservations(_baseUrl, pubkeys, fromEpoch, toEpoch) {
+    async fetchAttestationObservations(baseUrl, pubkeys, fromEpoch, toEpoch) {
+      void baseUrl;
       const SLOTS_PER_EPOCH_LOCAL = 32;
       const fromSlot = fromEpoch * SLOTS_PER_EPOCH_LOCAL;
       const toSlot = (toEpoch + 1) * SLOTS_PER_EPOCH_LOCAL - 1;

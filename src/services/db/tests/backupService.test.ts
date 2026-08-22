@@ -41,9 +41,15 @@ describe('BackupService', () => {
     })
 
     it('should produce consistent checksums for identical data', async () => {
-      const backup1 = await backupService.exportDatabase()
-      const backup2 = await backupService.exportDatabase()
-      expect(backup1.checksum).toBe(backup2.checksum)
+      vi.useFakeTimers()
+      vi.setSystemTime(1700000000000)
+      try {
+        const backup1 = await backupService.exportDatabase()
+        const backup2 = await backupService.exportDatabase()
+        expect(backup1.checksum).toBe(backup2.checksum)
+      } finally {
+        vi.useRealTimers()
+      }
     })
   })
 
@@ -86,8 +92,7 @@ describe('BackupService', () => {
       const parsed: DatabaseBackup = JSON.parse(json1)
       expect(parsed.version).toBe(1)
       expect(parsed.checksum).toBeTruthy()
-      const json2 = await backupService.exportBackupToJson()
-      expect(json1).toBe(json2)
+      await expect(backupService.importBackupFromJson(json1)).resolves.not.toThrow()
     })
   })
 

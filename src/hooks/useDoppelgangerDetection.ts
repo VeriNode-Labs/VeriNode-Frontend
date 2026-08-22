@@ -24,7 +24,7 @@ import {
 import { DOPPELGANGER_THRESHOLD } from '@/src/utils/doppelgangerDetector';
 import type { DoppelgangerResult } from '@/src/utils/doppelgangerDetector';
 import type { MonitoredKey, DoppelgangerScanRequest } from '@/src/workers/doppelgangerScannerWorker';
-import type { AttestationObservation, ExpectedNodeConfig } from '@/src/utils/doppelgangerDetector';
+import type { AttestationObservation } from '@/src/utils/doppelgangerDetector';
 import { currentEpoch } from '@/src/utils/epochTime';
 import {
   beaconDoppelgangerProvider,

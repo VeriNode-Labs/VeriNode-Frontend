@@ -66,7 +66,7 @@ export function TierTreeView({
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
 
-  const virtualizer = useVirtualizer({
+  const { getVirtualItems, getTotalSize, measureElement, attachIndex } = useVirtualizer({
     count: flatItems.length,
     getScrollElement: useCallback(() => scrollContainerRef.current, []),
     estimateSize: useCallback(
@@ -83,22 +83,15 @@ export function TierTreeView({
     overscan: OVERSCAN,
   })
 
-  const virtualItems = virtualizer.getVirtualItems()
-  const totalHeight = virtualizer.getTotalSize()
-
-  // Unwrap the attachIndex helper that was grafted onto measureElement.
-  type MeasureFn = typeof virtualizer.measureElement & {
-    attachIndex: (el: Element | null, index: number) => void
-  }
-  const measureFn = virtualizer.measureElement as MeasureFn
-  const attachIndex = measureFn.attachIndex
+  const virtualItems = getVirtualItems()
+  const totalHeight = getTotalSize()
 
   const measureRef = useCallback(
     (el: Element | null, index: number) => {
-      attachIndex(el, index)
-      measureFn(el)
+      attachIndex?.(el, index)
+      measureElement(el)
     },
-    [attachIndex, measureFn],
+    [attachIndex, measureElement],
   )
 
   return (

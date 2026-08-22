@@ -5,7 +5,6 @@ import * as THREE from 'three';
 import { CubicBezierCurve3, CatmullRomCurve3 } from 'three';
 import { useDelegationFlow } from '@/src/hooks/useDelegationFlow';
 import { layoutDelegationGraph } from '@/src/utils/delegationGraphLayout';
-import { DelegationNode, DelegationEdge, ValidatorStatus } from '@/src/types/delegation';
 import DelegationDetailPanel from '@/src/components/validators/DelegationDetailPanel';
 
 interface TooltipState {
@@ -22,8 +21,6 @@ export default function DelegationFlowGraph() {
     nodes,
     edges,
     allNodes,
-    loading,
-    error,
     filters,
     timeBounds,
     selectedNodeId,
@@ -102,18 +99,6 @@ export default function DelegationFlowGraph() {
     return height - margin;
   };
 
-  // Helper: compute connected stake for a node
-  const getNodeStake = (nodeId: string, nodeType: string) => {
-    const connectedEdges = edges.filter((e) => e.source === nodeId || e.target === nodeId);
-    if (nodeType === 'delegator') {
-      return connectedEdges.reduce((sum, e) => sum + (e.type === 'deposit' ? e.amount : 0), 0);
-    } else if (nodeType === 'protocol') {
-      return connectedEdges.reduce((sum, e) => sum + (e.type === 'delegate' ? e.amount : 0), 0);
-    } else {
-      return connectedEdges.reduce((sum, e) => sum + (e.type === 'delegate' ? e.amount : 0), 0);
-    }
-  };
-
   // Setup Three.js Scene
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
@@ -181,6 +166,18 @@ export default function DelegationFlowGraph() {
 
     const width = containerRef.current.clientWidth || 800;
     const height = containerRef.current.clientHeight || 500;
+
+    // Helper: compute connected stake for a node
+    const getNodeStake = (nodeId: string, nodeType: string) => {
+      const connectedEdges = edges.filter((e) => e.source === nodeId || e.target === nodeId);
+      if (nodeType === 'delegator') {
+        return connectedEdges.reduce((sum, e) => sum + (e.type === 'deposit' ? e.amount : 0), 0);
+      } else if (nodeType === 'protocol') {
+        return connectedEdges.reduce((sum, e) => sum + (e.type === 'delegate' ? e.amount : 0), 0);
+      } else {
+        return connectedEdges.reduce((sum, e) => sum + (e.type === 'delegate' ? e.amount : 0), 0);
+      }
+    };
 
     // 1. Calculate new layout target coordinates
     const options = {
@@ -492,7 +489,10 @@ export default function DelegationFlowGraph() {
     if (hoverId) {
       const node = nodes.find((n) => n.id === hoverId);
       if (node) {
-        const stake = getNodeStake(node.id, node.type);
+        const connectedEdges = edges.filter((e) => e.source === node.id || e.target === node.id);
+        const stake = node.type === 'delegator'
+          ? connectedEdges.reduce((sum, e) => sum + (e.type === 'deposit' ? e.amount : 0), 0)
+          : connectedEdges.reduce((sum, e) => sum + (e.type === 'delegate' ? e.amount : 0), 0);
         const details = [
           `Total Stake: ${stake.toLocaleString()} ETH`,
         ];
@@ -524,7 +524,7 @@ export default function DelegationFlowGraph() {
     document.body.style.cursor = 'default';
   };
 
-  const handleMouseUp = (e: React.MouseEvent) => {
+  const handleMouseUp = () => {
     // If we just clicked a node without dragging it, open the details
     if (draggedNodeIdRef.current) {
       const nodePhys = nodePhysicsRef.current.get(draggedNodeIdRef.current);

@@ -7,6 +7,7 @@ import { SloMonitoringDashboard } from '@/src/components/slo/SloMonitoringDashbo
 import dynamic from 'next/dynamic';
 import { ChartSkeleton } from '@/src/components/charts/ChartSkeleton';
 import { WSHealthDashboard } from '@/src/components/network/WSHealthDashboard';
+import { NetworkHealthDashboard } from '@/src/components/network/NetworkHealthDashboard';
 
 const NetworkGraph = dynamic(
   () => import('@/src/components/network/NetworkGraph').then((m) => m.NetworkGraph),
@@ -58,8 +59,9 @@ function NodeDirectory() {
 
 export default function NetworkStatus() {
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-zinc-900 dark:text-zinc-50">Network Status</h1>
+    <div className="p-8 max-w-7xl mx-auto space-y-12">
+      {/* Network Health Dashboard (issue #173) */}
+      <NetworkHealthDashboard />
 
       <div className="grid grid-cols-1 gap-8">
         <SloMonitoringDashboard />

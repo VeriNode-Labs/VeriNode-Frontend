@@ -484,7 +484,9 @@ class WebSocketHealthManager {
     const existing = this.connections.get(config.connectionId)
     if (existing) {
       existing.refCount += 1
-      const { connectionId: _connectionId, url: _url, ...rest } = config
+      const { connectionId, url, ...rest } = config
+      void connectionId
+      void url
       existing.config = {
         ...existing.config,
         ...rest,
@@ -516,7 +518,9 @@ class WebSocketHealthManager {
       }
     }
 
-    const { connectionId: _connectionId, url: _url, ...rest } = config
+    const { connectionId, url, ...rest } = config
+    void connectionId
+    void url
     const conn = new InternalConnectionState(config.connectionId, config.url, {
       ...rest,
       enabled,

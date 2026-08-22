@@ -21,13 +21,13 @@ describe('exitMessageBuilder', () => {
     it('encodes epoch in the first 8 bytes as little-endian uint64', () => {
       const result = encodeVoluntaryExitSSZ({ epoch: 1, validatorIndex: 0 });
       const view = new DataView(result.buffer);
-      expect(view.getBigUint64(0, true)).toBe(1n);
+      expect(view.getBigUint64(0, true)).toBe(BigInt("1"));
     });
 
     it('encodes validator_index in bytes 8–15 as little-endian uint64', () => {
       const result = encodeVoluntaryExitSSZ({ epoch: 0, validatorIndex: 999 });
       const view = new DataView(result.buffer);
-      expect(view.getBigUint64(8, true)).toBe(999n);
+      expect(view.getBigUint64(8, true)).toBe(BigInt("999"));
     });
 
     it('encodes epoch=0 and validatorIndex=0 as all-zero bytes', () => {

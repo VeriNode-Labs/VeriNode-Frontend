@@ -1,5 +1,5 @@
-import { SecretRotationService } from '../services/secretRotation.ts';
-import type { SecretKind } from '../types/secrets.ts';
+import { SecretRotationService } from '../services/secretRotation';
+import type { SecretKind } from '../types/secrets';
 
 const SECRET_KINDS: SecretKind[] = [
   'database-credential',

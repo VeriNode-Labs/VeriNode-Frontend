@@ -80,14 +80,57 @@ export function useSorobanStaking(onToast?: Toast): UseSorobanStakingReturn {
         // (c) Submit and (d) record the optimisticTxId -> realTxHash mapping.
         const { transactionHash } = await staking.submit(action, { amount, source });
         attachHash(optimisticTxId, transactionHash);
-      confirm(optimisticTxId);
-      onToast?.('Transaction confirmed', 'success');
-    } catch (err) {
-      const reason = err instanceof StakingSubmitError ? err.message : 'Staking failed';
-      fail(optimisticTxId, reason);
-      onToast?.(reason, 'error');
-    }
-  }, [source, beginOptimistic, attachHash, confirm, fail, removePending, onToast]);
+        
+        // Poll for confirmation
+        const startTime = Date.now();
+        let isConfirmed = false;
+        let isFailed = false;
+
+        while (Date.now() - startTime < CONFIRM_TIMEOUT_MS) {
+          const result = await getTransactionStatus(transactionHash);
+          
+          if (result) {
+            // Map Soroban RPC statuses to our logic
+            const status = result.status.toUpperCase();
+            if (status === 'SUCCESS' || status === 'CONFIRMED') {
+              isConfirmed = true;
+              break;
+            } else if (status === 'FAILED' || status === 'ERROR') {
+              isFailed = true;
+              break;
+            }
+          }
+          
+          await new Promise((resolve) => setTimeout(resolve, CONFIRM_POLL_INTERVAL_MS));
+        }
+
+        if (isConfirmed) {
+          confirm(optimisticTxId);
+          onToast?.('Transaction confirmed', 'success');
+          
+          setTimeout(() => {
+            removePending(optimisticTxId);
+          }, SETTLED_REMOVAL_DELAY_MS);
+        } else if (isFailed) {
+          throw new Error('Transaction failed on-chain');
+        } else {
+          throw new Error('Transaction confirmation timeout');
+        }
+      } catch (err) {
+        const reason = err instanceof StakingSubmitError ? err.message : (err instanceof Error ? err.message : 'Staking failed');
+        fail(optimisticTxId, reason);
+        onToast?.(reason, 'error');
+        
+        import('@/src/services/sentry').then(({ captureTransactionFailure }) => {
+          captureTransactionFailure({
+            optimisticTxId,
+            action,
+            amount,
+            reason
+          });
+        });
+      }
+    }, [source, beginOptimistic, attachHash, confirm, fail, removePending, onToast]);
 
   const retry = useCallback(
     async (optimisticTxId: string): Promise<void> => {
@@ -119,6 +162,3 @@ export function useSorobanStaking(onToast?: Toast): UseSorobanStakingReturn {
   );
 }
 
-function labelFor(action: StakingAction): string {
-  return action.charAt(0).toUpperCase() + action.slice(1);
-}

@@ -82,8 +82,7 @@ export function useVirtualizer(options: UseVirtualizerOptions): VirtualizerResul
   // Ensure cache is built on mount and when count changes.
   useEffect(() => {
     rebuildPositionCache()
-    /* eslint-disable-next-line react-hooks/set-state-in-effect */
-    forceUpdate((n) => n + 1)
+    requestAnimationFrame(() => forceUpdate((n) => n + 1))
   }, [count, rebuildPositionCache])
 
   // Listen to scroll events on the container.
@@ -202,11 +201,10 @@ export function useVirtualizer(options: UseVirtualizerOptions): VirtualizerResul
   }, [])
 
   const measureElementWrapper = useCallback(
-    (el: Element | null, index?: number) => {
-      if (el && typeof index === 'number') elementIndexMap.current.set(el, index)
+    (el: Element | null) => {
       measureElement(el)
     },
-    [measureElement],
+    [measureElement]
   )
 
   return { getVirtualItems, getTotalSize, measureElement: measureElementWrapper, attachIndex }

@@ -1,0 +1,132 @@
+e2e/wallet-tests/secretRotation.spec.ts(2,71): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+src/__tests__/exitMessageBuilder.test.ts(24,47): error TS2737: BigInt literals are not available when targeting lower than ES2020.
+src/__tests__/exitMessageBuilder.test.ts(30,47): error TS2737: BigInt literals are not available when targeting lower than ES2020.
+src/__tests__/hexDecoder.test.ts(46,34): error TS2322: Type '"map"' is not assignable to type 'ScValType | (ScValType | null)[] | ScValMapTypeSpec | undefined'.
+src/__tests__/secretRotation.benchmark.ts(1,39): error TS5097: An import path can only end with a '.ts' extension when 'allowImportingTsExtensions' is enabled.
+src/components/governance/__tests__/VotePanel.test.tsx(34,3): error TS2322: Type '"Parameters"' is not assignable to type 'ProposalCategory'.
+src/components/governance/DelegateManager.tsx(38,11): error TS2339: Property 'bio' does not exist on type 'Delegate'.
+src/components/governance/DelegateManager.tsx(159,34): error TS2304: Cannot find name 'currentDelegation'.
+src/components/governance/DelegateManager.tsx(175,26): error TS2304: Cannot find name 'truncateAddress'.
+src/components/governance/GovernanceDashboard.tsx(62,23): error TS2339: Property 'totalVrnLocked' does not exist on type 'NoInfer<GovernanceMetrics>'.
+src/components/governance/GovernanceDashboard.tsx(62,52): error TS2339: Property 'totalVrnLocked' does not exist on type 'NoInfer<GovernanceMetrics>'.
+src/components/governance/GovernanceDashboard.tsx(66,26): error TS2339: Property 'totalVrnLockedUsd' does not exist on type 'NoInfer<GovernanceMetrics>'.
+src/components/governance/GovernanceDashboard.tsx(66,55): error TS2339: Property 'totalVrnLockedUsd' does not exist on type 'NoInfer<GovernanceMetrics>'.
+src/components/governance/GovernanceDashboard.tsx(74,23): error TS2551: Property 'activeProposalsCount' does not exist on type 'NoInfer<GovernanceMetrics>'. Did you mean 'activeProposals'?
+src/components/governance/GovernanceDashboard.tsx(78,23): error TS2551: Property 'totalProposalsCount' does not exist on type 'NoInfer<GovernanceMetrics>'. Did you mean 'totalProposals'?
+src/components/governance/GovernanceDashboard.tsx(86,23): error TS2339: Property 'participationRate' does not exist on type 'NoInfer<GovernanceMetrics>'.
+src/components/governance/GovernanceDashboard.tsx(189,13): error TS2322: Type '{ onProposalCreated: (id: string) => void; onCancel: () => void; }' is not assignable to type 'IntrinsicAttributes & ProposalCreatorProps'.
+  Property 'onCancel' does not exist on type 'IntrinsicAttributes & ProposalCreatorProps'.
+src/components/governance/ProposalCard.tsx(25,35): error TS2339: Property 'endTime' does not exist on type 'Proposal'.
+src/components/governance/ProposalCard.tsx(41,16): error TS2339: Property 'endTime' does not exist on type 'Proposal'.
+src/components/governance/ProposalCard.tsx(84,12): error TS2678: Type '"cancelled"' is not comparable to type 'ProposalStatus'.
+src/components/governance/ProposalCard.tsx(115,23): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/governance/ProposalCard.tsx(154,39): error TS2339: Property 'quorumReached' does not exist on type 'Proposal'.
+src/components/governance/ProposalCard.tsx(155,25): error TS2339: Property 'currentQuorumPercentage' does not exist on type 'Proposal'.
+src/components/governance/ProposalCard.tsx(157,25): error TS2339: Property 'quorumPercentage' does not exist on type 'Proposal'.
+src/components/governance/ProposalCard.tsx(159,27): error TS2339: Property 'totalVoters' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(18,49): error TS2339: Property 'forTokens' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(18,60): error TS2339: Property 'againstTokens' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(18,75): error TS2339: Property 'abstainTokens' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(18,90): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(72,24): error TS2339: Property 'quorumReached' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(77,23): error TS2339: Property 'quorumReached' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(77,89): error TS2339: Property 'currentQuorumPercentage' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(77,127): error TS2339: Property 'quorumPercentage' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(120,70): error TS2339: Property 'totalVoters' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(181,17): error TS2339: Property 'topVoters' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(181,39): error TS2339: Property 'topVoters' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(196,27): error TS2339: Property 'topVoters' does not exist on type 'Proposal'.
+src/components/governance/VoteDistributionChart.tsx(196,42): error TS7006: Parameter 'voter' implicitly has an 'any' type.
+src/components/governance/VoteDistributionChart.tsx(196,49): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/governance/VotePanel.tsx(40,59): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/governance/VotePanel.tsx(41,33): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/governance/VotePanel.tsx(44,36): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/governance/VotePanel.tsx(67,24): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/governance/VotePanel.tsx(100,23): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/governance/VotePanel.tsx(187,21): error TS2339: Property 'type' does not exist on type 'Proposal'.
+src/components/network/NetworkHealthDashboard.tsx(149,27): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: PeerGraphProps, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.
+    Type '(maxNodes?: number) => PeerGraphData' is not assignable to type 'PeerGraphData'.
+  Overload 2 of 2, '(props: PeerGraphProps): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.
+    Type '(maxNodes?: number) => PeerGraphData' is not assignable to type 'PeerGraphData'.
+src/hooks/useGovernance.ts(23,3): error TS2305: Module '"@/src/types/governance"' has no exported member 'ProposalFilterOptions'.
+src/hooks/useGovernance.ts(25,3): error TS2305: Module '"@/src/types/governance"' has no exported member 'ProposalVotingType'.
+src/hooks/useNetworkHealthDashboard.ts(60,22): error TS2769: No overload matches this call.
+  Overload 3 of 3, '(options: UseQueryOptions<PeerGraphData, Error, PeerGraphData, string[]>, queryClient?: QueryClient | undefined): UseQueryResult<...>', gave the following error.
+    Type '(maxNodes?: number) => PeerGraphData' is not assignable to type 'PeerGraphData | PlaceholderDataFunction<PeerGraphData, Error, PeerGraphData, string[]> | undefined'.
+      Type '(maxNodes?: number) => PeerGraphData' is not assignable to type 'PlaceholderDataFunction<PeerGraphData, Error, PeerGraphData, string[]>'.
+        Types of parameters 'maxNodes' and 'previousData' are incompatible.
+          Type 'PeerGraphData | undefined' is not assignable to type 'number | undefined'.
+            Type 'PeerGraphData' is not assignable to type 'number'.
+src/services/governanceProposalService.ts(12,3): error TS2305: Module '"@/src/types/governance"' has no exported member 'ProposalFilterOptions'.
+src/services/governanceProposalService.ts(14,3): error TS2305: Module '"@/src/types/governance"' has no exported member 'SimulationResult'.
+src/services/governanceProposalService.ts(17,3): error TS2305: Module '"@/src/types/governance"' has no exported member 'DebateComment'.
+src/services/governanceProposalService.ts(18,3): error TS2305: Module '"@/src/types/governance"' has no exported member 'UserGovernanceProfile'.
+src/services/governanceProposalService.ts(21,3): error TS2305: Module '"@/src/types/governance"' has no exported member 'ProposalVotingType'.
+src/services/governanceProposalService.ts(54,5): error TS2322: Type '"Parameters"' is not assignable to type 'ProposalCategory'.
+src/services/governanceProposalService.ts(74,9): error TS2322: Type '{ downtimePenaltyBps: number; gracePeriodSecs: number; maxMissedAttestations: number; }' is not assignable to type 'string'.
+src/services/governanceProposalService.ts(122,5): error TS2820: Type '"Treasury"' is not assignable to type 'ProposalCategory'. Did you mean '"treasury"'?
+src/services/governanceProposalService.ts(142,9): error TS2322: Type '{ recipient: string; amountVrn: number; milestonesCount: number; }' is not assignable to type 'string'.
+src/services/governanceProposalService.ts(187,5): error TS2322: Type '"Protocol"' is not assignable to type 'ProposalCategory'.
+src/services/governanceProposalService.ts(200,5): error TS2322: Type 'string' is not assignable to type 'number'.
+src/services/governanceProposalService.ts(208,9): error TS2322: Type '{ versionString: string; enableParallelRuntime: true; workerThreads: number; }' is not assignable to type 'string'.
+src/services/governanceProposalService.ts(245,5): error TS2322: Type '"Parameters"' is not assignable to type 'ProposalCategory'.
+src/services/governanceProposalService.ts(284,5): error TS2322: Type '"Protocol"' is not assignable to type 'ProposalCategory'.
+src/services/governanceProposalService.ts(318,5): error TS2353: Object literal may only specify known properties, and 'avatar' does not exist in type 'Delegate'.
+src/services/governanceProposalService.ts(334,5): error TS2353: Object literal may only specify known properties, and 'avatar' does not exist in type 'Delegate'.
+src/services/governanceProposalService.ts(350,5): error TS2353: Object literal may only specify known properties, and 'avatar' does not exist in type 'Delegate'.
+src/services/governanceProposalService.ts(366,5): error TS2353: Object literal may only specify known properties, and 'avatar' does not exist in type 'Delegate'.
+src/services/governanceProposalService.ts(438,5): error TS2322: Type 'string' is not assignable to type 'number'.
+src/services/governanceProposalService.ts(452,5): error TS2322: Type 'string' is not assignable to type 'number'.
+src/services/governanceProposalService.ts(466,5): error TS2322: Type 'string' is not assignable to type 'number'.
+src/services/governanceProposalService.ts(480,5): error TS2322: Type 'string' is not assignable to type 'number'.
+src/services/governanceProposalService.ts(538,57): error TS2339: Property 'targetContract' does not exist on type 'ProposalAction'.
+src/services/governanceProposalService.ts(544,99): error TS2339: Property 'downtimePenaltyBps' does not exist on type 'string'.
+src/services/governanceProposalService.ts(544,154): error TS2339: Property 'downtimePenaltyBps' does not exist on type 'string'.
+src/services/governanceProposalService.ts(545,109): error TS2339: Property 'gracePeriodSecs' does not exist on type 'string'.
+src/services/governanceProposalService.ts(545,176): error TS2339: Property 'gracePeriodSecs' does not exist on type 'string'.
+src/services/governanceProposalService.ts(550,47): error TS2339: Property 'amountVrn' does not exist on type 'string'.
+src/services/governanceProposalService.ts(550,78): error TS2339: Property 'amount' does not exist on type 'string'.
+src/services/governanceProposalService.ts(558,49): error TS2339: Property 'minStake' does not exist on type 'string'.
+src/services/governanceProposalService.ts(558,79): error TS2339: Property 'minValidatorStake' does not exist on type 'string'.
+src/services/governanceProposalService.ts(615,44): error TS2339: Property 'endTime' does not exist on type 'Proposal'.
+src/services/governanceProposalService.ts(615,76): error TS2339: Property 'endTime' does not exist on type 'Proposal'.
+src/services/governanceProposalService.ts(625,44): error TS2339: Property 'startTime' does not exist on type 'Proposal'.
+src/services/governanceProposalService.ts(625,78): error TS2339: Property 'startTime' does not exist on type 'Proposal'.
+src/services/governanceProposalService.ts(664,21): error TS2339: Property 'forTokens' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(667,21): error TS2551: Property 'againstTokens' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'. Did you mean 'againstVotes'?
+src/services/governanceProposalService.ts(670,21): error TS2551: Property 'abstainTokens' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'. Did you mean 'abstainVotes'?
+src/services/governanceProposalService.ts(672,19): error TS2339: Property 'totalVoters' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(674,44): error TS2339: Property 'forTokens' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(674,72): error TS2551: Property 'againstTokens' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'. Did you mean 'againstVotes'?
+src/services/governanceProposalService.ts(674,104): error TS2551: Property 'abstainTokens' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'. Did you mean 'abstainVotes'?
+src/services/governanceProposalService.ts(675,19): error TS2339: Property 'currentQuorumPercentage' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(676,19): error TS2339: Property 'quorumReached' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(676,51): error TS2339: Property 'currentQuorumPercentage' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(676,94): error TS2339: Property 'quorumPercentage' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(682,19): error TS2339: Property 'topVoters' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(691,24): error TS2339: Property 'topVoters' does not exist on type '{ id: string; title: string; description: string; proposer: string; status: ProposalStatus; forVotes: number; againstVotes: number; abstainVotes: number; quorum: number; startBlock: number; ... 8 more ...; executionTxHash?: string | undefined; }'.
+src/services/governanceProposalService.ts(710,5): error TS2322: Type 'string' is not assignable to type 'number'.
+src/services/governanceProposalService.ts(743,5): error TS2561: Object literal may only specify known properties, but 'proposerName' does not exist in type 'Proposal'. Did you mean to write 'proposer'?
+src/services/governanceProposalService.ts(783,12): error TS2551: Property 'delegatorCount' does not exist on type 'Delegate'. Did you mean 'delegatorsCount'?
+src/services/governanceProposalService.ts(805,26): error TS2551: Property 'delegatorCount' does not exist on type 'Delegate'. Did you mean 'delegatorsCount'?
+src/services/governanceProposalService.ts(806,14): error TS2551: Property 'delegatorCount' does not exist on type 'Delegate'. Did you mean 'delegatorsCount'?
+src/services/governanceProposalService.ts(886,7): error TS2339: Property 'power' does not exist on type 'VoteRecord'.
+src/services/governanceProposalService.ts(887,7): error TS2339: Property 'tokens' does not exist on type 'VoteRecord'.
+src/services/governanceProposalService.ts(888,11): error TS2339: Property 'type' does not exist on type 'VoteRecord'.
+src/services/governanceProposalService.ts(890,7): error TS2339: Property 'gasCostGwei' does not exist on type 'VoteRecord'.
+src/services/governanceProposalService.ts(891,12): error TS2551: Property 'gasCostUsd' does not exist on type 'VoteRecord'. Did you mean 'gasCost'?
+src/services/governanceProposalService.ts(904,5): error TS2353: Object literal may only specify known properties, and 'totalVrnLocked' does not exist in type 'GovernanceMetrics'.
+src/services/tests/governanceProposalService.test.ts(53,11): error TS2322: Type '{ downtimePenaltyBps: number; gracePeriodSecs: number; }' is not assignable to type 'string'.
+src/services/tests/governanceProposalService.test.ts(61,35): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/services/tests/governanceProposalService.test.ts(72,11): error TS2322: Type '{ amountVrn: number; }' is not assignable to type 'string'.
+src/services/tests/governanceProposalService.test.ts(79,35): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/services/tests/governanceProposalService.test.ts(114,9): error TS2322: Type '"Community"' is not assignable to type 'ProposalCategory'.
+src/services/tests/governanceProposalService.test.ts(151,21): error TS2339: Property 'topVoters' does not exist on type 'Proposal'.
+src/services/tests/governanceProposalService.test.ts(151,37): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/services/tests/governanceProposalService.test.ts(172,35): error TS2551: Property 'delegatorCount' does not exist on type 'Delegate'. Did you mean 'delegatorsCount'?
+src/services/tests/governanceProposalService.test.ts(182,29): error TS2551: Property 'delegatorCount' does not exist on type 'Delegate'. Did you mean 'delegatorsCount'?
+src/services/tests/governanceProposalService.test.ts(215,11): error TS2322: Type 'string' is not assignable to type 'number'.
+src/services/tests/governanceProposalService.test.ts(228,22): error TS2339: Property 'totalVrnLocked' does not exist on type 'GovernanceMetrics'.
+src/services/tests/governanceProposalService.test.ts(229,22): error TS2551: Property 'activeProposalsCount' does not exist on type 'GovernanceMetrics'. Did you mean 'activeProposals'?
+src/services/tests/governanceProposalService.test.ts(230,22): error TS2339: Property 'participationRate' does not exist on type 'GovernanceMetrics'.

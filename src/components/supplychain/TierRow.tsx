@@ -92,6 +92,7 @@ export function TierRow({
       role="treeitem"
       aria-expanded={item.hasChildren ? isExpanded : undefined}
       aria-level={item.depth + 1}
+      aria-selected={false}
     >
       <div
         className={`ml-0 border-l-4 ${borderColor} rounded-r-xl border border-white/10 bg-slate-900/80 transition-colors hover:border-white/20`}

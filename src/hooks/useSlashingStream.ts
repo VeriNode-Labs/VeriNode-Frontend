@@ -85,8 +85,9 @@ export function useSlashingStream({
 
   // Cleanup cache on unmount to avoid cross-test interference.
   useEffect(() => {
+    const receivedIds = receivedIdsRef.current
     return () => {
-      receivedIdsRef.current.clear()
+      receivedIds.clear()
     }
   }, [])
 

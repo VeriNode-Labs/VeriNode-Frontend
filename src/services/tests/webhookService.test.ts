@@ -11,7 +11,6 @@ import {
   SIGNATURE_HEADER,
   type WebhookEvent,
   type WebhookService,
-  type DeliveryRecord,
 } from '../webhookService'
 
 // Mock fetch for controlled testing
