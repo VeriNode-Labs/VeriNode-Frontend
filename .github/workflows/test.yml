@@ -36,6 +36,38 @@ jobs:
       - name: Check Build
         run: npm run build
 
+  accessibility:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Run Accessibility E2E Tests (axe-core)
+        run: npx playwright test e2e/a11y.spec.ts --project=wallet-ci 2>&1 | tee a11y-output.log
+
+      - name: Upload Accessibility Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-report
+          path: a11y-output.log
+          if-no-files-found: ignore
+
   performance:
     runs-on: ubuntu-latest
     needs: build

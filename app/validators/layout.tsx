@@ -8,11 +8,14 @@ import { WSHealthTier3Banner } from '@/src/components/layout/WSHealthTier3Banner
 // Auth/login routes never load these components.
 export default function ValidatorsLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div role="application" aria-label="Validators section">
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
       <OfflineBanner />
       <WSHealthTier3Banner />
       {children}
       <SyncStatusBar />
-    </>
+    </div>
   );
 }

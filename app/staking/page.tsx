@@ -5,8 +5,8 @@ import { StakingDashboard } from '@/src/components/staking/StakingDashboard';
 
 export default function StakingPage() {
   return (
-    <div className="min-h-screen bg-slate-950">
-      <main className="mx-auto min-h-screen max-w-6xl px-4 py-8">
+    <div className="min-h-screen bg-slate-950" role="main" aria-label="Staking management">
+      <main id="main-content" className="mx-auto min-h-screen max-w-6xl px-4 py-8">
         {/* Page header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-white">Staking Management</h1>

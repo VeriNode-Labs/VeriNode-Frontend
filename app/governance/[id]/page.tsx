@@ -13,7 +13,7 @@ export default function ProposalPage({ params }: ProposalPageProps) {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <main className="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8" aria-label="Governance proposal detail">
         <Suspense fallback={<div className="p-12 text-center text-slate-400 animate-pulse">Loading proposal {proposalId}...</div>}>
           <GovernanceDashboard initialProposalId={proposalId} />
         </Suspense>

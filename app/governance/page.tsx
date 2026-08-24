@@ -6,7 +6,7 @@ import { GovernanceDashboard } from '@/src/components/governance/GovernanceDashb
 export default function GovernancePage() {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      <main className="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8" aria-label="Governance voting dashboard">
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3">

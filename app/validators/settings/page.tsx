@@ -49,7 +49,7 @@ export default function ValidatorSettingsPage() {
   };
 
   return (
-    <div className="validator-settings-page">
+    <main id="main-content" className="validator-settings-page" aria-label="Validator settings">
       <div className="page-header">
         <h1>Validator Settings</h1>
         <p className="page-description">
@@ -390,6 +390,6 @@ export default function ValidatorSettingsPage() {
           overflow-y: auto;
         }
       `}</style>
-    </div>
+    </main>
   );
 }

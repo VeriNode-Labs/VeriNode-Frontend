@@ -26,7 +26,7 @@ export default function SupplyChainMapPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 px-4 py-8 text-white">
-      <main className="mx-auto max-w-5xl">
+      <main id="main-content" className="mx-auto max-w-5xl" aria-label="Supply chain map">
         <header className="mb-8">
           <h1 className="text-3xl font-bold text-slate-100">Supply Chain Map</h1>
           <p className="mt-2 text-sm text-slate-400">

@@ -59,7 +59,7 @@ function NodeDirectory() {
 
 export default function NetworkStatus() {
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-12">
+    <main id="main-content" className="p-8 max-w-7xl mx-auto space-y-12" aria-label="Network status and health">
       {/* Network Health Dashboard (issue #173) */}
       <NetworkHealthDashboard />
 
@@ -89,6 +89,6 @@ export default function NetworkStatus() {
           </Suspense>
         </section>
       </div>
-    </div>
+    </main>
   );
 }

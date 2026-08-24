@@ -21,7 +21,7 @@ export default function ReputationDemoPage() {
   const [enableDecimation, setEnableDecimation] = useState(true);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
+    <main id="main-content" className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8" aria-label="Reputation chart demo">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mb-8">

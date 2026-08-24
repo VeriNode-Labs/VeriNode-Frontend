@@ -60,3 +60,66 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ------------------------------------------------------------------------- */
+/* WCAG 2.1 AA – Global focus-indicator                                    */
+/* ------------------------------------------------------------------------- */
+
+/* Visible outline on all interactive elements when focused via keyboard.
+   Uses :focus-visible to avoid showing the ring on mouse/touch clicks. */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Override Tailwind's default outline reset on focus-visible */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role='button']:focus-visible,
+[role='tab']:focus-visible,
+[role='switch']:focus-visible,
+[role='menuitem']:focus-visible,
+[role='menuitemradio']:focus-visible,
+[role='menuitemcheckbox']:focus-visible,
+[role='treeitem']:focus-visible,
+[tabindex]:not([tabindex='-1']):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Skip-to-content link — hidden until focused */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  transition: top 0.1s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* sr-only utility (if not already provided by Tailwind v4) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

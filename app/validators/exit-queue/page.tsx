@@ -15,7 +15,7 @@ function ExitQueueRoute() {
   const beaconNodeUrl = params.get('beacon') ?? undefined
 
   return (
-    <main className="mx-auto min-h-screen max-w-4xl px-4 py-8">
+    <main id="main-content" className="mx-auto min-h-screen max-w-4xl px-4 py-8" aria-label="Exit queue tracker">
       <h1 className="mb-2 text-2xl font-bold text-white">Exit Queue Tracker</h1>
       <p className="mb-6 text-sm text-slate-400">
         Validator exit queue position, estimated wait time, and historical depth

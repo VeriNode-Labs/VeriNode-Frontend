@@ -14,7 +14,7 @@ export default function PreflightDemoPage() {
   const [approved, setApproved] = useState<string | null>(null)
 
   return (
-    <main className="mx-auto min-h-screen max-w-2xl bg-slate-950 px-4 py-10 text-white">
+    <main id="main-content" className="mx-auto min-h-screen max-w-2xl bg-slate-950 px-4 py-10 text-white" aria-label="Transaction pre-flight simulation">
       <h1 className="mb-2 text-2xl font-bold">Transaction Pre-Flight</h1>
       <p className="mb-8 text-sm text-slate-400">
         Simulate a Soroban transaction to preview its resource footprint and fee before approving.

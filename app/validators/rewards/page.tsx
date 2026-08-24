@@ -13,7 +13,7 @@ function RewardsRoute() {
   const pubkey = params.get('pubkey') ?? DEMO_PUBKEY
 
   return (
-    <main className="mx-auto min-h-screen max-w-5xl px-4 py-8">
+    <main id="main-content" className="mx-auto min-h-screen max-w-5xl px-4 py-8" aria-label="Validator reward history">
       <h1 className="mb-6 text-2xl font-bold text-white">Validator Reward History</h1>
       <ValidatorRewardHistory pubkey={pubkey} />
     </main>

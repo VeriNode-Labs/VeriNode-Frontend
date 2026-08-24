@@ -9,6 +9,7 @@ import { PendingTransactionsBanner } from "@/src/components/PendingTransactionsB
 import { FeatureFlagProvider } from "@/src/components/FeatureFlagProvider";
 import { CapacitySheddingProvider } from "@/src/components/CapacitySheddingProvider";
 import { CapacityIndicator } from "@/src/components/CapacityIndicator";
+import { ScreenReaderAnnouncements } from "@/src/components/ScreenReaderAnnouncements";
 
 // next/font self-hosts Inter and emits <link rel="preload"> automatically.
 const inter = Inter({
@@ -32,10 +33,15 @@ export default function RootLayout({
       <body
         className={`${inter.variable} antialiased`}
       >
+        {/* Skip-to-content link for keyboard users */}
+        <a href="#main-content" className="skip-to-content">
+          Skip to main content
+        </a>
         <Providers>
           <FeatureFlagProvider>
             <CapacitySheddingProvider>
               <ToastProvider>
+                <ScreenReaderAnnouncements />
                 <CapacityIndicator />
                 <PendingTransactionsBanner />
                 <RetryWatcher />
