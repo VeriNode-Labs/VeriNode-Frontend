@@ -148,7 +148,7 @@ describe('governanceProposalService', () => {
 
       const after = await fetchProposalById('PROP-048');
       expect(after!.forVotes).toBe(initialFor + 100);
-      expect(after!.topVoters.some((v) => v.power === 100)).toBe(true);
+      expect(after!.topVoters?.some((v) => v.power === 100)).toBe(true);
     });
 
     it('throws error when voting on closed proposal', async () => {

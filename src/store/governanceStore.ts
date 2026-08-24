@@ -34,7 +34,7 @@ export function calculateEffectiveWeight(rawTokens: number, votingType: VotingTy
  */
 export function calculateQuorumProgress(proposal: Proposal): QuorumProgress {
   const currentVotes = proposal.forVotes + proposal.againstVotes + proposal.abstainVotes
-  const quorum = proposal.quorum
+  const quorum = proposal.quorum ?? 0
   const quorumReached = quorum > 0 && currentVotes >= quorum
   const percentage = quorum > 0 ? Math.min(100, Math.round((currentVotes / quorum) * 1000) / 10) : 0
 
@@ -403,7 +403,7 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       }
     }
 
-    const effectiveWeight = calculateEffectiveWeight(tokens, proposal.votingType)
+    const effectiveWeight = calculateEffectiveWeight(tokens, proposal.votingType ?? 'token-weighted')
 
     // Generate simulated tx hash and gas
     const randomHex = Array.from({ length: 64 }, () =>
@@ -443,11 +443,11 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       choice,
       votingPower: tokens,
       effectiveWeight,
-      votingType: proposal.votingType,
+      votingType: proposal.votingType ?? 'token-weighted',
       txHash,
       gasCost,
       timestamp,
-      blockNumber: proposal.startBlock + Math.floor(Math.random() * 5000),
+      blockNumber: (proposal.startBlock ?? 0) + Math.floor(Math.random() * 5000),
     }
 
     set({
@@ -478,9 +478,9 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       if (d.address === delegateAddress) {
         return {
           ...d,
-          delegatedVotes: d.delegatedVotes + powerToDelegate,
+          delegatedVotes: (d.delegatedVotes ?? 0) + powerToDelegate,
           votingPower: d.votingPower + powerToDelegate,
-          delegatorsCount: d.delegatorsCount + 1,
+          delegatorsCount: (d.delegatorsCount ?? 0) + 1,
           isDelegatedTo: true,
         }
       }
@@ -488,9 +488,9 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       if (d.address === state.currentDelegation) {
         return {
           ...d,
-          delegatedVotes: Math.max(0, d.delegatedVotes - powerToDelegate),
+          delegatedVotes: Math.max(0, (d.delegatedVotes ?? 0) - powerToDelegate),
           votingPower: Math.max(0, d.votingPower - powerToDelegate),
-          delegatorsCount: Math.max(0, d.delegatorsCount - 1),
+          delegatorsCount: Math.max(0, (d.delegatorsCount ?? 0) - 1),
           isDelegatedTo: false,
         }
       }
@@ -519,9 +519,9 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
       if (d.address === targetAddress) {
         return {
           ...d,
-          delegatedVotes: Math.max(0, d.delegatedVotes - delegatedPower),
+          delegatedVotes: Math.max(0, (d.delegatedVotes ?? 0) - delegatedPower),
           votingPower: Math.max(0, d.votingPower - delegatedPower),
-          delegatorsCount: Math.max(0, d.delegatorsCount - 1),
+          delegatorsCount: Math.max(0, (d.delegatorsCount ?? 0) - 1),
           isDelegatedTo: false,
         }
       }
@@ -631,7 +631,7 @@ export const useGovernanceStore = create<GovernanceState>((set, get) => ({
     const { proposals, delegates, userVotingPower, userTokenBalance } = get()
     const activeProposals = proposals.filter((p) => p.status === 'active').length
     const totalVotingPower = delegates.reduce((sum, d) => sum + d.votingPower, 0)
-    const delegatedPower = delegates.reduce((sum, d) => sum + d.delegatedVotes, 0)
+    const delegatedPower = delegates.reduce((sum, d) => sum + (d.delegatedVotes ?? 0), 0)
 
     return {
       totalProposals: proposals.length,

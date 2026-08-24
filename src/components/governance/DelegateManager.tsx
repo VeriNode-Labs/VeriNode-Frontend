@@ -35,7 +35,7 @@ export function DelegateManager() {
       (d) =>
         d.name.toLowerCase().includes(q) ||
         d.address.toLowerCase().includes(q) ||
-        d.bio.toLowerCase().includes(q)
+        d.bio?.toLowerCase().includes(q)
     );
   }, [delegates, searchQuery]);
 
@@ -104,7 +104,7 @@ export function DelegateManager() {
           <div className="rounded-2xl border border-white/5 bg-slate-950/60 p-4">
             <span className="text-xs text-slate-400">Your VRN Token Balance</span>
             <p className="mt-1 font-mono text-lg font-bold text-white">
-              {profile?.tokenBalance.toLocaleString() || '45,000'} <span className="text-xs text-slate-400">VRN</span>
+              {profile?.tokenBalance?.toLocaleString() || '45,000'} <span className="text-xs text-slate-400">VRN</span>
             </p>
           </div>
           <div className="rounded-2xl border border-white/5 bg-slate-950/60 p-4">
@@ -156,7 +156,7 @@ export function DelegateManager() {
         ) : (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {filteredDelegates.map((delegate) => {
-              const isSelected = currentDelegation === delegate.address
+              const isSelected = profile?.delegatedTo === delegate.address
 
               return (
                 <div
@@ -172,7 +172,7 @@ export function DelegateManager() {
                     <div>
                       <h4 className="text-sm font-bold text-white">{delegate.name}</h4>
                       <p className="mt-0.5 font-mono text-xs text-indigo-400" title={delegate.address}>
-                        {truncateAddress(delegate.address)}
+                        {(delegate.address?.slice(0, 6) ?? '') + '...' + (delegate.address?.slice(-4) ?? '')}
                       </p>
                     </div>
 

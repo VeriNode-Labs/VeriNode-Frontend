@@ -618,7 +618,7 @@ export async function fetchProposals(options: ProposalFilterOptions = {}): Promi
         filtered.sort((a, b) => (b.forVotes + b.againstVotes + b.abstainVotes) - (a.forVotes + a.againstVotes + a.abstainVotes));
         break;
       case 'deposit':
-        filtered.sort((a, b) => b.deposit - a.deposit);
+        filtered.sort((a, b) => (b.deposit ?? 0) - (a.deposit ?? 0));
         break;
       case 'recent':
       default:
@@ -688,7 +688,7 @@ export async function castVote(
       timestamp: now,
       txHash,
     },
-    ...updatedProposal.topVoters,
+    ...(updatedProposal.topVoters ?? []),
   ];
 
   proposals[proposalIndex] = updatedProposal;
@@ -887,7 +887,7 @@ export function exportVoteHistoryCsv(records: VoteRecord[]): string {
     `"${r.type}"`,
     `"${r.txHash}"`,
     r.gasCostGwei,
-    `"$${r.gasCostUsd.toFixed(2)}"`,
+    `"$${(r.gasCostUsd ?? 0).toFixed(2)}"`,
     `"${r.timestamp}"`,
   ]);
 

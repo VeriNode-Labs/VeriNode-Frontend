@@ -37,11 +37,11 @@ export function VotePanel({ proposal, onVoteSuccess }: VotePanelProps) {
 
   // Voting power calculation based on proposal mechanism
   const { power: votingPower, tokens: effectiveTokens } = useMemo(() => {
-    return calculateVotingPower(tokensAllocated, proposal.type);
+    return calculateVotingPower(tokensAllocated, proposal.type ?? 'token-weighted');
   }, [tokensAllocated, proposal.type]);
 
   // Gas cost estimation
-  const gasEstimateGwei = proposal.type === 'quadratic' ? 48500 : 42000;
+  const gasEstimateGwei = (proposal.type ?? 'token-weighted') === 'quadratic' ? 48500 : 42000;
   const gasEstimateUsd = Number((gasEstimateGwei * 0.0000025).toFixed(2));
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +64,7 @@ export function VotePanel({ proposal, onVoteSuccess }: VotePanelProps) {
         choice,
         tokens: effectiveTokens,
         power: votingPower,
-        type: proposal.type,
+        type: proposal.type ?? 'token-weighted',
       });
 
       setTxSuccessHash(result.txHash);
@@ -97,7 +97,7 @@ export function VotePanel({ proposal, onVoteSuccess }: VotePanelProps) {
             <p className="text-xs text-slate-400">Participate in protocol consensus</p>
           </div>
           <span className="rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-300">
-            {proposal.type === 'quadratic' ? 'Quadratic Formula (Power = √Tokens)' : 'Token-Weighted (1 Token = 1 Vote)'}
+            {(proposal.type ?? 'token-weighted') === 'quadratic' ? 'Quadratic Formula (Power = √Tokens)' : 'Token-Weighted (1 Token = 1 Vote)'}
           </span>
         </div>
 
@@ -184,7 +184,7 @@ export function VotePanel({ proposal, onVoteSuccess }: VotePanelProps) {
             </div>
           </div>
 
-          {proposal.type === 'quadratic' && (
+          {(proposal.type ?? 'token-weighted') === 'quadratic' && (
             <p className="text-[11px] text-slate-400">
               💡 Quadratic voting prevents capital domination by taking the square root: <span className="text-sky-300">√{effectiveTokens.toLocaleString()} ≈ {votingPower.toLocaleString()}</span> voting power.
             </p>
