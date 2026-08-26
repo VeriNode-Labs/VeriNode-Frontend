@@ -1,56 +1,367 @@
 @import "tailwindcss";
 
+/* ===========================================================================
+   Theme token system (issue #169)
+   ---------------------------------------------------------------------------
+   60+ CSS custom properties per theme: colors, spacing, shadows, radii.
+   Themes are activated by the `data-theme` attribute on <html>, which the
+   ThemeProvider sets from the user's stored preference (falling back to the
+   OS `prefers-color-scheme` setting). Token values are consumed either
+   directly via `var(--token)` or through the mapped Tailwind utilities
+   (e.g. `bg-surface`, `text-muted-foreground`, `shadow-card`).
+   =========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --surface: #f8fafc;
+  /* Colors — light (default) */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --surface-alt: #f1f5f9;
+  --surface-hover: #f1f5f9;
+  --surface-active: #e2e8f0;
+  --surface-sunken: #f1f5f9;
   --border: #cbd5e1;
+  --border-strong: #94a3b8;
+  --border-muted: #e2e8f0;
   --muted: #64748b;
+  --muted-foreground: #64748b;
+  --muted-bg: #f1f5f9;
   --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-active: #1e40af;
   --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #334155;
+  --accent: #e0e7ff;
+  --accent-foreground: #3730a3;
   --destructive: #dc2626;
+  --destructive-hover: #b91c1c;
+  --destructive-foreground: #ffffff;
   --success: #16a34a;
+  --success-foreground: #ffffff;
+  --warning: #d97706;
+  --warning-foreground: #ffffff;
+  --info: #0284c7;
+  --info-foreground: #ffffff;
+  --link: #2563eb;
+  --focus-ring: #2563eb;
+  --selection: rgba(37, 99, 235, 0.2);
+  --overlay: rgba(15, 23, 42, 0.5);
+  --input: #ffffff;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --skeleton: #e2e8f0;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-track: transparent;
+  --chart-1: #2563eb;
+  --chart-2: #16a34a;
+  --chart-3: #d97706;
+  --chart-4: #dc2626;
+  --chart-5: #7c3aed;
+  --chart-6: #0891b2;
+  --chart-7: #db2777;
+  --chart-8: #65a30d;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(15 23 42 / 0.1);
+  --shadow-card: 0 1px 3px rgb(15 23 42 / 0.08);
+  --shadow-popover: 0 10px 30px rgb(0 0 0 / 0.2);
 }
 
 :root[data-theme='dark'] {
   --background: #020617;
   --foreground: #f8fafc;
   --surface: #0f172a;
+  --surface-alt: #1e293b;
+  --surface-hover: #1e293b;
+  --surface-active: #334155;
+  --surface-sunken: #020617;
   --border: #475569;
+  --border-strong: #64748b;
+  --border-muted: #334155;
   --muted: #cbd5e1;
+  --muted-foreground: #94a3b8;
+  --muted-bg: #1e293b;
   --primary: #60a5fa;
+  --primary-hover: #93c5fd;
+  --primary-active: #3b82f6;
   --primary-foreground: #020617;
+  --secondary: #1e293b;
+  --secondary-foreground: #e2e8f0;
+  --accent: #312e81;
+  --accent-foreground: #c7d2fe;
   --destructive: #f87171;
+  --destructive-hover: #fca5a5;
+  --destructive-foreground: #450a0a;
   --success: #4ade80;
+  --success-foreground: #052e16;
+  --warning: #fbbf24;
+  --warning-foreground: #451a03;
+  --info: #38bdf8;
+  --info-foreground: #082f49;
+  --link: #93c5fd;
+  --focus-ring: #60a5fa;
+  --selection: rgba(96, 165, 250, 0.3);
+  --overlay: rgba(2, 6, 23, 0.7);
+  --input: #0f172a;
+  --card: #0f172a;
+  --popover: #1e293b;
+  --skeleton: #1e293b;
+  --scrollbar-thumb: #334155;
+  --scrollbar-track: transparent;
+  --chart-1: #60a5fa;
+  --chart-2: #4ade80;
+  --chart-3: #fbbf24;
+  --chart-4: #f87171;
+  --chart-5: #a78bfa;
+  --chart-6: #22d3ee;
+  --chart-7: #f472b6;
+  --chart-8: #a3e635;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.6);
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.4);
+  --shadow-popover: 0 10px 30px rgb(0 0 0 / 0.7);
 }
 
 :root[data-theme='hc-dark'] {
   --background: #000000;
   --foreground: #f5f5f5;
   --surface: #111111;
+  --surface-alt: #1a1a1a;
+  --surface-hover: #1a1a1a;
+  --surface-active: #2a2a2a;
+  --surface-sunken: #000000;
   --border: #ffffff;
+  --border-strong: #ffffff;
+  --border-muted: #808080;
   --muted: #d4d4d4;
+  --muted-foreground: #d4d4d4;
+  --muted-bg: #1a1a1a;
   --primary: #ffd700;
+  --primary-hover: #ffe44d;
+  --primary-active: #ccac00;
   --primary-foreground: #000000;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f5;
+  --accent: #2a2a2a;
+  --accent-foreground: #ffd700;
   --destructive: #ff0000;
+  --destructive-hover: #ff6666;
+  --destructive-foreground: #ffffff;
   --success: #00cc00;
+  --success-foreground: #000000;
+  --warning: #ffcc00;
+  --warning-foreground: #000000;
+  --info: #66ccff;
+  --info-foreground: #000000;
+  --link: #ffd700;
+  --focus-ring: #ffd700;
+  --selection: rgba(255, 215, 0, 0.35);
+  --overlay: rgba(0, 0, 0, 0.8);
+  --input: #111111;
+  --card: #111111;
+  --popover: #1a1a1a;
+  --skeleton: #2a2a2a;
+  --scrollbar-thumb: #808080;
+  --scrollbar-track: #000000;
+  --chart-1: #ffd700;
+  --chart-2: #00cc00;
+  --chart-3: #ffcc00;
+  --chart-4: #ff0000;
+  --chart-5: #ff66cc;
+  --chart-6: #66ccff;
+  --chart-7: #ff9933;
+  --chart-8: #99ff66;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.6);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.7);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.7);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.8);
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.6);
+  --shadow-popover: 0 10px 30px rgb(0 0 0 / 0.9);
 }
 
 :root[data-theme='hc-light'] {
   --background: #ffffff;
   --foreground: #000000;
-  --surface: #f5f5f5;
+  --surface: #ffffff;
+  --surface-alt: #f0f0f0;
+  --surface-hover: #f0f0f0;
+  --surface-active: #dcdcdc;
+  --surface-sunken: #f0f0f0;
   --border: #000000;
+  --border-strong: #000000;
+  --border-muted: #666666;
   --muted: #333333;
+  --muted-foreground: #333333;
+  --muted-bg: #f0f0f0;
   --primary: #0000ff;
+  --primary-hover: #3333ff;
+  --primary-active: #0000cc;
   --primary-foreground: #ffffff;
+  --secondary: #f0f0f0;
+  --secondary-foreground: #000000;
+  --accent: #ccccff;
+  --accent-foreground: #0000cc;
   --destructive: #ff0000;
-  --success: #00cc00;
+  --destructive-hover: #cc0000;
+  --destructive-foreground: #ffffff;
+  --success: #008800;
+  --success-foreground: #ffffff;
+  --warning: #884400;
+  --warning-foreground: #ffffff;
+  --info: #0044cc;
+  --info-foreground: #ffffff;
+  --link: #0000ff;
+  --focus-ring: #0000ff;
+  --selection: rgba(0, 0, 255, 0.25);
+  --overlay: rgba(0, 0, 0, 0.5);
+  --input: #ffffff;
+  --card: #ffffff;
+  --popover: #ffffff;
+  --skeleton: #dcdcdc;
+  --scrollbar-thumb: #666666;
+  --scrollbar-track: #ffffff;
+  --chart-1: #0000ff;
+  --chart-2: #008800;
+  --chart-3: #884400;
+  --chart-4: #ff0000;
+  --chart-5: #6600cc;
+  --chart-6: #0066cc;
+  --chart-7: #cc0066;
+  --chart-8: #446600;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.2);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.25);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.25);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.2);
+  --shadow-popover: 0 10px 30px rgb(0 0 0 / 0.3);
 }
 
+/* Map tokens to Tailwind v4 utilities (bg-surface, text-muted-foreground, ...) */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-muted: var(--border-muted);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted-bg: var(--muted-bg);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-link: var(--link);
+  --color-card: var(--card);
+  --color-popover: var(--popover);
+  --color-input: var(--input);
+  --color-overlay: var(--overlay);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-card: var(--shadow-card);
+  --shadow-popover: var(--shadow-popover);
   --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: "Courier New", Courier, monospace;
 }
@@ -59,6 +370,34 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Smooth theme transition                                                   */
+/* ------------------------------------------------------------------------- */
+/* The ThemeProvider adds `theme-transitioning` to <html> for the duration of
+   a theme switch so color changes animate instead of snapping. The class is
+   only present while the switch happens, so hover states elsewhere are never
+   affected. Disabled for users who prefer reduced motion. */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    fill 0.3s ease,
+    stroke 0.3s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition: none !important;
+  }
 }
 
 /* ------------------------------------------------------------------------- */

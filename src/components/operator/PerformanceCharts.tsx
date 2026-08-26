@@ -16,6 +16,8 @@ import {
   filterEpochPointsByRange,
   filterTimestampPointsByRange,
 } from '@/src/lib/operatorTime';
+import { useTheme } from '@/src/components/providers/ThemeProvider';
+import { getChartTheme } from '@/src/styles/chartTheme';
 
 interface Point {
   time: UTCTimestamp;
@@ -48,6 +50,8 @@ function LwChart({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<'Area'> | ISeriesApi<'Histogram'> | null>(null);
+  const { resolvedTheme } = useTheme();
+  const chartTheme = useMemo(() => getChartTheme(resolvedTheme), [resolvedTheme]);
 
   // Create the chart once.
   useEffect(() => {
@@ -58,12 +62,12 @@ function LwChart({
       height,
       layout: {
         background: { type: ColorType.Solid, color: 'transparent' },
-        textColor: '#71717a',
+        textColor: chartTheme.textColor,
         attributionLogo: false,
       },
       grid: {
-        vertLines: { color: 'rgba(113,113,122,0.1)' },
-        horzLines: { color: 'rgba(113,113,122,0.1)' },
+        vertLines: { color: chartTheme.gridColor },
+        horzLines: { color: chartTheme.gridColor },
       },
       rightPriceScale: { borderVisible: false },
       timeScale: { borderVisible: false, timeVisible: true },
@@ -75,12 +79,12 @@ function LwChart({
     seriesRef.current =
       kind === 'area'
         ? chart.addSeries(AreaSeries, {
-            lineColor: '#3b82f6',
-            topColor: 'rgba(59,130,246,0.35)',
-            bottomColor: 'rgba(59,130,246,0.02)',
+            lineColor: chartTheme.seriesColor,
+            topColor: chartTheme.areaTopColor,
+            bottomColor: chartTheme.areaBottomColor,
             lineWidth: 2,
           })
-        : chart.addSeries(HistogramSeries, { color: '#3b82f6' });
+        : chart.addSeries(HistogramSeries, { color: chartTheme.seriesColor });
 
     const ro = new ResizeObserver((entries) => {
       const w = entries[0]?.contentRect.width;
@@ -95,7 +99,38 @@ function LwChart({
       chartRef.current = null;
       seriesRef.current = null;
     };
+    // `chartTheme` is intentionally omitted: recreating the chart on theme
+    // change would reset the viewport. Colors are re-applied in the dedicated
+    // effect below via `chart.applyOptions()`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kind, height]);
+
+  // Re-theme the existing chart instance on mode change (issue #169).
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (!chart) return;
+    chart.applyOptions({
+      layout: {
+        textColor: chartTheme.textColor,
+        background: { type: ColorType.Solid, color: 'transparent' },
+      },
+      grid: {
+        vertLines: { color: chartTheme.gridColor },
+        horzLines: { color: chartTheme.gridColor },
+      },
+    });
+    const series = seriesRef.current;
+    if (!series) return;
+    if (series.seriesType() === 'Area') {
+      series.applyOptions({
+        lineColor: chartTheme.seriesColor,
+        topColor: chartTheme.areaTopColor,
+        bottomColor: chartTheme.areaBottomColor,
+      });
+    } else {
+      series.applyOptions({ color: chartTheme.seriesColor });
+    }
+  }, [chartTheme]);
 
   // Update data when it changes.
   useEffect(() => {
@@ -118,10 +153,10 @@ function ChartCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900">
-      <h3 className="mb-2 text-sm font-medium text-zinc-700 dark:text-zinc-200">{title}</h3>
+    <div className="rounded-xl border border-border bg-surface p-4">
+      <h3 className="mb-2 text-sm font-medium text-foreground">{title}</h3>
       {empty ? (
-        <div className="flex h-[220px] items-center justify-center text-sm text-zinc-400">
+        <div className="flex h-[220px] items-center justify-center text-sm text-muted-foreground">
           No data in the selected range
         </div>
       ) : (
@@ -131,10 +166,10 @@ function ChartCard({
   );
 }
 
-const PROPOSAL_COLORS: Record<string, string> = {
-  included: '#16a34a',
-  missed: '#dc2626',
-  orphaned: '#d97706',
+const PROPOSAL_STATUS: Record<string, 'success' | 'destructive' | 'warning' | 'series'> = {
+  included: 'success',
+  missed: 'destructive',
+  orphaned: 'warning',
 };
 
 export interface PerformanceChartsProps {
@@ -148,6 +183,9 @@ export interface PerformanceChartsProps {
  * status). All three respect the shared time range.
  */
 export function PerformanceCharts({ history, timeRange }: PerformanceChartsProps) {
+  const { resolvedTheme } = useTheme();
+  const chartTheme = useMemo(() => getChartTheme(resolvedTheme), [resolvedTheme]);
+
   const balancePoints = useMemo<Point[]>(() => {
     return filterEpochPointsByRange(history.balances, timeRange).map((p) => ({
       time: epochToUnixSeconds(p.epoch) as UTCTimestamp,
@@ -163,12 +201,16 @@ export function PerformanceCharts({ history, timeRange }: PerformanceChartsProps
   }, [history.attestationEffectiveness, timeRange]);
 
   const proposalPoints = useMemo<Point[]>(() => {
-    return filterTimestampPointsByRange(history.proposals, timeRange).map((p) => ({
-      time: Math.floor(p.timestamp / 1000) as UTCTimestamp,
-      value: 1,
-      color: PROPOSAL_COLORS[p.status] ?? '#3b82f6',
-    }));
-  }, [history.proposals, timeRange]);
+    return filterTimestampPointsByRange(history.proposals, timeRange).map((p) => {
+      const tone = PROPOSAL_STATUS[p.status] ?? 'series';
+      const color = tone === 'series' ? chartTheme.seriesColor : chartTheme[tone];
+      return {
+        time: Math.floor(p.timestamp / 1000) as UTCTimestamp,
+        value: 1,
+        color,
+      };
+    });
+  }, [history.proposals, timeRange, chartTheme]);
 
   return (
     <section aria-label="Performance charts" className="grid grid-cols-1 gap-4 lg:grid-cols-3">

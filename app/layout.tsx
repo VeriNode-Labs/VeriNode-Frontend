@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import { Providers } from "@/src/components/providers/Providers";
 
@@ -29,7 +30,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Apply the stored/system theme before first paint to avoid a flash
+            of the wrong theme (issue #169). The ThemeProvider takes over
+            after hydration. */}
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
+      </head>
       <body
         className={`${inter.variable} antialiased`}
       >

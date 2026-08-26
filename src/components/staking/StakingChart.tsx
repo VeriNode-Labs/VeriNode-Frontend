@@ -21,6 +21,8 @@ import {
   type UTCTimestamp,
 } from 'lightweight-charts';
 import type { StakingChartDataPoint } from '@/src/types/staking';
+import { useTheme } from '@/src/components/providers/ThemeProvider';
+import { getChartTheme } from '@/src/styles/chartTheme';
 
 interface StakingChartProps {
   balanceHistory: StakingChartDataPoint[];
@@ -69,6 +71,8 @@ function LwChart({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<ISeriesApi<'Area'> | null>(null);
+  const { resolvedTheme } = useTheme();
+  const chartTheme = useMemo(() => getChartTheme(resolvedTheme), [resolvedTheme]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -78,12 +82,12 @@ function LwChart({
       height,
       layout: {
         background: { type: ColorType.Solid, color: 'transparent' },
-        textColor: '#71717a',
+        textColor: chartTheme.textColor,
         attributionLogo: false,
       },
       grid: {
-        vertLines: { color: 'rgba(113,113,122,0.1)' },
-        horzLines: { color: 'rgba(113,113,122,0.1)' },
+        vertLines: { color: chartTheme.gridColor },
+        horzLines: { color: chartTheme.gridColor },
       },
       rightPriceScale: { borderVisible: false },
       timeScale: { borderVisible: false, timeVisible: false },
@@ -92,8 +96,8 @@ function LwChart({
     });
     chartRef.current = chart;
 
-    const resolvedTopColor = topColor ?? `${color}59`;
-    const resolvedBottomColor = bottomColor ?? `${color}05`;
+    const resolvedTopColor = topColor ?? chartTheme.areaTopColor;
+    const resolvedBottomColor = bottomColor ?? chartTheme.areaBottomColor;
 
     seriesRef.current = chart.addSeries(AreaSeries, {
       lineColor: color,
@@ -115,7 +119,34 @@ function LwChart({
       chartRef.current = null;
       seriesRef.current = null;
     };
+    // `chartTheme` is intentionally omitted: recreating the chart on theme
+    // change would reset the viewport. Colors are re-applied in the dedicated
+    // effect below via `chart.applyOptions()`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height, color, topColor, bottomColor]);
+
+  // Re-theme the existing chart instance on mode change (issue #169).
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (!chart) return;
+    chart.applyOptions({
+      layout: {
+        textColor: chartTheme.textColor,
+        background: { type: ColorType.Solid, color: 'transparent' },
+      },
+      grid: {
+        vertLines: { color: chartTheme.gridColor },
+        horzLines: { color: chartTheme.gridColor },
+      },
+    });
+    const series = seriesRef.current;
+    if (!series) return;
+    series.applyOptions({
+      lineColor: color,
+      topColor: topColor ?? chartTheme.areaTopColor,
+      bottomColor: bottomColor ?? chartTheme.areaBottomColor,
+    });
+  }, [chartTheme, color, topColor, bottomColor]);
 
   useEffect(() => {
     const series = seriesRef.current;
@@ -139,14 +170,14 @@ function ChartCard({
   subtitle?: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/70 p-4">
+    <div className="rounded-xl border border-border bg-surface p-4">
       <div className="mb-2">
-        <h3 className="text-sm font-medium text-slate-200">{title}</h3>
-        {subtitle && <p className="text-[11px] text-slate-500">{subtitle}</p>}
+        <h3 className="text-sm font-medium text-foreground">{title}</h3>
+        {subtitle && <p className="text-[11px] text-muted-foreground">{subtitle}</p>}
       </div>
       {empty ? (
         <div
-          className="flex items-center justify-center text-sm text-slate-500"
+          className="flex items-center justify-center text-sm text-muted-foreground"
           style={{ height: 220 }}
         >
           No data in the selected range

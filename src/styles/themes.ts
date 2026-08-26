@@ -1,6 +1,36 @@
 import { tokenPalette } from './colors'
 
-export type ThemeMode = 'light' | 'dark' | 'hc-dark' | 'hc-light'
+/** User-selectable theme modes. `system` follows the OS `prefers-color-scheme`. */
+export type ThemeMode = 'system' | 'light' | 'dark' | 'hc-dark' | 'hc-light'
+
+/** The effective color scheme after resolving `system` against the OS preference. */
+export type ResolvedTheme = 'light' | 'dark'
+
+/** Hard-coded fallback used when no stored preference exists yet. */
+export const DEFAULT_THEME_MODE: ThemeMode = 'system'
+
+/** Storage key for the persisted theme preference. */
+export const THEME_STORAGE_KEY = 'verinode-theme'
+
+export function isThemeMode(value: string | null | undefined): value is ThemeMode {
+  return (
+    value === 'system' ||
+    value === 'light' ||
+    value === 'dark' ||
+    value === 'hc-dark' ||
+    value === 'hc-light'
+  )
+}
+
+/**
+ * Resolve a theme mode to the effective color scheme. `system` (and any
+ * unknown value) falls back to the OS `prefers-color-scheme` preference.
+ */
+export function resolveTheme(mode: ThemeMode | string | null | undefined, prefersDark: boolean): ResolvedTheme {
+  if (mode === 'light' || mode === 'hc-light') return 'light'
+  if (mode === 'dark' || mode === 'hc-dark') return 'dark'
+  return prefersDark ? 'dark' : 'light'
+}
 
 export interface ThemeDefinition {
   id: ThemeMode
@@ -19,7 +49,7 @@ export interface ThemeDefinition {
   }
 }
 
-function createTheme(id: ThemeMode, label: string, description: string): ThemeDefinition {
+function createTheme(id: Exclude<ThemeMode, 'system'>, label: string, description: string): ThemeDefinition {
   const colors = tokenPalette[id]
   return { id, label, description, colors }
 }

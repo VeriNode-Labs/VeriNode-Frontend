@@ -190,16 +190,19 @@ const config: Config = {
 
 ### Theme System
 
-Four themes are supported, defined in `src/styles/themes.ts` and driven by the palette in `src/styles/colors.ts`:
+Four themes are supported, defined in `src/styles/themes.ts` and driven by the palette in `src/styles/colors.ts`, plus a `system` mode that follows the OS `prefers-color-scheme` setting:
 
 | Theme ID | Description |
 |----------|-------------|
+| `system` | Follow the OS light/dark preference (default) |
 | `light` | Default light mode for office use |
 | `dark` | Standard dark mode |
 | `hc-dark` | High-contrast palette tuned for dim server rooms |
 | `hc-light` | High-contrast palette tuned for bright NOC floors |
 
-Theme switching applies a `data-theme` attribute to `:root`, which activates CSS custom properties injected by the Tailwind plugin.
+Theme switching applies a `data-theme` attribute to `:root`, which activates CSS custom properties injected by the Tailwind plugin. The `ThemeProvider` reads the stored preference (`localStorage`, key `verinode-theme`), falls back to `prefers-color-scheme` when nothing is stored, listens for OS preference changes via `matchMedia`, and exposes `useTheme()` returning `(theme, setTheme, resolvedTheme)`. A pre-hydration script (`public/theme-init.js`) applies the theme before first paint to avoid a flash of the wrong theme.
+
+The `ThemeToggle` button (sun/moon/monitor icons) cycles `system -> light -> dark`; it lives in the dashboard header and on the home page. Lightweight Charts instances re-theme on mode change via `chart.applyOptions()` using the tokens in `src/styles/chartTheme.ts`.
 
 ### Color Tokens
 
