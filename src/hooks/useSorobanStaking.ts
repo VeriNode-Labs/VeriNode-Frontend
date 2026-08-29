@@ -120,7 +120,7 @@ export function useSorobanStaking(onToast?: Toast): UseSorobanStakingReturn {
         const reason = err instanceof StakingSubmitError ? err.message : (err instanceof Error ? err.message : 'Staking failed');
         fail(optimisticTxId, reason);
         onToast?.(reason, 'error');
-        
+
         import('@/src/services/sentry').then(({ captureTransactionFailure }) => {
           captureTransactionFailure({
             optimisticTxId,
@@ -129,6 +129,16 @@ export function useSorobanStaking(onToast?: Toast): UseSorobanStakingReturn {
             reason
           });
         });
+
+        // Re-throw so the returned promise rejects. Callers (StakeForm,
+        // UnstakeForm) already `await` this inside a try/catch and rely on
+        // rejection to distinguish success from failure - e.g. StakeForm only
+        // clears the form and shows a success toast on the happy path.
+        // Swallowing the error here (as before) made those success paths run
+        // unconditionally even when the transaction failed on-chain, since
+        // the store/toast update above is a side effect, not a signal to the
+        // caller.
+        throw err instanceof Error ? err : new Error(reason);
       }
     }, [source, beginOptimistic, attachHash, confirm, fail, removePending, onToast]);
 

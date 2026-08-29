@@ -56,7 +56,14 @@ export function StakingPendingIndicator() {
             )}
             {p.status === 'failed' && (
               <button
-                onClick={() => retry(p.optimisticTxId)}
+                onClick={() => {
+                  // retry() now rejects on a repeat failure (see
+                  // useSorobanStaking's runAction fix) so the toast + pending
+                  // list already reflect it - swallow the rejection here to
+                  // avoid an unhandled promise rejection console warning from
+                  // this fire-and-forget click handler.
+                  retry(p.optimisticTxId).catch(() => {});
+                }}
                 className="rounded border border-red-300 px-2 py-0.5 text-xs font-medium text-red-700 hover:bg-red-50"
               >
                 Retry

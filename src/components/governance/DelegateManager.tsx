@@ -8,7 +8,6 @@
  */
 
 import React, { useState, useMemo } from 'react';
-import type { Delegate } from '@/src/types/governance';
 import { useDelegates, useUserGovernanceProfile, useDelegate, useRevokeDelegation } from '@/src/hooks/useGovernance';
 import { useWallet } from '@/src/hooks/useWallet';
 
@@ -22,7 +21,6 @@ export function DelegateManager() {
   const revokeMutation = useRevokeDelegation();
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedDelegate, setSelectedDelegate] = useState<Delegate | null>(null);
   const [customAddress, setCustomAddress] = useState('');
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [showRevokeModal, setShowRevokeModal] = useState(false);
@@ -46,7 +44,6 @@ export function DelegateManager() {
         delegateAddress,
       });
       setTxSuccess(res.txHash);
-      setSelectedDelegate(null);
       setShowCustomModal(false);
       refetchProfile();
     } catch (err) {
@@ -66,7 +63,7 @@ export function DelegateManager() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" data-testid="delegate-manager-container">
       {/* Active Delegation Hero Card */}
       <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 backdrop-blur-xl shadow-2xl">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
@@ -139,7 +136,14 @@ export function DelegateManager() {
           </div>
 
           <div className="w-full sm:w-72">
+            {/* Visually hidden but programmatically associated label - a
+                placeholder alone isn't an accessible name for screen readers
+                (and getByLabelText can't find it either). */}
+            <label htmlFor="delegate-search" className="sr-only">
+              Search delegates
+            </label>
             <input
+              id="delegate-search"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -220,6 +224,97 @@ export function DelegateManager() {
           </div>
         )}
       </div>
+
+      {/*
+       * Custom Address Modal and Revoke Modal below.
+       *
+       * These were part of the original implementation (PR #199) but their
+       * JSX was accidentally deleted by a later "resolve strict typescript
+       * and eslint errors" cleanup (14ef38b) while the state/handlers that
+       * drive them (customAddress, showCustomModal, showRevokeModal,
+       * handleRevoke) were reintroduced by a subsequent PR - leaving the
+       * "Delegate to Custom Address" and "Revoke Delegation" buttons above
+       * wired to open a modal that no longer existed, i.e. dead clicks.
+       * Restored here rather than removing the now-provably-dead state, since
+       * both flows are real, described-in-the-issue governance functionality.
+       */}
+      {showCustomModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-md"
+        >
+          <div className="w-full max-w-md space-y-5 rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl">
+            <h3 className="text-lg font-bold text-white">Delegate to Custom Address</h3>
+            <p className="text-xs text-slate-300">
+              Enter any valid Stellar / Soroban address (e.g. G...) to delegate your voting power.
+            </p>
+
+            <label htmlFor="custom-delegate-address" className="sr-only">
+              Custom delegate address
+            </label>
+            <input
+              id="custom-delegate-address"
+              type="text"
+              value={customAddress}
+              onChange={(e) => setCustomAddress(e.target.value)}
+              placeholder="G..."
+              className="w-full rounded-xl border border-white/10 bg-slate-950 p-3 font-mono text-xs text-white placeholder-slate-500 focus:border-sky-500 focus:outline-none"
+            />
+
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowCustomModal(false)}
+                className="rounded-xl border border-white/10 bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-700"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDelegate(customAddress)}
+                disabled={!customAddress.trim() || delegateMutation.isPending}
+                className="rounded-xl border border-sky-500/30 bg-sky-600 px-5 py-2 text-xs font-bold text-white hover:bg-sky-500 disabled:opacity-50"
+              >
+                {delegateMutation.isPending ? 'Delegating...' : 'Delegate'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showRevokeModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-md"
+        >
+          <div className="w-full max-w-md space-y-5 rounded-3xl border border-white/10 bg-slate-900 p-6 shadow-2xl">
+            <h3 className="text-lg font-bold text-white">Revoke Delegation</h3>
+            <p className="text-xs text-slate-300">
+              Are you sure you want to revoke your delegation? Your voting power will be restored to your wallet for direct self-voting.
+            </p>
+
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowRevokeModal(false)}
+                className="rounded-xl border border-white/10 bg-slate-800 px-4 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-700"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleRevoke}
+                disabled={revokeMutation.isPending}
+                className="rounded-xl border border-rose-500/30 bg-rose-600 px-5 py-2 text-xs font-bold text-white hover:bg-rose-500 disabled:opacity-50"
+              >
+                {revokeMutation.isPending ? 'Revoking...' : 'Confirm Revocation'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

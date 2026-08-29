@@ -79,6 +79,14 @@ describe('useSorobanStaking', () => {
     let promise!: Promise<void>;
     act(() => {
       promise = result.current.stake(100);
+      // Node's unhandled-rejection tracking can flag this promise before the
+      // `try { await promise } catch {}` below gets a chance to attach its
+      // handler - the rejection itself settles deep inside the
+      // vi.advanceTimersByTimeAsync flush a few lines down, ahead of that
+      // try/catch. Attaching a no-op catch immediately marks the rejection
+      // as handled for Node's diagnostics; it doesn't change what the real
+      // try/catch below observes or asserts.
+      promise.catch(() => {});
     });
 
     // (b) asserts the balance updates immediately (optimistic)

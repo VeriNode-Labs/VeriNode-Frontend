@@ -117,7 +117,6 @@ export interface Delegate {
   votingPower: number
   delegatedVotes?: number
   delegatorsCount?: number
-  delegatorCount?: number
   proposalsVotedCount?: number
   proposalsVoted?: number
   recentVotes?: unknown[]

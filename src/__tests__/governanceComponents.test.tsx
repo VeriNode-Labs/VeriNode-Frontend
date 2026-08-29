@@ -2,6 +2,8 @@
 import React from 'react'
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import * as governanceProposalService from '@/src/services/governanceProposalService'
 import { useGovernanceStore } from '@/src/store/governanceStore'
 import { ProposalList } from '@/src/components/governance/ProposalList'
 import { ProposalDetail } from '@/src/components/governance/ProposalDetail'
@@ -16,7 +18,34 @@ afterEach(() => {
 
 beforeEach(() => {
   useGovernanceStore.getState().resetStore()
+  // DelegateManager/GovernancePage read delegate data through
+  // governanceProposalService's localStorage-backed fetchDelegates(), a
+  // separate data source from the Zustand governanceStore used by the other
+  // components in this file. Clear it too so every test starts from that
+  // service's known INITIAL_DELEGATES seed, regardless of run order.
+  if (typeof window !== 'undefined') {
+    localStorage.clear()
+  }
 })
+
+// DelegateManager and GovernancePage (via GovernanceDashboard) read data through
+// @tanstack/react-query hooks (useDelegates, useGovernanceMetrics), so they need
+// a QueryClientProvider ancestor. Matches the convention already established in
+// VotePanel.test.tsx. The other components in this file (ProposalList, etc.) read
+// from the Zustand governanceStore directly and don't need this wrapper.
+function renderWithQueryClient(ui: React.ReactElement) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  })
+
+  return render(
+    <QueryClientProvider client={queryClient}>
+      {ui}
+    </QueryClientProvider>
+  )
+}
 
 describe('ProposalList Component', () => {
   it('renders proposals with quorum and status badges', () => {
@@ -99,44 +128,75 @@ describe('ProposalDetail Component', () => {
 })
 
 describe('DelegateManager Component', () => {
-  it('renders community delegates and current self-voting status', () => {
-    render(<DelegateManager />)
+  it('renders community delegates and current self-voting status', async () => {
+    renderWithQueryClient(<DelegateManager />)
 
     expect(screen.getByTestId('delegate-manager-container')).toBeTruthy()
-    expect(screen.getByText('Self-Voting Mode')).toBeTruthy()
-    expect(screen.getByText('Stellar Foundation Guild')).toBeTruthy()
-    expect(screen.getByText('VeriNode Core Devs DAO')).toBeTruthy()
+    expect(screen.getByText('Self-Voting (No Active Delegation)')).toBeTruthy()
+
+    // useDelegates() resolves asynchronously (React Query), so the delegate
+    // directory starts empty on the first render - findByText waits for the
+    // fetch to settle instead of asserting against the pre-load DOM.
+    // Names come from governanceProposalService's INITIAL_DELEGATES seed -
+    // the actual data source DelegateManager reads through useDelegates().
+    // NOTE: this is a different dataset from the "Stellar Foundation Guild"
+    // etc. delegates in the Zustand governanceStore that ProposalList /
+    // ProposalDetail / VoteHistoryTable use - see the architectural finding
+    // in the PR description.
+    expect(await screen.findByText('Aura Validator Labs')).toBeTruthy()
+    expect(screen.getByText('Soroban Whale Node')).toBeTruthy()
   })
 
-  it('searches delegates by name or address', () => {
-    render(<DelegateManager />)
+  it('searches delegates by name or address', async () => {
+    renderWithQueryClient(<DelegateManager />)
+
+    // Wait for the delegate directory to load before filtering it, otherwise
+    // the search input filters an empty list and the assertions below are
+    // meaningless.
+    await screen.findByText('Aura Validator Labs')
 
     const searchInput = screen.getByLabelText(/Search delegates/i)
-    fireEvent.change(searchInput, { target: { value: 'Orbit Validator' } })
+    fireEvent.change(searchInput, { target: { value: 'Soroban Whale' } })
 
-    expect(screen.getByText('Orbit Validator Alliance')).toBeTruthy()
-    expect(screen.queryByText('Stellar Foundation Guild')).toBeNull()
+    expect(screen.getByText('Soroban Whale Node')).toBeTruthy()
+    expect(screen.queryByText('Aura Validator Labs')).toBeNull()
   })
 
-  it('delegates voting power to a delegate and allows revoking', () => {
-    render(<DelegateManager />)
+  it('delegates voting power to a delegate and allows revoking', async () => {
+    renderWithQueryClient(<DelegateManager />)
 
+    await screen.findByText('Aura Validator Labs')
+
+    // The per-card "Delegate Power" button delegates directly (no confirm
+    // step) - it calls handleDelegate() on click and shows the shared
+    // txSuccess banner ("Transaction confirmed! Tx Hash: ...").
     const delegateButtons = screen.getAllByRole('button', { name: /Delegate Power/i })
     fireEvent.click(delegateButtons[0])
 
-    expect(screen.getByText(/Successfully delegated/i)).toBeTruthy()
+    expect(await screen.findByText(/Transaction confirmed/i)).toBeTruthy()
     expect(screen.getByText('Revoke Delegation')).toBeTruthy()
 
-    // Revoke
+    // Revoke - "Revoke Delegation" opens a confirmation modal (restored
+    // below; it was previously dead JSX, see the PR description), so
+    // revocation itself needs the modal's "Confirm Revocation" click too.
     const revokeButton = screen.getByRole('button', { name: /Revoke Delegation/i })
     fireEvent.click(revokeButton)
 
-    expect(screen.getByText(/Successfully revoked delegation/i)).toBeTruthy()
-    expect(screen.getByText('Self-Voting Mode')).toBeTruthy()
+    const confirmRevokeButton = screen.getByRole('button', { name: /Confirm Revocation/i })
+    fireEvent.click(confirmRevokeButton)
+
+    expect(await screen.findByText(/Transaction confirmed/i)).toBeTruthy()
+    expect(screen.getByText('Self-Voting (No Active Delegation)')).toBeTruthy()
   })
 
-  it('allows delegating to a custom address', () => {
-    render(<DelegateManager />)
+  it('allows delegating to a custom address', async () => {
+    renderWithQueryClient(<DelegateManager />)
+
+    await screen.findByText('Aura Validator Labs')
+
+    // "Delegate to Custom Address" opens a modal (restored below) containing
+    // the labeled address input and its own "Delegate" confirm button.
+    fireEvent.click(screen.getByRole('button', { name: /Delegate to Custom Address/i }))
 
     const customInput = screen.getByLabelText(/Custom delegate address/i)
     fireEvent.change(customInput, { target: { value: 'GBK8551D90901238472910481209381029381' } })
@@ -144,7 +204,33 @@ describe('DelegateManager Component', () => {
     const delegateCustomBtn = screen.getByRole('button', { name: /^Delegate$/i })
     fireEvent.click(delegateCustomBtn)
 
-    expect(screen.getByText(/Successfully delegated/i)).toBeTruthy()
+    expect(await screen.findByText(/Transaction confirmed/i)).toBeTruthy()
+  })
+
+  it('keeps the modal open and shows no false success message when delegation fails', async () => {
+    const delegateSpy = vi
+      .spyOn(governanceProposalService, 'delegateVotingPower')
+      .mockRejectedValueOnce(new Error('Network error: delegation request failed'))
+
+    renderWithQueryClient(<DelegateManager />)
+
+    await screen.findByText('Aura Validator Labs')
+
+    fireEvent.click(screen.getByRole('button', { name: /Delegate to Custom Address/i }))
+    fireEvent.change(screen.getByLabelText(/Custom delegate address/i), {
+      target: { value: 'GBK8551D90901238472910481209381029381' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /^Delegate$/i }))
+
+    // DelegateManager's handleDelegate only closes the modal and shows
+    // txSuccess on the success path - on a rejection it currently just
+    // logs the error, so the modal (and the user's typed address) stays put
+    // rather than silently vanishing along with the attempted delegation.
+    await vi.waitFor(() => expect(delegateSpy).toHaveBeenCalled())
+    expect(screen.getByRole('dialog')).toBeTruthy()
+    expect(screen.queryByText(/Transaction confirmed/i)).toBeNull()
+
+    delegateSpy.mockRestore()
   })
 })
 
@@ -218,15 +304,15 @@ describe('VoteHistoryTable Component', () => {
 
 describe('GovernancePage Integration', () => {
   it('renders top metrics bar and switches between tabs', () => {
-    render(<GovernancePage />)
+    renderWithQueryClient(<GovernancePage />)
 
     expect(screen.getByText('Governance Voting Dashboard')).toBeTruthy()
-    expect(screen.getByText('Total Proposals')).toBeTruthy()
+    expect(screen.getByText('Total VRN Locked')).toBeTruthy()
     expect(screen.getByText('Active Proposals')).toBeTruthy()
     expect(screen.getByText('Your Voting Power')).toBeTruthy()
 
-    // Switch to Delegate Hub
-    const delegateTab = screen.getByRole('button', { name: /Delegate Hub/i })
+    // Switch to Delegate Voting Power tab
+    const delegateTab = screen.getByRole('button', { name: /Delegate Voting Power/i })
     fireEvent.click(delegateTab)
     expect(screen.getByTestId('delegate-manager-container')).toBeTruthy()
 

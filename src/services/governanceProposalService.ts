@@ -319,7 +319,7 @@ const INITIAL_DELEGATES: Delegate[] = [
     bio: 'Dedicated infrastructure operator running 12 geo-distributed VeriNode physical validators. Focused on network resilience, low latency, and protocol decentralization.',
     votingPower: 1250000,
     votingPowerPercent: 12.5,
-    delegatorCount: 420,
+    delegatorsCount: 420,
     proposalsVoted: 48,
     participationRate: 98.5,
     recentVotes: [
@@ -335,7 +335,7 @@ const INITIAL_DELEGATES: Delegate[] = [
     bio: 'Early ecosystem supporter and Soroban smart contract engineering collective. Voting for high developer tooling funding, performance upgrades, and sustainable tokenomics.',
     votingPower: 2450000,
     votingPowerPercent: 24.5,
-    delegatorCount: 890,
+    delegatorsCount: 890,
     proposalsVoted: 46,
     participationRate: 95.8,
     recentVotes: [
@@ -351,7 +351,7 @@ const INITIAL_DELEGATES: Delegate[] = [
     bio: 'Independent cryptography and smart contract security auditors. Prioritizing protocol safety, rigorous timelocks, and multi-sig security thresholds.',
     votingPower: 820000,
     votingPowerPercent: 8.2,
-    delegatorCount: 235,
+    delegatorsCount: 235,
     proposalsVoted: 47,
     participationRate: 97.9,
     recentVotes: [
@@ -367,7 +367,7 @@ const INITIAL_DELEGATES: Delegate[] = [
     bio: 'Decentralized staking pool representing 300+ retail node delegators. Focused on low treasury burn rates and maximum validator reward preservation.',
     votingPower: 640000,
     votingPowerPercent: 6.4,
-    delegatorCount: 310,
+    delegatorsCount: 310,
     proposalsVoted: 42,
     participationRate: 87.5,
     recentVotes: [
@@ -780,7 +780,7 @@ export async function delegateVotingPower(
   const target = delegates.find((d) => d.address.toLowerCase() === delegateAddress.toLowerCase());
 
   if (target) {
-    target.delegatorCount = (target.delegatorCount ?? 0) + 1;
+    target.delegatorsCount = (target.delegatorsCount ?? 0) + 1;
     target.votingPower += 15000;
     setStored(STORAGE_KEYS.DELEGATES, delegates);
   }
@@ -802,8 +802,8 @@ export async function revokeDelegation(delegatorAddress: string): Promise<{ succ
   if (profile.delegatedTo) {
     const delegates = getStored<Delegate[]>(STORAGE_KEYS.DELEGATES, INITIAL_DELEGATES);
     const target = delegates.find((d) => d.address.toLowerCase() === profile.delegatedTo?.toLowerCase());
-    if (target && (target.delegatorCount ?? 0) > 0) {
-      target.delegatorCount = (target.delegatorCount ?? 0) - 1;
+    if (target && (target.delegatorsCount ?? 0) > 0) {
+      target.delegatorsCount = (target.delegatorsCount ?? 0) - 1;
       target.votingPower = Math.max(0, target.votingPower - 15000);
       setStored(STORAGE_KEYS.DELEGATES, delegates);
     }
