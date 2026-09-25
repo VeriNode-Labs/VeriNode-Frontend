@@ -1,2 +1,2 @@
 # VeriNode-Frontend
-Official repository within the [VeriNode-Labs](https://github.com/VeriNode-Labs) ecosystem.
+Part of the [VeriNode-Labs](https://github.com/VeriNode-Labs) ecosystem.
